@@ -235,6 +235,6 @@ label[for=secondroll] {
 	display:none;
 }
 #secondroll:checked ~ label[for=secondroll]:after {
-	content:"Keep rollin'!";
+	content:"Keep rolling!";
 }
 
