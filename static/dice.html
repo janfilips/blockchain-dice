@@ -9,6 +9,7 @@
   <input id="roll" name="roll" type="checkbox">
   <label for="roll">Roll it!</label>
   <label for="secondroll"><span>Stop!</span></label>
+  <button onclick="onStop()"> Pokus </button>
   <div id="platform">
     <div id="dice">
       <div class="side front">
@@ -56,5 +57,16 @@
     </div>
   </div>
 </div>
+<script>
+    function onStop(){
+      var res = Math.floor(Math.random() * 6) + 1;
+      var platform = document.getElementById("platform");
+      platform.classList.add("sixtAnim");
+      console.log(res);
+    }
+    var platform = document.getElementById("platform");
+    platform.addEventListener("webkitAnimationEnd", onStop);
+    platform.addEventListener("animationend", onStop);  
+  </script>
 </body>
 
