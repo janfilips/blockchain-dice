@@ -6,7 +6,7 @@ vklad = 0.05
 casino_balance = 0
 player_balance = 0
 
-WIN_MULTIPLAYER = 10
+WIN_MULTIPLAYER = 1.3
 
 counter = 0
 win_games = 0
@@ -14,8 +14,8 @@ win_games = 0
 
 while True:
 
-    number = random.randint(1,20)
-    if(number==20):
+    number = random.randint(1,6)
+    if(number==6):
         win_games += 1
         player_balance += WIN_MULTIPLAYER * vklad
         casino_balance -= WIN_MULTIPLAYER * vklad
