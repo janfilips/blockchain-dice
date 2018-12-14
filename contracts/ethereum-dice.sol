@@ -1,3 +1,3 @@
 pragma solidity............
-contract Dice {
+contract BlockchainDice {
 }
