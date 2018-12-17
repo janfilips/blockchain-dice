@@ -7,9 +7,8 @@
 <div id="wrapper">
   <input id="secondroll" name="roll" type="checkbox">
   <input id="roll" name="roll" type="checkbox">
-  <label for="roll">Roll it!</label>
-  <label for="secondroll"><span>Stop!</span></label>
-  <button onclick="onStop()"> Pokus </button>
+  <label for="roll" onclick="onRoll()">Roll it!</label>
+  <label for="secondroll" onclick="onStop()"><span>Stop!</span></label>
   <div id="platform">
     <div id="dice">
       <div class="side front">
@@ -58,15 +57,48 @@
   </div>
 </div>
 <script>
+    var translator = {
+      1: 'one',
+      2: 'two',
+      3: 'three',
+      4: 'four',
+      5: 'five',
+      6: 'six',
+    }
+    var startDate = null;
+    var diff = null;
+    var endAnim = null;
+    function onRoll(){
+      startDate = new Date();
+    }
+
     function onStop(){
-      var res = Math.floor(Math.random() * 6) + 1;
+      if(diff === null){
+        diff = Math.floor((new Date() - startDate)/1000);
+        var platform = document.getElementById('platform');
+        var dice = document.getElementById('dice');
+        platform.setAttribute('style', 'animation-iteration-count: ' + (diff + 2).toString())
+        dice.setAttribute('style', 'animation-iteration-count: ' + (Math.ceil(diff/2) + 4).toString())
+      }
+    }
+
+    function onEnd(e){
+      alert();
       var platform = document.getElementById("platform");
-      platform.classList.add("sixtAnim");
-      console.log(res);
+      if(e.animationName === 'roll'){
+        var res = Math.floor(Math.random() * 6) + 1;
+        platform.classList.add(translator[res] + 'Anim');
+        // platform.classList.add('oneAnim');
+      }
+
+      if(e.animationName === 'endAnim'){
+        // platform.classList.remove(endAnim);
+        // platform.classList.add("showAnim");
+      }
     }
     var platform = document.getElementById("platform");
-    platform.addEventListener("webkitAnimationEnd", onStop);
-    platform.addEventListener("animationend", onStop);  
+    platform.addEventListener("webkitAnimationEnd", onEnd);
+    platform.addEventListener("animationend", onEnd);  
   </script>
 </body>
 
