@@ -19,7 +19,7 @@ contract Dice {
         emit GameStarted(address(this), winMultiplier);
     }
 
-    function placeBid()
+    function rollDice()
         public 
         payable 
         returns(uint, uint) 
@@ -30,13 +30,15 @@ contract Dice {
         return (winningNumber, amountWon);
     }
     
-    function rollDice()
+    function randomGenerator()
         public
         pure
         returns(uint)
     {
-        // XXX this is oracle for random.org
-        // returns random number 
+        // this is a simple oracle function for random.org
+        uint randomNumber = 777;
+        // XXX function to call random.org to pick a number from 1 to 6
+        return (randomNumber);
     }
 
     function payRoyalty()
