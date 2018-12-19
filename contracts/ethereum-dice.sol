@@ -1,3 +1,0 @@
-pragma solidity............
-contract BlockchainDice {
-}
