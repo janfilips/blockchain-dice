@@ -30,7 +30,7 @@ contract Dice {
         return (winningNumber, amountWon);
     }
     
-    function randomGenerator()
+    function numberGenerator()
         public
         pure
         returns(uint)
