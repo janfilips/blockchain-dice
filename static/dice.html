@@ -3,12 +3,13 @@
 </head>
 
 <body>
-<div id="background"></div>
+  <button id='roll_button' onclick="onRoll()">Roll It!!!</button>
+  <button id='stop_button' onclick="onEnd()">Stop!</button>
+    <!-- <input id="secondroll" name="roll" type="checkbox">
+    <input id="roll" name="roll" type="checkbox">
+    <label for="roll" onclick="onRoll()">Roll it!</label>
+    <label for="secondroll" onclick="onStop()"><span>Stop!</span></label> -->
 <div id="wrapper">
-  <input id="secondroll" name="roll" type="checkbox">
-  <input id="roll" name="roll" type="checkbox">
-  <label for="roll" onclick="onRoll()">Roll it!</label>
-  <label for="secondroll" onclick="onStop()"><span>Stop!</span></label>
   <div id="platform">
     <div id="dice">
       <div class="side front">
@@ -56,6 +57,52 @@
     </div>
   </div>
 </div>
+<div id="overlay">
+  <div class="modal_content">
+      <h1>What is your bet?</h1>
+      <div class="bet_area">
+        <div>
+          <div onClick="selectBet(this)" class="side front">
+            <div class="dot center"></div>
+          </div>
+          <div onClick="selectBet(this)" class="side top">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div onClick="selectBet(this)" class="side right">
+            <div class="dot dtop dleft"></div>
+            <div class="dot center"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+        </div>
+        <div>
+          <div onClick="selectBet(this)" class="side left">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div onClick="selectBet(this)" class="side bottom">
+            <div class="dot center"></div>
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div onClick="selectBet(this)" class="side back">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+            <div class="dot center dleft"></div>
+            <div class="dot center dright"></div>
+          </div>
+        </div>
+      </div>
+      <button onclick="completeBet()">Roll it!</button>
+      </div>
+  </div>
+ </div>
 <script>
     var translator = {
       1: 'one',
@@ -70,9 +117,30 @@
     var endAnim = null;
     function onRoll(){
       startDate = new Date();
+      var pl = document.getElementById("platform");
+      pl.classList.add("running");
+      setTimeout(function(){
+        el = document.getElementById("overlay");
+        el.style.opacity = "1";
+      }, 4000)
+    }
+
+    function selectBet(e){
+      console.log(e);
+      var sides = document.querySelectorAll(".bet_area .side.selected");
+      if(sides.length > 0){
+        sides[0].classList.remove('selected');
+      }
+      e.classList.add('selected');
+    }
+
+    function completeBet(){
+      el = document.getElementById("overlay");
+      el.style.opacity = "0";
     }
 
     function onStop(){
+
       if(diff === null){
         diff = Math.floor((new Date() - startDate)/1000);
         var platform = document.getElementById('platform');
@@ -86,6 +154,7 @@
       var platform = document.getElementById("platform");
       if(e.animationName === 'roll'){
         var res = Math.floor(Math.random() * 6) + 1;
+        // platform.classList.add('pokusAnim');
         platform.classList.add(translator[res] + 'Anim');
       }
 
