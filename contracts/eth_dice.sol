@@ -27,6 +27,7 @@ contract Dice {
         // XXX function placeBid with a fake test=true function parameter
         uint amountWon = 0;
         uint winningNumber = 0;
+        // XXX place bid....
         return (winningNumber, amountWon);
     }
     
@@ -36,8 +37,8 @@ contract Dice {
         returns(uint)
     {
         // this is a simple oracle function for random.org
-        uint randomNumber = 777;
-        // XXX function to call random.org to pick a number from 1 to 6
+        // XXX function to call random.org to pick a random number from 1 to 6
+        uint randomNumber = 6;
         return (randomNumber);
     }
 
@@ -46,10 +47,11 @@ contract Dice {
         payable
         returns(bool success)
     {
+        uint royalty = address(this).balance/2;
         address payable royalty1 = 0xeacd131110FA9241dEe05ccf3e3635D12f629A3b;
         address payable royalty2 = 0xeacd131110FA9241dEe05ccf3e3635D12f629A3b;
-        royalty1.transfer(address(this).balance/2);
-        royalty2.transfer(address(this).balance/2);
+        royalty1.transfer(royalty/2);
+        royalty2.transfer(royalty/2);
         return (true);
     }
 
