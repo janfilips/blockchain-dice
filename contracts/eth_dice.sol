@@ -1,60 +1,44 @@
 pragma solidity ^0.5.1;
 
 
-import "lib/std.sol";
-import "lib/oraclizeAPI.sol";
-
-contract Contract is named("Contract"), mortal, usingOraclize {
-
-  uint256 public randomInt;
-  event onCallback(string result);
-
-  function Contract() {
-    oraclize_setNetwork(networkID_consensys);
-  }
-
-  function __callback(bytes32 myid, string result) {
-    onCallback(result);
-    if (msg.sender != oraclize_cbAddress()) throw;
-    randomInt = parseInt(result);
-  }
-
-  function update() {
-    oraclize_query("URL", "json(https://api.random.org/json-rpc/1/invoke).result.random.data.0", '{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"<ENTER API KEY HERE>","n":1,"min":1,"max":6,"replacement":true,"base":10},"id":458}');
-  }
-}
-
-
 contract Dice {
-
-    uint public winMultiplier;
 
     uint public gamesPlayed;
     uint public gamesWon;
     
-    event GameStarted(address _contract, uint multiplier);
+    event GameStarted(address _contract);
+    event DiceRolled(address _contract, address _player, uint _bet_number, uint _winning_number);
+    event PlayerBetAccepted(address _contract, address _player, uint _bet_amount);
     event PlayerWins(address _contract, address _winner, uint _win_amount);
 
-    constructor(uint _winMultiplier) 
+
+    // XXX todo actually employ events.....
+
+
+    constructor() 
         public
     {
-        winMultiplier = _winMultiplier;
         gamesPlayed = 0;
         gamesWon = 0;
-        emit GameStarted(address(this), winMultiplier);
+        emit GameStarted(address(this));
     }
 
-    function rollDice()
+
+    function rollDice(uint _betNumber)
         public 
         payable 
-        returns(uint, uint) 
+        returns(uint, uint, uint) 
     {
-        // XXX function placeBid with a fake test=true function parameter
-        uint amountWon = 0;
-        uint winningNumber = 0;
-        // XXX place bid....
-        return (winningNumber, amountWon);
+
+        uint winningNumber = 77777777777777777777;
+        uint amountWon = 77777777777777777777;
+        uint betNumber = _betNumber;
+
+        msg.sender.transfer(msg.value);
+                
+        return (winningNumber, betNumber, amountWon);
     }
+
     
     function numberGenerator()
         public
@@ -66,6 +50,7 @@ contract Dice {
         uint randomNumber = 0;
         return (randomNumber);
     }
+
 
     function payRoyalty()
         public
@@ -97,3 +82,4 @@ contract Dice {
     }
 
 }
+
