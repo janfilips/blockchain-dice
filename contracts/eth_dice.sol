@@ -52,7 +52,7 @@ contract Dice {
                     winningAmount = msg.value * 6;
             }
             if(betNumbers.length == 2) {
-                    //winningAmount = msg.value * 294 / 100;
+                    //winningAmount = msg.value * 293 / 100;
                     winningAmount = msg.value * 5;
             }
             if(betNumbers.length == 3) {
@@ -64,7 +64,7 @@ contract Dice {
                     winningAmount = msg.value * 3;
             }
             if(betNumbers.length == 5) {
-                    //winningAmount = msg.value * 118 / 100;
+                    //winningAmount = msg.value * 117 / 100;
                     winningAmount = msg.value * 2;
             }
             if(betNumbers.length == 6) {
@@ -99,12 +99,11 @@ contract Dice {
         public
         returns(uint)
     {
-        // XXX TODO function to call random.org to pick a random number from 1 to 6
-        uint winningNumber = 7;
+        // XXX TODO function to call random.org for a random number from 1 to 6
+        uint winningNumber = 7; 
         emit WinningNumber(address(this), winningNumber);
         return (winningNumber);
     }
-
 
     function getBlockTimestamp()
         public
