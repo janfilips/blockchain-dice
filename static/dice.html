@@ -62,34 +62,34 @@
       <h1>What is your bet?</h1>
       <div class="bet_area">
         <div>
-          <div onClick="selectBet(this)" class="side front">
+          <div onClick="selectBet(this, 1)" class="side front">
             <div class="dot center"></div>
           </div>
-          <div onClick="selectBet(this)" class="side top">
+          <div onClick="selectBet(this, 2)" class="side top">
             <div class="dot dtop dleft"></div>
             <div class="dot dbottom dright"></div>
           </div>
-          <div onClick="selectBet(this)" class="side right">
+          <div onClick="selectBet(this, 3)" class="side right">
             <div class="dot dtop dleft"></div>
             <div class="dot center"></div>
             <div class="dot dbottom dright"></div>
           </div>
         </div>
         <div>
-          <div onClick="selectBet(this)" class="side left">
+          <div onClick="selectBet(this, 4)" class="side left">
             <div class="dot dtop dleft"></div>
             <div class="dot dtop dright"></div>
             <div class="dot dbottom dleft"></div>
             <div class="dot dbottom dright"></div>
           </div>
-          <div onClick="selectBet(this)" class="side bottom">
+          <div onClick="selectBet(this, 5)" class="side bottom">
             <div class="dot center"></div>
             <div class="dot dtop dleft"></div>
             <div class="dot dtop dright"></div>
             <div class="dot dbottom dleft"></div>
             <div class="dot dbottom dright"></div>
           </div>
-          <div onClick="selectBet(this)" class="side back">
+          <div onClick="selectBet(this, 6)" class="side back">
             <div class="dot dtop dleft"></div>
             <div class="dot dtop dright"></div>
             <div class="dot dbottom dleft"></div>
@@ -129,7 +129,7 @@
       }, 4000)
     }
 
-    function selectBet(e){
+    function selectBet(e, choice){
       if(document.getElementById("overlay").style.opacity == 1){
         var sides = document.querySelectorAll(".bet_area .side.selected");
         if(sides.length > 0){

@@ -1,7 +1,19 @@
 body {
   font-size:.9em;
   font-family:sans-serif;
+  color: #fff;
+  background: linear-gradient(-45deg, #761E41, #12556D, #126D58);
+  background-size: 200vw 200vw;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
 }
+
+h1{
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
 @keyframes spin {
     0% { transform: translateZ(-100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
     16% { transform: translateZ(-100px) rotateX(180deg) rotateY(180deg) rotateZ(0deg); }
@@ -266,10 +278,9 @@ body {
     z-index: 20;
     top: 2rem;
     left: 50%;
-    transition: top 0.3s;
     transform: translateX(-50%);
 
-}
+} 
 
 #stop_button{
     position: fixed;
@@ -277,7 +288,6 @@ body {
     top: -5rem;
     left: 50%;
     transform: translateX(-50%);
-    transition: top 0.3s;
 }
 
 .dot {
@@ -349,20 +359,6 @@ body {
     align-self: center;
 }
 
-h1{
-    font-weight: 300;
-    text-transform: uppercase;
-}
-
-body {
-	color: #fff;
-	background: linear-gradient(-45deg, #761E41, #12556D, #126D58);
-	background-size: 200vw 200vw;
-	-webkit-animation: Gradient 15s ease infinite;
-	-moz-animation: Gradient 15s ease infinite;
-	animation: Gradient 15s ease infinite;
-}
-
 @-webkit-keyframes Gradient {
 	0% {
         background-position: 0% 50%;
@@ -409,11 +405,8 @@ body {
 
 .bet_area .selected {
     box-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
-    animation: pulse 2s infinite;
-  }
-
-
-
+    animation: pulse 1.5s infinite;
+}
 
 .btn {
     color: #fff;
@@ -427,6 +420,8 @@ body {
     max-width: 160px; 
     text-transform: uppercase;
     width: 100%; 
+    box-shadow: none;
+    transition: all 0.3s;
 }
 
 .btn:focus{
@@ -437,27 +432,23 @@ body {
     margin: 1rem 0 0 0;
 }
 
-
-
 .btn-5 {
     box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
     text-shadow: none;
-    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-  } 
+} 
   
-  .btn-5:hover {
+.btn-5:hover {
     animation: pulse 1s;
     box-shadow: inset 0 0 20px rgba(255, 255, 255, .5);
     text-shadow: 1px 1px 2px #427388; 
-    transition: 0.3s;
-  }
+}
 
-  @-webkit-keyframes pulse {
+@-webkit-keyframes pulse {
     0% {
         -webkit-box-shadow: inset 0 0 0px rgba(255, 255, 255, .5),0 0 0 0 rgba(255, 255, 255, 0.7);
     }
     70% {
-        -webkit-box-shadow: inset 0 0 15px rgba(255, 255, 255, .5),0 0 0 30px rgba(255, 255, 255, 0);
+        -webkit-box-shadow: inset 0 0 17px rgba(255, 255, 255, .5),0 0 0 30px rgba(255, 255, 255, 0);
     }
     100% {
         -webkit-box-shadow: inset 0 0 20px rgba(255, 255, 255, .5),0 0 0 0 rgba(255, 255, 255, 0);
@@ -469,8 +460,8 @@ body {
         box-shadow: inset 0 0 0px rgba(255, 255, 255, .5),0 0 0 0 rgba(255, 255, 255, 0.7);;
     }
     70% {
-        -moz-box-shadow: inset 0 0 15px rgba(255, 255, 255, .5),0 0 0 30px rgba(255, 255, 255, 0);;
-        box-shadow: inset 0 0 15px rgba(255, 255, 255, .5),0 0 0 30px rgba(255, 255, 255, 0);;
+        -moz-box-shadow: inset 0 0 17px rgba(255, 255, 255, .5),0 0 0 30px rgba(255, 255, 255, 0);;
+        box-shadow: inset 0 0 17px rgba(255, 255, 255, .5),0 0 0 30px rgba(255, 255, 255, 0);;
     }
     100% {
         -moz-box-shadow: inset 0 0 20px rgba(255, 255, 255, .5),0 0 0 0 rgba(255, 255, 255, 0);;
