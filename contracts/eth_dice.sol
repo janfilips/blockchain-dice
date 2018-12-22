@@ -6,49 +6,93 @@ contract Dice {
     uint public gamesPlayed;
     uint public gamesWon;
     
-    event GameStarted(address _contract);
-    event DiceRolled(address _contract, address _player, uint _bet_number, uint _winning_number);
-    event PlayerBetAccepted(address _contract, address _player, uint _bet_amount);
-    event PlayerWins(address _contract, address _winner, uint _win_amount);
-
-
-    // XXX todo actually employ events.....
-
+    event DiceRolled(address _contract, address _player, uint _winning_number);
+    event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
+    event WinningNumber(address _contract, uint _winning_number);
+    event PlayerWins(address _contract, address _winner, uint _winning_number);
+    event PlayerCashout(address _contract, address _winner, uint _winning_number, uint _winning_amount);
 
     constructor() 
         public
     {
         gamesPlayed = 0;
         gamesWon = 0;
-        emit GameStarted(address(this));
     }
 
 
-    function rollDice(uint _betNumber)
+    function rollDice(uint[] memory betNumbers)
         public 
         payable 
-        returns(uint, uint, uint) 
+        returns(uint, uint) 
     {
 
-        uint winningNumber = 77777777777777777777;
-        uint amountWon = 77777777777777777777;
-        uint betNumber = _betNumber;
+        bool playerWin;
 
-        msg.sender.transfer(msg.value);
-                
-        return (winningNumber, betNumber, amountWon);
+        uint winningAmount;
+
+        uint winningNumber = this.numberGenerator();
+
+        emit PlayerBetAccepted(address(this), msg.sender, betNumbers, msg.value);
+
+    
+        for (uint i = 0; i < betNumbers.length; i++) {
+
+            uint betNumber = betNumbers[i];
+
+            if(betNumber == winningNumber) {
+
+                playerWin = true;
+                emit PlayerWins(address(this), msg.sender, winningNumber);
+
+            }
+
+
+        }
+
+
+        if(playerWin) {
+
+            if(betNumbers.length == 1) {
+                    winningAmount = msg.value;
+            }
+            if(betNumbers.length == 2) {
+                    winningAmount = msg.value;
+            }
+            if(betNumbers.length == 3) {
+                    winningAmount = msg.value;
+            }
+            if(betNumbers.length == 4) {
+                    winningAmount = msg.value;
+            }
+            if(betNumbers.length == 5) {
+                    winningAmount = msg.value;
+            }
+            if(betNumbers.length == 6) {
+                    winningAmount = msg.value;
+            }
+
+            msg.sender.transfer(winningAmount);
+            
+            emit PlayerCashout(address(this), msg.sender, winningNumber, winningAmount);
+            
+            gamesWon += 1;
+
+        }
+
+        gamesPlayed += 1;
+        
+        return (winningNumber, winningAmount);
     }
 
     
     function numberGenerator()
         public
-        pure
         returns(uint)
     {
-        // this is a simple oracle function for random.org
-        // XXX function to call random.org to pick a random number from 1 to 6
-        uint randomNumber = 0;
-        return (randomNumber);
+        // XXX TODO function to call random.org to pick a random number from 1 to 6
+        uint winningNumber = 7;
+        emit WinningNumber(address(this), winningNumber);
+        return (winningNumber);
     }
 
 
@@ -82,4 +126,3 @@ contract Dice {
     }
 
 }
-
