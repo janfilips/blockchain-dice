@@ -1,5 +1,7 @@
 pragma solidity ^0.5.2;
 
+import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
+
 
 contract Dice {
 
@@ -43,7 +45,6 @@ contract Dice {
             }
 
         }
-
 
         if(playerWin) {
 
