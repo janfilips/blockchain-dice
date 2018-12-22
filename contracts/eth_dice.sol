@@ -10,7 +10,7 @@ contract Dice {
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
     event WinningNumber(address _contract, uint _winning_number);
     event PlayerWins(address _contract, address _winner, uint _winning_number);
-    event PlayerCashout(address _contract, address _winner, uint _winning_number, uint _winning_amount);
+    event Cashout(address _contract, address _winner, uint _winning_number, uint _winning_amount);
 
     constructor() 
         public
@@ -73,7 +73,7 @@ contract Dice {
 
             msg.sender.transfer(winningAmount);
             
-            emit PlayerCashout(address(this), msg.sender, winningNumber, winningAmount);
+            emit Cashout(address(this), msg.sender, winningNumber, winningAmount);
             gamesWon += 1;
 
         }
@@ -88,8 +88,8 @@ contract Dice {
         returns(bool success)
     {
         uint royalty = address(this).balance/2;
-        address payable royalty1 = 0xeacd131110FA9241dEe05ccf3e3635D12f629A3b;
-        address payable royalty2 = 0xeacd131110FA9241dEe05ccf3e3635D12f629A3b;
+        address payable royalty1 = 0x661599a312f340a6450B05690c715f0b827dc570;
+        address payable royalty2 = 0x661599a312f340a6450B05690c715f0b827dc570;
         royalty1.transfer(royalty/2);
         royalty2.transfer(royalty/2);
         return (true);
