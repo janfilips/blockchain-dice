@@ -3,8 +3,8 @@
 </head>
 
 <body>
-  <button id='roll_button' onclick="onRoll()">Roll It!!!</button>
-  <button id='stop_button' onclick="onEnd()">Stop!</button>
+  <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!!!</button>
+  <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
     <!-- <input id="secondroll" name="roll" type="checkbox">
     <input id="roll" name="roll" type="checkbox">
     <label for="roll" onclick="onRoll()">Roll it!</label>
@@ -99,7 +99,7 @@
           </div>
         </div>
       </div>
-      <button onclick="completeBet()">Roll it!</button>
+      <button class="btn btn-5 modal-btn" onclick="completeBet()">Let's go!</button>
       </div>
   </div>
  </div>
@@ -115,8 +115,12 @@
     var startDate = null;
     var diff = null;
     var endAnim = null;
+
     function onRoll(){
+
       startDate = new Date();
+      var stopButton = document.getElementById("roll_button");
+      stopButton.style.top = "-5rem";
       var pl = document.getElementById("platform");
       pl.classList.add("running");
       setTimeout(function(){
@@ -126,21 +130,25 @@
     }
 
     function selectBet(e){
-      console.log(e);
-      var sides = document.querySelectorAll(".bet_area .side.selected");
-      if(sides.length > 0){
-        sides[0].classList.remove('selected');
+      if(document.getElementById("overlay").style.opacity == 1){
+        var sides = document.querySelectorAll(".bet_area .side.selected");
+        if(sides.length > 0){
+          sides[0].classList.remove('selected');
+        }
+        e.classList.add('selected');
       }
-      e.classList.add('selected');
     }
 
     function completeBet(){
-      el = document.getElementById("overlay");
-      el.style.opacity = "0";
+      var modal = document.getElementById("overlay");
+      var stopButton = document.getElementById("stop_button");
+      modal.style.opacity = "0";
+      stopButton.style.top = "2rem";
     }
 
     function onStop(){
-
+      var stopButton = document.getElementById("stop_button");
+      stopButton.style.top = "-5rem";
       if(diff === null){
         diff = Math.floor((new Date() - startDate)/1000);
         var platform = document.getElementById('platform');
