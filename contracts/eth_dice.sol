@@ -27,10 +27,11 @@ contract Dice {
     {
 
         bool playerWin;
-        uint winningAmount;
-        uint winningNumber = this.numberGenerator();
         emit PlayerBetAccepted(address(this), msg.sender, betNumbers, msg.value);
     
+        uint winningAmount;
+        uint winningNumber = this.numberGenerator();
+
         for (uint i = 0; i < betNumbers.length; i++) {
 
             uint betNumber = betNumbers[i];
@@ -47,24 +48,24 @@ contract Dice {
         if(playerWin) {
 
             if(betNumbers.length == 1) {
-                    winningAmount = msg.value * 588 / 100;
-                    winningAmount = msg.value;
+                    //winningAmount = msg.value * 588 / 100;
+                    winningAmount = msg.value * 6;
             }
             if(betNumbers.length == 2) {
-                    winningAmount = msg.value * 294 / 100;
-                    winningAmount = msg.value;
+                    //winningAmount = msg.value * 294 / 100;
+                    winningAmount = msg.value * 5;
             }
             if(betNumbers.length == 3) {
-                    winningAmount = msg.value * 196 / 100;
-                    winningAmount = msg.value;
+                    //winningAmount = msg.value * 196 / 100;
+                    winningAmount = msg.value * 4;
             }
             if(betNumbers.length == 4) {
-                    winningAmount = msg.value * 147 / 100;
-                    winningAmount = msg.value;
+                    //winningAmount = msg.value * 147 / 100;
+                    winningAmount = msg.value * 3;
             }
             if(betNumbers.length == 5) {
-                    winningAmount = msg.value * 118 / 100;
-                    winningAmount = msg.value;
+                    //winningAmount = msg.value * 118 / 100;
+                    winningAmount = msg.value * 2;
             }
             if(betNumbers.length == 6) {
                     winningAmount = msg.value;
@@ -87,7 +88,7 @@ contract Dice {
         returns(uint)
     {
         // XXX TODO function to call random.org to pick a random number from 1 to 6
-        uint winningNumber = 1;
+        uint winningNumber = 7;
         emit WinningNumber(address(this), winningNumber);
         return (winningNumber);
     }
