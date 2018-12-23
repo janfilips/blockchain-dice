@@ -43,6 +43,7 @@ contract Dice is usingOraclize {
     uint public gamesPlayed;
     uint public gamesWon;
     
+    event GameStarted(address _contract);
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
     event DiceRolled(address _contract, address _player, uint _winning_number);
     event WinningNumber(address _contract, uint _winning_number);
@@ -54,6 +55,7 @@ contract Dice is usingOraclize {
     {
         gamesPlayed = 0;
         gamesWon = 0;
+        emit GameStarted(address(this));
     }
 
     function rollDice(uint[] memory betNumbers)
