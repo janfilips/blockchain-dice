@@ -1,6 +1,40 @@
 pragma solidity ^0.5.2;
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
+
+contract ExampleContract is usingOraclize {
+
+    string public ETHUSD;
+    event LogConstructorInitiated(string nextStep);
+    event LogPriceUpdated(string price);
+    event LogNewOraclizeQuery(string description);
+
+    mapping (bytes32 => bool) public pendingQueries;
+
+    function Constructor() public payable {
+        emit LogConstructorInitiated("Constructor was initiated. Call 'updatePrice()' to send the Oraclize Query.");
+    }
+
+    function __callback(bytes32 myid, string memory result) public {
+        if (msg.sender != oraclize_cbAddress()) revert();
+        require (pendingQueries[myid] == true);
+        ETHUSD = result;
+        emit LogPriceUpdated(result);
+        delete pendingQueries[myid]; // This effectively marks the query id as processed.
+    }
+
+    function updatePrice() public payable {
+        if (oraclize_getPrice("URL") > address(this).balance) {
+            emit LogNewOraclizeQuery("Oraclize query was NOT sent, please add some ETH to cover for the query fee");
+        } else {
+            emit LogNewOraclizeQuery("Oraclize query was sent, standing by for the answer..");
+            bytes32 queryId = oraclize_query("URL", "json(https://api.pro.coinbase.com/products/ETH-USD/ticker).price");
+            pendingQueries[queryId] = true;
+        }
+    }
+}
+
+
 contract Dice is usingOraclize {
 
     uint public gamesPlayed;
