@@ -46,24 +46,19 @@ contract Dice is usingOraclize {
         if(playerWins) {
 
             if(betNumbers.length == 1) {
-                    //winningAmount = msg.value * 588 / 100;
-                    winningAmount = msg.value * 6;
+                    winningAmount = (msg.value * 588) / 100;
             }
             if(betNumbers.length == 2) {
-                    //winningAmount = msg.value * 293 / 100;
-                    winningAmount = msg.value * 5;
+                    winningAmount = (msg.value * 293) / 100;
             }
             if(betNumbers.length == 3) {
-                    //winningAmount = msg.value * 196 / 100;
-                    winningAmount = msg.value * 4;
+                    winningAmount = (msg.value * 195) / 100;
             }
             if(betNumbers.length == 4) {
-                    //winningAmount = msg.value * 147 / 100;
-                    winningAmount = msg.value * 3;
+                    winningAmount = (msg.value * 142) / 100;
             }
             if(betNumbers.length == 5) {
-                    //winningAmount = msg.value * 117 / 100;
-                    winningAmount = msg.value * 2;
+                    winningAmount = (msg.value * 107) / 100;
             }
             if(betNumbers.length == 6) {
                     winningAmount = msg.value;
@@ -118,5 +113,14 @@ contract Dice is usingOraclize {
     {
         return (address(this).balance);
     }
+    
+    function _testDivision(uint _testNumber)
+        public
+        pure
+        returns (uint)
+    {
+        return (_testNumber*180)/100;
+    }
 
 }
+
