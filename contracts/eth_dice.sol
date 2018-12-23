@@ -1,15 +1,13 @@
 pragma solidity ^0.5.2;
-
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
-
-contract Dice {
+contract Dice is usingOraclize {
 
     uint public gamesPlayed;
     uint public gamesWon;
     
-    event DiceRolled(address _contract, address _player, uint _winning_number);
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
+    event DiceRolled(address _contract, address _player, uint _winning_number);
     event WinningNumber(address _contract, uint _winning_number);
     event PlayerWins(address _contract, address _winner, uint _winning_number);
     event Cashout(address _contract, address _winner, uint _winning_number, uint _winning_amount);
@@ -21,14 +19,13 @@ contract Dice {
         gamesWon = 0;
     }
 
-
     function rollDice(uint[] memory betNumbers)
         public 
         payable 
         returns(uint, uint) 
     {
 
-        bool playerWin;
+        bool playerWins;
         emit PlayerBetAccepted(address(this), msg.sender, betNumbers, msg.value);
     
         uint winningAmount;
@@ -39,14 +36,14 @@ contract Dice {
             uint betNumber = betNumbers[i];
 
             if(betNumber == winningNumber) {
-                playerWin = true;
+                playerWins = true;
                 emit PlayerWins(address(this), msg.sender, winningNumber);
 
             }
 
         }
 
-        if(playerWin) {
+        if(playerWins) {
 
             if(betNumbers.length == 1) {
                     //winningAmount = msg.value * 588 / 100;
@@ -123,4 +120,3 @@ contract Dice {
     }
 
 }
-
