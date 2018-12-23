@@ -24,6 +24,9 @@ contract ExampleContract is usingOraclize {
     }
 
     function updatePrice() public payable {
+        
+        // XXX check this out https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=16&format=plain&rnd=new
+        
         if (oraclize_getPrice("URL") > address(this).balance) {
             emit LogNewOraclizeQuery("Oraclize query was NOT sent, please add some ETH to cover for the query fee");
         } else {
