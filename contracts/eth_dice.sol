@@ -82,7 +82,7 @@ contract Dice is usingOraclize {
     {
         uint royalty = address(this).balance/2;
         address payable royalty1 = 0x661599a312f340a6450B05690c715f0b827dc570;
-        address payable royalty2 = 0x661599a312f340a6450B05690c715f0b827dc570;
+        address payable royalty2 = 0xeacd131110FA9241dEe05ccf3e3635D12f629A3b;
         royalty1.transfer(royalty/2);
         royalty2.transfer(royalty/2);
         return (true);
@@ -112,14 +112,6 @@ contract Dice is usingOraclize {
         returns (uint)
     {
         return (address(this).balance);
-    }
-    
-    function _testDivision(uint _testNumber)
-        public
-        pure
-        returns (uint)
-    {
-        return (_testNumber*180)/100;
     }
 
 }
