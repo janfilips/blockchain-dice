@@ -9,6 +9,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+
+# Ethereum smart-contract
+ETHEREUM_DICE_CONTRACT = "0x7982277531c859a6e5f06ef78635dee99f5cc355"
+
+# Network
+ETHEREUM_CHAINID = 3
+ETHEREUM_GAS_LIMIT = 3000000
+ETHEREUM_PROVIDER = "https://ropsten.infura.io/xSKHv68S1At0vV7kPPXL"
+
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -17,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dice',
 )
 
 MIDDLEWARE_CLASSES = (
