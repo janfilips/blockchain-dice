@@ -31,9 +31,6 @@ from dice.models import Bets
 def home(request):
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
 
-def contract(request):
-    return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
-
 def ajax_bet(request):
-    return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
+    return HttpResponse('xxx')
 

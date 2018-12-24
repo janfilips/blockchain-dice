@@ -91,3 +91,230 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Smart-contract Application Binary Interface definition
+
+ETHEREUM_DICE_CONTRACT_ABI = """
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_someNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "testShit",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "payRoyalty",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "gamesPlayed",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getContractBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBlockTimestamp",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "gamesWon",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "betNumbers",
+				"type": "uint256[]"
+			}
+		],
+		"name": "rollDice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberGenerator",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			}
+		],
+		"name": "GameStarted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_winning_number",
+				"type": "uint256"
+			}
+		],
+		"name": "DiceRolled",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_numbers",
+				"type": "uint256[]"
+			},
+			{
+				"indexed": false,
+				"name": "_bet",
+				"type": "uint256"
+			}
+		],
+		"name": "PlayerBetAccepted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_winner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_win_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "PlayerWins",
+		"type": "event"
+	}
+]
+"""
