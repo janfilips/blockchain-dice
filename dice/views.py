@@ -29,10 +29,6 @@ logger = logging.getLogger(__name__)
 from dice.models import Bets
 
 
-def home(request):
-    return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
-
-
 def get_game_abi(request):
 
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT_ABI)
@@ -59,3 +55,16 @@ def ajax_bet(request):
     return HttpResponse('xxx todo working on this currently')
 
 
+
+def home(request):
+
+    response = render(
+        request=request,
+        template_name='index.html',
+        context={
+            'contract': settings.ETHEREUM_DICE_CONTRACT,
+            'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
+            },
+    )
+
+    return response
