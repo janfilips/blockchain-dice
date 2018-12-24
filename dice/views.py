@@ -26,6 +26,7 @@ w3 = Web3(HTTPProvider(settings.ETHEREUM_PROVIDER))
 import logging
 logger = logging.getLogger(__name__)
 
+from dice.models import Bets
 
 def home(request):
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
