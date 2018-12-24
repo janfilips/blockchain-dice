@@ -28,9 +28,34 @@ logger = logging.getLogger(__name__)
 
 from dice.models import Bets
 
+
 def home(request):
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
 
+
+def get_game_abi(request):
+
+    return HttpResponse(settings.ETHEREUM_DICE_CONTRACT_ABI)
+
+def get_game_contract(request):
+
+    return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
+
+
+def get_clock(request):
+
+    print('ajax_get_clock')
+
+    now = datetime.datetime.now(tz=timezone.utc).isoformat()
+
+    return JsonResponse({'clock': now})
+
+
+
+def ajax_get_tabulky(request):
+    return HttpResponse('xxx todo working on this currently')
+
 def ajax_bet(request):
-    return HttpResponse('xxx')
+    return HttpResponse('xxx todo working on this currently')
+
 
