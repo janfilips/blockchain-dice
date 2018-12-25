@@ -142,7 +142,7 @@ contract DieselPrice is usingOraclize {
         }
 
         gamesPlayed += 1;
-
+        
         lastWinningNumber = winningNumber;
 
     }
@@ -180,5 +180,4 @@ contract DieselPrice is usingOraclize {
         return (address(this).balance);
     }
 
-    
 }
