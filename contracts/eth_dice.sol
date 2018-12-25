@@ -8,8 +8,6 @@ contract Dice is usingOraclize {
     uint betAmount;
     uint minimumBet;
 
-    uint[] public playerNumbers;
-    
     // The oraclize callback structure: we use several oraclize calls.
     // All oraclize calls will result in a common callback to __callback(...).
     // To keep track of the different querys we have to introduce this struct.
@@ -59,8 +57,6 @@ contract Dice is usingOraclize {
         
         bytes32 oraclizeQueryId;
         
-        playerNumbers = betNumbers;
-
         address player = msg.sender;
         
         betAmount = msg.value;
@@ -76,18 +72,19 @@ contract Dice is usingOraclize {
 
             // Making oraclized query to random.org
             
-            
             emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer..");
             
             oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=16&format=plain&rnd=new");
+
+            // Recording the bet info for future reference
 
             oraclizeStructs[oraclizeQueryId].oraclizeStatus = false;
             oraclizeStructs[oraclizeQueryId].oraclizeQueryId = oraclizeQueryId;
             oraclizeStructs[oraclizeQueryId].player = msg.sender;
             oraclizeStructs[oraclizeQueryId].betNumbers = betNumbers;
             oraclizeStructs[oraclizeQueryId].betAmount = msg.value;
-
             oraclizeIndices.push(oraclizeQueryId);
+
             emit NumberGeneratorQuery(address(this), oraclizeQueryId);
 
         } else {
@@ -121,6 +118,11 @@ contract Dice is usingOraclize {
         require(msg.sender == player);
         
         uint winningNumber = parseInt(result);
+        
+        // xxx todo tuna sosni data zo zaznamov o bet numbers value
+        
+        // xxx todo sosni oracle hash info and map data accordingly
+        
         emit WinningNumber(address(this), playerNumbers, winningNumber);
 
 
