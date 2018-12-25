@@ -42,6 +42,9 @@ contract DieselPrice is usingOraclize {
         
         betAmount = msg.value;
         
+        require(betAmount >= 0.01 ether);
+
+
         emit PlayerBetAccepted(address(this), msg.sender, betNumbers, msg.value);
 
 
