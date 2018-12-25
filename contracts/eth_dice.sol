@@ -23,14 +23,11 @@ contract DieselPrice is usingOraclize {
 
     uint public gamesPlayed;
 
-    uint public gamesWon;
-    
 
     constructor() 
         public
     {
         gamesPlayed = 0;
-        gamesWon = 0;
         minimumBet = 0.01 ether;
         emit GameStarted(address(this));
     }
@@ -70,8 +67,6 @@ contract DieselPrice is usingOraclize {
 
             gamesPlayed += 1;
 
-            gamesWon += 1;
-            
         }
 
     }
@@ -137,8 +132,6 @@ contract DieselPrice is usingOraclize {
             
             }
             
-            gamesWon += 1;
-
         }
 
         gamesPlayed += 1;
