@@ -10,11 +10,29 @@ contract Dice is usingOraclize {
 
     uint[] public playerNumbers;
     
+    // The oraclize callback structure: we use several oraclize calls.
+    // All oraclize calls will result in a common callback to __callback(...).
+    // To keep track of the different querys we have to introduce this struct.
+
+    struct oraclizeCallback {
+        address player;
+        bool    oraclizeStatus;
+        bytes32 oraclizeQueryId;
+        uint[]  betNumbers;
+        uint    betAmount;
+        uint    winningNumber;
+    }
+    
+    // Lookup state from queryIds
+    mapping (bytes32 => oraclizeCallback) public oraclizeStructs;
+    bytes32[] public oraclizeIndices;
+
     uint public lastWinningNumber;
 
     event GameStarted(address _contract);
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
     event RollDice(address _contract, address _player, string _description);
+    event NumberGeneratorQuery(address _contract, bytes32 _oraclizedQueryId);
     event NumberGeneratorCallback(address _contract, address _cbAddress);
     event WinningNumber(address _contract, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winningAmount);
@@ -33,7 +51,13 @@ contract Dice is usingOraclize {
     }
 
 
-    function rollDice(uint[] memory betNumbers) public payable {
+    function rollDice(uint[] memory betNumbers) 
+        public 
+        payable
+        returns (bytes32)
+    {
+        
+        bytes32 oraclizeQueryId;
         
         playerNumbers = betNumbers;
 
@@ -52,10 +76,19 @@ contract Dice is usingOraclize {
 
             // Making oraclized query to random.org
             
+            
             emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer..");
             
-            oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=16&format=plain&rnd=new");
+            oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=16&format=plain&rnd=new");
 
+            oraclizeStructs[oraclizeQueryId].oraclizeStatus = false;
+            oraclizeStructs[oraclizeQueryId].oraclizeQueryId = oraclizeQueryId;
+            oraclizeStructs[oraclizeQueryId].player = msg.sender;
+            oraclizeStructs[oraclizeQueryId].betNumbers = betNumbers;
+            oraclizeStructs[oraclizeQueryId].betAmount = msg.value;
+
+            oraclizeIndices.push(oraclizeQueryId);
+            emit NumberGeneratorQuery(address(this), oraclizeQueryId);
 
         } else {
             
@@ -68,6 +101,8 @@ contract Dice is usingOraclize {
             gamesPlayed += 1;
 
         }
+        
+        return oraclizeQueryId;
 
     }
 
@@ -139,11 +174,11 @@ contract Dice is usingOraclize {
         lastWinningNumber = winningNumber;
 
     }
-
+    
     function payRoyalty()
         public
         payable
-        returns(bool success)
+        returns (bool success)
     {
         // It costs $0.01 for each and every query to random.org, there is a cost associated cost to this service.
         uint royalty = address(this).balance/2;
@@ -152,7 +187,14 @@ contract Dice is usingOraclize {
         trustedParty1.transfer(royalty/2);
         trustedParty2.transfer(royalty/2);
         return (true);
+    }
 
+    function gameStatus(bytes32 oraclizeQueryId)
+        public
+        returns (bool)
+    {
+        // xxx working on this currently
+        return false;
     }
 
     function getBlockTimestamp()
