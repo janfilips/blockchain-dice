@@ -21,24 +21,21 @@ contract Dice is usingOraclize {
         uint    winningNumber;
     }
     
-    // Lookup state from queryIds
+    // Lookup state from oraclizeQueryIds
     mapping (bytes32 => oraclizeCallback) public oraclizeStructs;
     bytes32[] public oraclizeIndices;
-
-    uint public lastWinningNumber;
 
     event GameStarted(address _contract);
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
     event RollDice(address _contract, address _player, string _description);
     event NumberGeneratorQuery(address _contract, bytes32 _oraclizedQueryId);
-    event NumberGeneratorCallback(address _contract, address _cbAddress);
+    event NumberGeneratorCallback(address _contract, address _cbAddress, bytes32 _oraclizedQueryId);
     event WinningNumber(address _contract, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winningAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winningAmount);
 
-
     uint public gamesPlayed;
-
+    uint public lastWinningNumber;
 
     constructor() 
         public
@@ -112,23 +109,23 @@ contract Dice is usingOraclize {
         
         uint winningAmount;
     
-        emit NumberGeneratorCallback(address(this), msg.sender);
+        emit NumberGeneratorCallback(address(this), msg.sender, myid);
     
         address player = oraclize_cbAddress();
         require(msg.sender == player);
         
         uint winningNumber = parseInt(result);
         
-        // xxx todo tuna sosni data zo zaznamov o bet numbers value
+        uint[] memory betNumbers = oraclizeStructs[myid].betNumbers;
         
-        // xxx todo sosni oracle hash info and map data accordingly
-        
-        emit WinningNumber(address(this), playerNumbers, winningNumber);
+        emit WinningNumber(address(this), betNumbers, winningNumber);
+
+        oraclizeStructs[myid].winningNumber = winningNumber;
 
 
-        for (uint i = 0; i < playerNumbers.length; i++) {
+        for (uint i = 0; i < betNumbers.length; i++) {
 
-            uint betNumber = playerNumbers[i];
+            uint betNumber = betNumbers[i];
 
             if(betNumber == winningNumber) {
                 playerWins = true;
@@ -141,22 +138,22 @@ contract Dice is usingOraclize {
             
             // Calculate how much player wins
 
-            if(playerNumbers.length == 1) {
+            if(betNumbers.length == 1) {
                     winningAmount = (betAmount * 589) / 100;
             }
-            if(playerNumbers.length == 2) {
+            if(betNumbers.length == 2) {
                     winningAmount = (betAmount * 293) / 100;
             }
-            if(playerNumbers.length == 3) {
+            if(betNumbers.length == 3) {
                     winningAmount = (betAmount * 195) / 100;
             }
-            if(playerNumbers.length == 4) {
+            if(betNumbers.length == 4) {
                     winningAmount = (betAmount * 142) / 100;
             }
-            if(playerNumbers.length == 5) {
+            if(betNumbers.length == 5) {
                     winningAmount = (betAmount * 107) / 100;
             }
-            if(playerNumbers.length == 6) {
+            if(betNumbers.length == 6) {
                     winningAmount = 0;
             }
 
