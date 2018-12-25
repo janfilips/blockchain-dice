@@ -6,6 +6,7 @@ import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 contract DieselPrice is usingOraclize {
 
     uint betAmount;
+    uint minimumBet;
 
     uint[] public playerNumbers;
     
@@ -30,6 +31,7 @@ contract DieselPrice is usingOraclize {
     {
         gamesPlayed = 0;
         gamesWon = 0;
+        minimumBet = 0.01 ether;
         emit GameStarted(address(this));
     }
 
@@ -42,7 +44,8 @@ contract DieselPrice is usingOraclize {
         
         betAmount = msg.value;
         
-        require(betAmount >= 0.01 ether);
+
+        require(betAmount >= minimumBet);
 
 
         emit PlayerBetAccepted(address(this), msg.sender, betNumbers, msg.value);
