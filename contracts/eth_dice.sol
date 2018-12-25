@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
 
-contract DieselPrice is usingOraclize {
+contract Dice is usingOraclize {
 
     uint betAmount;
     uint minimumBet;
