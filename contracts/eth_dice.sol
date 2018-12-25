@@ -153,7 +153,7 @@ contract DieselPrice is usingOraclize {
         returns(bool success)
     {
         
-        // As everything in life it cost money to provide this service. As an example, each and every query to random.org is paid for, covered by the contract.
+        // As everything in life it costs money to provide this service. As an example, each and every query to random.org is paid for, covered by the contract.
         
         uint royalty = address(this).balance/2;
         address payable trustedParty1 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
