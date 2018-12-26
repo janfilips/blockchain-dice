@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 class Bets(models.Model):
     address = models.CharField(max_length=42)
     amount = models.FloatField()
+    contract = models.CharField(max_length=42)
     betNumbers = models.CharField(max_length=42)
     winNumber = models.IntegerField(default=0)
     winAmount = models.FloatField(default=0)
