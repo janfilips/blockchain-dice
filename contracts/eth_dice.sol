@@ -25,7 +25,7 @@ contract Dice is usingOraclize {
     // Lookup state for oraclizeQueryIds
 
     mapping (bytes32 => oraclizeCallback) oraclizeStructs;
-    bytes32[] public oraclizeIndices;
+    bytes32[] public oraclizedIndices;
 
     // General events
 
@@ -81,7 +81,7 @@ contract Dice is usingOraclize {
 
             // Recording the bet info for future reference.
             
-            // xxx bug did i write it globally?? i think no??
+            // xxx bug did i actually write this globally to oraclizeStructs?? i think no??
             oraclizeCallback memory oraclizeRequest = oraclizeStructs[oraclizeQueryId]; 
             
             oraclizeRequest.status = false;
@@ -91,7 +91,7 @@ contract Dice is usingOraclize {
             oraclizeRequest.betAmount = betAmount;
 
             // Recording oraclize indices.
-            oraclizeIndices.push(oraclizeQueryId) -1;
+            oraclizedIndices.push(oraclizeQueryId) -1;
             
         } else {
             
@@ -99,7 +99,7 @@ contract Dice is usingOraclize {
 
             msg.sender.transfer(msg.value);
 
-            // The game was played, increase the counter.
+            // The game was played, increase the counter
 
             gamesPlayed += 1;
 
@@ -147,7 +147,7 @@ contract Dice is usingOraclize {
         
         if(playerWins) {
             
-            // Calculate how much player wins
+            // Calculate how much player wins..
 
             if(betNumbers.length == 1) {
                     winAmount = (betAmount * 589) / 100;
@@ -223,12 +223,12 @@ contract Dice is usingOraclize {
         return (status, player, betNumbers, winningNumber, betAmount, winAmount);
     }
 
-    function _getOraclizeIndices()
+    function getOraclizedIndices()
         public
         view
         returns (bytes32[] memory)
     {
-        return oraclizeIndices;
+        return oraclizedIndices;
     }
 
 
@@ -250,3 +250,4 @@ contract Dice is usingOraclize {
 
     
 }
+
