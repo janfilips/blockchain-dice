@@ -3,6 +3,7 @@ pragma solidity ^0.5.0;
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
 
+
 contract Dice is usingOraclize {
 
     uint minimumBet;
@@ -72,7 +73,7 @@ contract Dice is usingOraclize {
 
             // Making oraclized query to random.org.
             
-            oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=16&format=plain&rnd=new");
+            oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=8&format=plain");
 
             // Recording the bet info for future reference.
             
