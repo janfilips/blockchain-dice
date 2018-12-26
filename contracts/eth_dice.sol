@@ -77,7 +77,7 @@ contract Dice is usingOraclize {
             
             oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=16&format=plain&rnd=new");
 
-            emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer..");
+            emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.");
 
 
             // Recording the bet info for future reference.
@@ -91,9 +91,6 @@ contract Dice is usingOraclize {
             // Recording oraclize indices.
             
             oraclizedIndices.push(oraclizeQueryId) -1;
-         
-            emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
-
    
         } else {
             
@@ -101,17 +98,17 @@ contract Dice is usingOraclize {
 
             msg.sender.transfer(msg.value);
 
-            oraclizeStructs[oraclizeQueryId].player = player;
-            oraclizeStructs[oraclizeQueryId].betNumbers = betNumbers;
-            oraclizeStructs[oraclizeQueryId].betAmount = betAmount;
-            oraclizeStructs[oraclizeQueryId].status = true;
-    
+            oraclizeQueryId = "";
+
+            emit RollDice(address(this), player, "Query to random.org was not sent, player bet on every number.");
+
             // The game was played, increase the counter
 
             gamesPlayed += 1;
 
         }
         
+        emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
         return true;
 
     }
