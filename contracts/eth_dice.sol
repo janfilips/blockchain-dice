@@ -234,13 +234,6 @@ contract Dice is usingOraclize {
         return (status, player, betNumbers, winningNumber, betAmount, winAmount);
     }
 
-    function getOraclizedIndices()
-        public
-        view
-        returns (bytes32[] memory)
-    {
-        return oraclizedIndices;
-    }
 
     function getBlockTimestamp()
         public
