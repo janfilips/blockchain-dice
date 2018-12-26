@@ -32,10 +32,11 @@ contract Dice is usingOraclize {
     event GameStarted(address _contract);
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
     event RollDice(address _contract, address _player, string _description);
-    event NumberGeneratorQuery(address _contract, bytes32 _oraclizedQueryId);
-    event NumberGeneratorCallback(address _contract, address _cbAddress, bytes32 _oraclizedQueryId);
-    event WinningNumber(address _contract, uint[] _betNumbers, uint _winningNumber);
+    event NumberGeneratorQuery(address _contract, address _player, bytes32 _oraclizeQueryId);
+    event NumberGeneratorCallback(address _contract, address _cbAddress, bytes32 _oraclizeQueryId);
+    event WinningNumber(address _contract,  _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
+
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
 
     uint public gamesPlayed;
@@ -105,7 +106,7 @@ contract Dice is usingOraclize {
 
         }
 
-        emit NumberGeneratorQuery(address(this), oraclizeQueryId);
+        emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
         
         return true;
 
@@ -129,7 +130,7 @@ contract Dice is usingOraclize {
         
         uint[] memory betNumbers = oraclizeStructs[myid].betNumbers;
         
-        emit WinningNumber(address(this), betNumbers, winningNumber);
+        emit WinningNumber(address(this), myid, betNumbers, winningNumber);
 
         oraclizeStructs[myid].winningNumber = winningNumber;
         uint betAmount = oraclizeStructs[myid].betAmount;
