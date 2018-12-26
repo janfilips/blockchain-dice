@@ -38,15 +38,12 @@ contract Dice is usingOraclize {
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
 
-
-    uint public gamesPlayed;
     uint public lastWinningNumber;
 
 
     constructor() 
         public
     {
-        gamesPlayed = 0;
         minimumBet = 0.01 ether;
         emit GameStarted(address(this));
     }
@@ -94,12 +91,6 @@ contract Dice is usingOraclize {
             // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
 
             msg.sender.transfer(msg.value);
-
-            oraclizeQueryId = "";
-
-            // The game was played, increase the counter
-
-            gamesPlayed += 1;
 
         }
         
@@ -190,8 +181,6 @@ contract Dice is usingOraclize {
             
         }
 
-        gamesPlayed += 1;
-        
         oraclizeStructs[myid].status = true;
 
         lastWinningNumber = winningNumber;
