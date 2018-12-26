@@ -9,9 +9,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
-# Ethereum smart-contract
-ETHEREUM_DICE_CONTRACT = "0x7982277531c859a6e5f06ef78635dee99f5cc355"
+# Ethereum smart-contracts
+ETHEREUM_DICE_CONTRACTS = [
+	"0xea05c18abbf00b4cbfb5ad951e84320cf0dafcbe",
+]
 
 # Network
 ETHEREUM_CHAINID = 3

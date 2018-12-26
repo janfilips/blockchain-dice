@@ -63,10 +63,13 @@ def ajax_bet(request):
 
 def home(request):
 
+    # XXX TODO rotate contracts ETHEREUM_DICE_CONTRACTS
+
     response = render(
         request=request,
         template_name='index.html',
         context={
+            # XXX TODO make sure you rotate this contract to allow for highed throughput
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
             },
