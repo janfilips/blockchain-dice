@@ -1,8 +1,7 @@
 pragma solidity ^0.5.0;
 
-// xxx todo importing from github fails on contract Code Verification
+// oraclizeAPI transcript
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
-
 
 contract Dice is usingOraclize {
 
@@ -34,7 +33,7 @@ contract Dice is usingOraclize {
     event RollDice(address _contract, address _player, string _description);
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _oraclizeQueryId);
     event NumberGeneratorCallback(address _contract, address _cbAddress, bytes32 _oraclizeQueryId);
-    event WinningNumber(address _contract,  _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
+    event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
 
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
@@ -113,7 +112,9 @@ contract Dice is usingOraclize {
     }
 
 
-    function __callback(bytes32 myid, string memory result) public {
+    function __callback(bytes32 myid, string memory result) 
+        public
+    {
         
         // All the action takes place on when we receive a new number from random.org
 
