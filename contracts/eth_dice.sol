@@ -39,6 +39,7 @@ contract Dice is usingOraclize {
 
     event _logThisShit(uint _value);
     event _logThisShit1(uint _winningNumber);
+    event _logThisShit2(uint _winningNumber);
 
     uint public gamesPlayed;
     uint public lastWinningNumber;
@@ -138,9 +139,7 @@ contract Dice is usingOraclize {
         
         uint winningNumber = parseInt(result);
         
-        emit _logThisShit1(winningNumber);
-        
-        
+
         uint[] memory betNumbers = oraclizeStructs[myid].betNumbers;
         
         emit WinningNumber(address(this), myid, betNumbers, winningNumber);
@@ -162,6 +161,8 @@ contract Dice is usingOraclize {
             }
 
         }
+        
+        emit _logThisShit2(winningNumber);
         
         if(playerWins) {
             
@@ -270,4 +271,3 @@ contract Dice is usingOraclize {
 
     
 }
-
