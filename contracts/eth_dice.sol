@@ -1,3 +1,6 @@
+pragma solidity ^0.5.0;
+
+import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
 contract Dice is usingOraclize {
 
@@ -267,3 +270,4 @@ contract Dice is usingOraclize {
 
     
 }
+
