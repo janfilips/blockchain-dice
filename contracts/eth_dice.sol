@@ -89,6 +89,7 @@ contract Dice is usingOraclize {
             oraclizeStructs[oraclizeQueryId].betAmount = betAmount;
 
             // Recording oraclize indices.
+            
             oraclizedIndices.push(oraclizeQueryId) -1;
          
             emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
@@ -145,7 +146,6 @@ contract Dice is usingOraclize {
 
         uint betAmount = oraclizeStructs[myid].betAmount;
 
-        // xxx todo security what if player bets [1,1,1,1,1,1,1,1,1,1,1,1]
 
         for (uint i = 0; i < betNumbers.length; i++) {
 
@@ -153,7 +153,7 @@ contract Dice is usingOraclize {
 
             if(betNumber == winningNumber) {
                 playerWins = true;
-
+                break;
             }
 
         }
@@ -263,6 +263,4 @@ contract Dice is usingOraclize {
         return (address(this).balance);
     }
 
-
 }
-
