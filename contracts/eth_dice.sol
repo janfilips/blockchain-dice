@@ -1,8 +1,3 @@
-pragma solidity ^0.5.0;
-
-// oraclizeAPI transcript
-import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
-
 
 contract Dice is usingOraclize {
 
@@ -38,6 +33,7 @@ contract Dice is usingOraclize {
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
 
+    event _logThisShit(uint _value);
 
     uint public gamesPlayed;
     uint public lastWinningNumber;
@@ -82,7 +78,6 @@ contract Dice is usingOraclize {
 
             // Recording the bet info for future reference.
             
-            // xxx bug did i actually write this globally to oraclizeStructs?? i think no??
             oraclizeCallback storage oraclizeRequest = oraclizeStructs[oraclizeQueryId]; 
             
             oraclizeRequest.status = false;
@@ -93,7 +88,9 @@ contract Dice is usingOraclize {
 
             // Recording oraclize indices.
             oraclizedIndices.push(oraclizeQueryId) -1;
-            
+         
+            emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
+   
         } else {
             
             // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
@@ -104,9 +101,9 @@ contract Dice is usingOraclize {
 
             gamesPlayed += 1;
 
-        }
+            emit _logThisShit(msg.value);
 
-        emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
+        }
         
         return true;
 
@@ -186,6 +183,8 @@ contract Dice is usingOraclize {
         }
 
         gamesPlayed += 1;
+
+        oraclizeStructs[myid].status = true;
         
         lastWinningNumber = winningNumber;
 
