@@ -54,10 +54,10 @@ contract Dice is usingOraclize {
     function rollDice(uint[] memory betNumbers) 
         public 
         payable
-        returns (bytes32)
+        returns (bool success)
     {
         
-        bytes32 oraclizeQueryId = "";
+        bytes32 oraclizeQueryId;
         
         address player = msg.sender;
         
@@ -82,8 +82,8 @@ contract Dice is usingOraclize {
             // Recording the bet info for future reference.
             
             // xxx bug did i write it globally?? i think no??
-            oraclizeCallback memory oraclizeRequest = oraclizeStructs[oraclizeQueryId];                
-
+            oraclizeCallback memory oraclizeRequest = oraclizeStructs[oraclizeQueryId]; 
+            
             oraclizeRequest.status = false;
             oraclizeRequest.queryId = oraclizeQueryId;
             oraclizeRequest.player = player;
@@ -93,8 +93,6 @@ contract Dice is usingOraclize {
             // Recording oraclize indices.
             oraclizeIndices.push(oraclizeQueryId) -1;
             
-            emit NumberGeneratorQuery(address(this), oraclizeQueryId);
-
         } else {
             
             // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
@@ -106,8 +104,10 @@ contract Dice is usingOraclize {
             gamesPlayed += 1;
 
         }
+
+        emit NumberGeneratorQuery(address(this), oraclizeQueryId);
         
-        return oraclizeQueryId;
+        return true;
 
     }
 
@@ -174,10 +174,7 @@ contract Dice is usingOraclize {
 
                 msg.sender.transfer(winAmount);
 
-                // xxx todo update oraclizeRequests....
-                // v myid mas request id
-                //oraclizeRequest.winningNumber;
-                //oraclizeRequest.winningAmount;
+                oraclizeStructs[myid].winAmount = winAmount;
 
                 emit Cashout(address(this), msg.sender, winningNumber, winAmount);
             
@@ -212,6 +209,7 @@ contract Dice is usingOraclize {
 
     function gameStatus(bytes32 oraclizeQueryId)
         public
+        view
         returns (bool, address, uint[] memory, uint, uint, uint)
     {
 
@@ -252,4 +250,3 @@ contract Dice is usingOraclize {
 
     
 }
-
