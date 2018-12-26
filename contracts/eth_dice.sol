@@ -2,6 +2,7 @@ pragma solidity ^0.5.0;
 
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
+
 contract Dice is usingOraclize {
 
     uint minimumBet;
@@ -37,9 +38,6 @@ contract Dice is usingOraclize {
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
 
-    event _logThisShit(uint _value);
-    event _logThisShit1(uint _winningNumber);
-    event _logThisShit2(uint _winningNumber);
 
     uint public gamesPlayed;
     uint public lastWinningNumber;
@@ -111,8 +109,6 @@ contract Dice is usingOraclize {
 
             gamesPlayed += 1;
 
-            emit _logThisShit(msg.value);
-
         }
         
         return true;
@@ -161,8 +157,6 @@ contract Dice is usingOraclize {
             }
 
         }
-        
-        emit _logThisShit2(winningNumber);
         
         if(playerWins) {
             
@@ -269,5 +263,6 @@ contract Dice is usingOraclize {
         return (address(this).balance);
     }
 
-    
+
 }
+
