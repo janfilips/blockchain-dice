@@ -3,6 +3,7 @@ pragma solidity ^0.5.0;
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
 
+
 contract Dice is usingOraclize {
 
     uint minimumBet;
@@ -77,9 +78,6 @@ contract Dice is usingOraclize {
             
             oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=16&format=plain&rnd=new");
 
-            emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.");
-
-
             // Recording the bet info for future reference.
             
             oraclizeStructs[oraclizeQueryId].status = false;
@@ -100,15 +98,15 @@ contract Dice is usingOraclize {
 
             oraclizeQueryId = "";
 
-            emit RollDice(address(this), player, "Query to random.org was not sent, player bet on every number.");
-
             // The game was played, increase the counter
 
             gamesPlayed += 1;
 
         }
         
+        emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.");
         emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
+
         return true;
 
     }
