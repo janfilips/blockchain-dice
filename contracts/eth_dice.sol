@@ -29,11 +29,13 @@ contract Dice is usingOraclize {
     event RollDice(address _contract, address _player, string _description);
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _oraclizeQueryId);
     event NumberGeneratorCallback(address _contract, address _cbAddress, bytes32 _oraclizeQueryId);
+    event NumberGeneratorRespose(address _contract, address _player, bytes32 _oraclizeQueryId, string _oraclizeResponse);
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
 
     event _logThisShit(uint _value);
+    event _logThisShit1(uint _winningNumber);
 
     uint public gamesPlayed;
     uint public lastWinningNumber;
@@ -62,12 +64,12 @@ contract Dice is usingOraclize {
         
 
         require(betAmount >= minimumBet);
-
+        require(betNumbers.length >= 1);
 
         emit PlayerBetAccepted(address(this), player, betNumbers, msg.value);
 
 
-        if(betNumbers.length != 6) {
+        if(betNumbers.length < 6) {
 
             // Making oraclized query to random.org.
             
@@ -78,18 +80,17 @@ contract Dice is usingOraclize {
 
             // Recording the bet info for future reference.
             
-            oraclizeCallback storage oraclizeRequest = oraclizeStructs[oraclizeQueryId]; 
-            
-            oraclizeRequest.status = false;
-            oraclizeRequest.queryId = oraclizeQueryId;
-            oraclizeRequest.player = player;
-            oraclizeRequest.betNumbers = betNumbers;
-            oraclizeRequest.betAmount = betAmount;
+            oraclizeStructs[oraclizeQueryId].status = false;
+            oraclizeStructs[oraclizeQueryId].queryId = oraclizeQueryId;
+            oraclizeStructs[oraclizeQueryId].player = player;
+            oraclizeStructs[oraclizeQueryId].betNumbers = betNumbers;
+            oraclizeStructs[oraclizeQueryId].betAmount = betAmount;
 
             // Recording oraclize indices.
             oraclizedIndices.push(oraclizeQueryId) -1;
          
             emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
+
    
         } else {
             
@@ -97,6 +98,11 @@ contract Dice is usingOraclize {
 
             msg.sender.transfer(msg.value);
 
+            oraclizeStructs[oraclizeQueryId].player = player;
+            oraclizeStructs[oraclizeQueryId].betNumbers = betNumbers;
+            oraclizeStructs[oraclizeQueryId].betAmount = betAmount;
+            oraclizeStructs[oraclizeQueryId].status = true;
+    
             // The game was played, increase the counter
 
             gamesPlayed += 1;
@@ -124,15 +130,24 @@ contract Dice is usingOraclize {
     
         address player = oraclize_cbAddress();
         require(msg.sender == player);
+
+        emit NumberGeneratorRespose(address(this), msg.sender, myid, result);
         
         uint winningNumber = parseInt(result);
+        
+        emit _logThisShit1(winningNumber);
+        
         
         uint[] memory betNumbers = oraclizeStructs[myid].betNumbers;
         
         emit WinningNumber(address(this), myid, betNumbers, winningNumber);
 
+
         oraclizeStructs[myid].winningNumber = winningNumber;
+
         uint betAmount = oraclizeStructs[myid].betAmount;
+
+        // xxx todo security what if player bets [1,1,1,1,1,1,1,1,1,1,1,1]
 
         for (uint i = 0; i < betNumbers.length; i++) {
 
@@ -183,12 +198,13 @@ contract Dice is usingOraclize {
         }
 
         gamesPlayed += 1;
-
-        oraclizeStructs[myid].status = true;
         
+        oraclizeStructs[myid].status = true;
+
         lastWinningNumber = winningNumber;
 
     }
+    
     
     function payRoyalty()
         public
@@ -232,7 +248,6 @@ contract Dice is usingOraclize {
     {
         return oraclizedIndices;
     }
-
 
     function getBlockTimestamp()
         public
