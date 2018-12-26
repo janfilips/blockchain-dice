@@ -35,8 +35,11 @@ contract Dice is usingOraclize {
     event NumberGeneratorCallback(address _contract, address _cbAddress, bytes32 _oraclizeQueryId);
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
-
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
+
+    // XXX delete these
+    event logDecidePlayerWins(uint[] _betNumbers, uint _winningNumber, bool _playerWins);
+
 
     uint public gamesPlayed;
     uint public lastWinningNumber;
@@ -82,7 +85,7 @@ contract Dice is usingOraclize {
             // Recording the bet info for future reference.
             
             // xxx bug did i actually write this globally to oraclizeStructs?? i think no??
-            oraclizeCallback memory oraclizeRequest = oraclizeStructs[oraclizeQueryId]; 
+            oraclizeCallback storage oraclizeRequest = oraclizeStructs[oraclizeQueryId]; 
             
             oraclizeRequest.status = false;
             oraclizeRequest.queryId = oraclizeQueryId;
@@ -146,6 +149,8 @@ contract Dice is usingOraclize {
             }
 
         }
+        
+        emit logDecidePlayerWins(betNumbers, winningNumber, playerWins);
         
         if(playerWins) {
             
