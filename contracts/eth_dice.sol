@@ -3,7 +3,6 @@ pragma solidity ^0.5.0;
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
 
-
 contract Dice is usingOraclize {
 
     uint minimumBet;
@@ -105,6 +104,7 @@ contract Dice is usingOraclize {
         }
         
         emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.");
+        
         emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
 
         return true;
