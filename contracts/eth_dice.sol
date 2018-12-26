@@ -32,7 +32,7 @@ contract Dice is usingOraclize {
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
     event RollDice(address _contract, address _player, string _description);
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _oraclizeQueryId);
-    event NumberGeneratorCallback(address _contract, address _cbAddress, bytes32 _oraclizeQueryId);
+    event NumberGeneratorCallback(address _contract, bytes32 _oraclizeQueryId);
     event NumberGeneratorRespose(address _contract, address _player, bytes32 _oraclizeQueryId, string _oraclizeResponse);
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
@@ -122,7 +122,7 @@ contract Dice is usingOraclize {
         
         uint winAmount;
     
-        emit NumberGeneratorCallback(address(this), msg.sender, myid);
+        emit NumberGeneratorCallback(address(this), myid);
     
         address player = oraclize_cbAddress();
         require(msg.sender == player);
