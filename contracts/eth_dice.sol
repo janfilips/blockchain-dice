@@ -3,7 +3,6 @@ pragma solidity ^0.5.0;
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
 
-
 contract Dice is usingOraclize {
 
     uint minimumBet;
@@ -38,9 +37,7 @@ contract Dice is usingOraclize {
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
-
-    uint public lastWinningNumber;
-
+    
 
     constructor() 
         public
@@ -181,8 +178,6 @@ contract Dice is usingOraclize {
         }
 
         oraclizeStructs[myid].status = true;
-
-        lastWinningNumber = winningNumber;
 
     }
     
