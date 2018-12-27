@@ -115,18 +115,24 @@
     var startDate = null;
     var diff = null;
     var endAnim = null;
+    var popupOpened = false;
 
     function onRoll(){
 
       startDate = new Date();
-      var stopButton = document.getElementById("roll_button");
-      stopButton.style.top = "-5rem";
+      var rollButton = document.getElementById("roll_button");
+      rollButton.style.top = "-5rem";
+      var stopButton = document.getElementById("stop_button");
+      stopButton.style.top = "2rem";
       var pl = document.getElementById("platform");
       pl.classList.add("running");
       setTimeout(function(){
         el = document.getElementById("overlay");
-        el.style.opacity = "1";
-      }, 4000)
+        if(el.style.opacity == 0 && !popupOpened){
+          el.style.opacity = "1";
+          stopButton.style.top = "-5rem";
+        }
+      }, 30000)
     }
 
     function selectBet(e, choice){
@@ -141,14 +147,7 @@
 
     function completeBet(){
       var modal = document.getElementById("overlay");
-      var stopButton = document.getElementById("stop_button");
       modal.style.opacity = "0";
-      stopButton.style.top = "2rem";
-    }
-
-    function onStop(){
-      var stopButton = document.getElementById("stop_button");
-      stopButton.style.top = "-5rem";
       if(diff === null){
         diff = Math.floor((new Date() - startDate)/1000);
         var platform = document.getElementById('platform');
@@ -156,6 +155,13 @@
         platform.setAttribute('style', 'animation-iteration-count: ' + (diff + 2).toString())
         dice.setAttribute('style', 'animation-iteration-count: ' + (Math.ceil(diff/2) + 4).toString())
       }
+    }
+
+    function onStop(){
+      var el = document.getElementById("overlay");
+      el.style.opacity = "1";
+      var stopButton = document.getElementById("stop_button");
+      stopButton.style.top = "-5rem";
     }
 
     function onEnd(e){
