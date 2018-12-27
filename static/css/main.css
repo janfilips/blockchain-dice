@@ -338,6 +338,7 @@ h1{
     z-index: 20;
     top: -5rem;
     left: 50%;
+    background: #ff00004f;
     transform: translateX(-50%);
 }
 
