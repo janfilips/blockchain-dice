@@ -116,6 +116,7 @@
     var diff = null;
     var endAnim = null;
     var popupOpened = false;
+    var choiced = null;
 
     function onRoll(){
 
@@ -137,6 +138,7 @@
 
     function selectBet(e, choice){
       if(document.getElementById("overlay").style.opacity == 1){
+        choiced = translator[choice];
         var sides = document.querySelectorAll(".bet_area .side.selected");
         if(sides.length > 0){
           sides[0].classList.remove('selected');
@@ -166,10 +168,10 @@
 
     function onEnd(e){
       var platform = document.getElementById("platform");
-      if(e.animationName === 'roll'){
+      if(e.animationName === 'roll' && choiced !== null){
         var res = Math.floor(Math.random() * 6) + 1;
         // platform.classList.add('pokusAnim');
-        platform.classList.add(translator[res] + 'Anim');
+        platform.classList.add(choiced + 'Anim');
       }
 
       if(e.animationName === 'endAnim'){
