@@ -18,6 +18,4 @@ urlpatterns = [
     url(r'^abi$', get_game_abi, name='get_game_abi'),
     url(r'^contract$', get_game_contract, name='get_game_contract'),
     url(r'^clock$', get_clock, name='get_clock'),
-    # temp stuff
-    url(r'^devel', temp_devel_shit_deleteme, name='temp_devel_shit_deleteme'),
 ]

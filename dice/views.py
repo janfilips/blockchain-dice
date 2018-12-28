@@ -89,26 +89,13 @@ def home(request):
 
     games = Bets.objects.all().order_by('-pk')
 
+    # XXX TODO read player_wallet from cookies
+
+    # XXX TODO my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
+
     response = render(
         request=request,
         template_name='index.html',
-        context={
-            'contract': settings.ETHEREUM_DICE_CONTRACT,
-            'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
-            'games': games,
-            },
-    )
-
-    return response
-
-
-def temp_devel_shit_deleteme(request):
-
-    games = Bets.objects.all().order_by('-pk')
-
-    response = render(
-        request=request,
-        template_name='test.html',
         context={
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
