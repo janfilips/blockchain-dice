@@ -86,7 +86,7 @@ def ajax_games(request):
 
 def home(request):
 
-    games = Bets.objects.all().order_by('-pk')
+    games = Bets.objects.all().order_by('-pk')[:100]
 
     # XXX TODO read player_wallet from cookies
 
