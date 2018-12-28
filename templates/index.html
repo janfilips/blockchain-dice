@@ -308,7 +308,7 @@
 
 
 
-    
+
     <h3>Games history</h3>
 
     <table>
@@ -324,7 +324,13 @@
         <tr>
             <td>{{game.created|naturaltime}}</td>
             <td>{{game.numbers}}</td>
-            <td>{{game.win_number}}</td>
+
+            {% if game.win_number %}
+                <td>{{game.win_number}}</td>
+            {% else %}
+                <td>pending</td>
+            {% endif %}
+
             <td>{{game.amount}}</td>
             {% if game.win_amount %}
                 <td>eth-{{game.win_amount}}</td>
