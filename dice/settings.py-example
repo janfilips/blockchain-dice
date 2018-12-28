@@ -423,7 +423,7 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 				"type": "uint256"
 			}
 		],
-		"name": "NewWinningNumber",
+		"name": "WinningNumber",
 		"type": "event"
 	},
 	{
