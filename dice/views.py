@@ -21,13 +21,12 @@ django.setup()
 from web3 import Web3, Account
 from web3.providers.rpc import HTTPProvider
 
-w3 = Web3(HTTPProvider(settings.ETHEREUM_PROVIDER))
-
 import logging
 logger = logging.getLogger(__name__)
 
 from dice.models import Bets
 
+from web3.auto import w3
 
 
 def get_game_abi(request):

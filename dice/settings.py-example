@@ -1,4 +1,5 @@
 import os
+from web3.auto import w3
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -11,6 +12,7 @@ ALLOWED_HOSTS = ['*']
 
 # Ethereum smart-contracts
 ETHEREUM_DICE_CONTRACT = "0x006a5be2284ffa87482d1d2c1735e288453c0623"
+ETHEREUM_DICE_CONTRACT = w3.toChecksumAddress(ETHEREUM_DICE_CONTRACT)
 
 # Network
 ETHEREUM_CHAINID = 3
