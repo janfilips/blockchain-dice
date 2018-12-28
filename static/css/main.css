@@ -256,8 +256,8 @@ h1{
   margin-top:220px;
 }
 #dice span {
-    position:absolute;
-    margin:100px 0 0 100px;
+    position: absolute;
+    margin: 100px 0 0 100px;
     display: block;
     font-size: 2.5em;
     padding: 10px;
@@ -335,7 +335,6 @@ h1{
     top: 2rem;
     left: 50%;
     transform: translateX(-50%);
-
 } 
 
 #stop_button{
@@ -344,6 +343,14 @@ h1{
     top: -5rem;
     left: 50%;
     background: #ff00004f;
+    transform: translateX(-50%);
+}
+
+#play_again_button{
+    position: fixed;
+    z-index: 20;
+    top: -5rem;
+    left: 50%;
     transform: translateX(-50%);
 }
 
@@ -375,6 +382,14 @@ h1{
 }
 .dot.center.dright {
     margin:77px 0 0 134px;
+}
+
+#txInfo{
+    position: fixed;
+    z-index: 20;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 
@@ -460,7 +475,11 @@ h1{
     transition: 0.3s;
 }
 
-.bet_area .side:not(.selected):hover{
+.bet_area .side.disabledVal{
+    background-color: rgba(255, 255, 255, 0.514);   
+}
+
+.bet_area .side:not(.selected):not(.disabledVal):hover{
     background-color: rgba(255, 255, 255, 0.75);
 }
 
