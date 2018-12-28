@@ -10,7 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # Ethereum smart-contracts
-ETHEREUM_DICE_CONTRACT = "0x59f960c2a00f5a84bf6ca1ad6cbf8d82274a7a8f"
+ETHEREUM_DICE_CONTRACT = "0x006a5be2284ffa87482d1d2c1735e288453c0623"
 
 # Network
 ETHEREUM_CHAINID = 3
@@ -199,8 +199,8 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"name": "rollDice",
 		"outputs": [
 			{
-				"name": "oraclizeQueryId",
-				"type": "bytes32"
+				"name": "success",
+				"type": "bool"
 			}
 		],
 		"payable": true,
