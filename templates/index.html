@@ -1,24 +1,235 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-<h1>Ethereum Dice</h1>
-<h2>{{contract}}</h2>
-
-<p>
-    player wallet 0x
-    <br/>    
-</p>
-
-
-<h3>My games</h3>
-
-<h3>Games history</h3>
-
-{% for game in games %}
-    {{game}}<br/>
-{% endfor %}
-
-
-</body>
+  <head>
+    <link rel=stylesheet type="text/css" href="./css/main.css">
+    <script>
+      var settingsContractAddress="{{contract}}";
+      var abi = "{{contract_abi}}";
+    //   var settingsContractAddress="0xFa00c349e206731d05A204Ee94CFa91160e53826"
+    </script>
+  </head>
+  
+  <body>
+    <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!!!</button>
+    <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
+  <div id="wrapper">
+    <div id="platform">
+      <div id="dice">
+        <div class="side front one">
+          <div class="dot center"></div>
+        </div>
+        <div class="side front inner"></div>
+        <div class="side top two">
+          <div class="dot dtop dleft"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side top inner"></div>
+        <div class="side right three">
+          <div class="dot dtop dleft"></div>
+          <div class="dot center"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side right inner"></div>
+        <div class="side left four">
+          <div class="dot dtop dleft"></div>
+          <div class="dot dtop dright"></div>
+          <div class="dot dbottom dleft"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side left inner"></div>
+        <div class="side bottom five">
+          <div class="dot center"></div>
+          <div class="dot dtop dleft"></div>
+          <div class="dot dtop dright"></div>
+          <div class="dot dbottom dleft"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side bottom inner"></div>
+        <div class="side back six">
+          <div class="dot dtop dleft"></div>
+          <div class="dot dtop dright"></div>
+          <div class="dot dbottom dleft"></div>
+          <div class="dot dbottom dright"></div>
+          <div class="dot center dleft"></div>
+          <div class="dot center dright"></div>
+        </div>
+        <div class="side back inner"></div>
+        <div class="side cover x"></div>
+        <div class="side cover y"></div>
+        <div class="side cover z"></div>
+      </div>
+    </div>
+  </div>
+  <div id="overlay">
+    <div class="modal_content">
+        <h1>What is your bet?</h1>
+        <div id="error-message"></div>
+        <div class="bet_area">
+          <div>
+            <div onClick="selectBet(this, 1)" class="side front one">
+              <div class="dot center"></div>
+            </div>
+            <div onClick="selectBet(this, 2)" class="side top two">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+            <div onClick="selectBet(this, 3)" class="side right three">
+              <div class="dot dtop dleft"></div>
+              <div class="dot center"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+          </div>
+          <div>
+            <div onClick="selectBet(this, 4)" class="side left four">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+            <div onClick="selectBet(this, 5)" class="side bottom five">
+              <div class="dot center"></div>
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+            <div onClick="selectBet(this, 6)" class="side back six">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+              <div class="dot center dleft"></div>
+              <div class="dot center dright"></div>
+            </div>
+          </div>
+        </div>
+        <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
+        </div>
+    </div>
+   </div>
+  <script>
+      var translator = {
+        1: 'one',
+        2: 'two',
+        3: 'three',
+        4: 'four',
+        5: 'five',
+        6: 'six',
+      }
+      var startDate = null;
+      var diff = null;
+      var endAnim = null;
+      var popupOpened = false;
+      var choiced = null;
+      var choicedVals = [];
+  
+      function onRoll(){
+        startDate = new Date();
+        var rollButton = document.getElementById("roll_button");
+        rollButton.style.top = "-5rem";
+        var stopButton = document.getElementById("stop_button");
+        stopButton.style.top = "2rem";
+        var pl = document.getElementById("platform");
+        pl.classList.add("running");
+        setTimeout(function(){
+          el = document.getElementById("overlay");
+          if(el.style.opacity == 0 && !popupOpened){
+            el.style.opacity = "1";
+            stopButton.style.top = "-5rem";
+            popupOpened = true;
+          }
+        }, 30000)
+      }
+      
+      function selectBet(e, choice){
+        if(document.getElementById("overlay").style.opacity == 1){
+          choiced = translator[choice];
+          var i = choicedVals.indexOf(choice);
+          var side = document.querySelectorAll(".bet_area .side." + choiced)
+          if(i >= 0){ //found
+            side[0].classList.remove('selected');
+            choicedVals = choicedVals.filter(function(o){ return o !== choice});
+          } else{
+            side[0].classList.add('selected');
+            choicedVals.push(choice)
+          }
+          if(choicedVals.length <= 0){
+            document.getElementById("bet_button").disabled = true;
+          } else{
+            document.getElementById("bet_button").disabled = false;
+          }
+        }
+      }
+  
+      function checkMetamask(){
+        if (typeof web3 === 'undefined') {
+          return '<div>You need to install <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
+        }
+        if (web3.eth.accounts.length === 0) {
+          return '<div>You need to log in to <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
+        }      
+        return null;
+      }
+  
+      function completeBet(){
+        var modal = document.getElementById("overlay");
+        if(diff === null){
+          var error = document.getElementById("error-message");
+          var errorMessage = checkMetamask();
+          if(errorMessage !== null){
+            error.innerHTML = errorMessage;
+            return;
+          }
+          
+          var user_address = web3.eth.accounts[0]
+          debugger;
+          var contractAbi = eth.contract(abi);
+          var myContract = contractAbi.at(contractAddress);
+          var getData = myContract.myFunction.getData(choicedVals);
+          web3.eth.sendTransaction({
+            to: settingsContractAddress,
+            from: user_address,
+            value: web3.toWei('0.666', 'ether'),
+            data: getData
+          }, function (err, transactionHash) {
+            if (err){
+              console.log('There was a problem!: ' + err.message);
+              return;
+            }
+            console.log(transactionHash);
+            modal.style.opacity = "0";
+            diff = Math.floor((new Date() - startDate)/1000);
+            var platform = document.getElementById('platform');
+            var dice = document.getElementById('dice');
+            platform.setAttribute('style', 'animation-iteration-count: ' + (diff + 2).toString())
+            dice.setAttribute('style', 'animation-iteration-count: ' + (Math.ceil(diff/2) + 4).toString())
+          })
+        }
+      }
+  
+      function onStop(){
+        popupOpened = true;
+        var el = document.getElementById("overlay");
+        el.style.opacity = "1";
+        var stopButton = document.getElementById("stop_button");
+        stopButton.style.top = "-5rem";
+      }
+  
+      function onEnd(e){
+        var platform = document.getElementById("platform");
+        if(e.animationName === 'roll' && choiced !== null){
+          var res = Math.floor(Math.random() * 6) + 1;
+          // platform.classList.add('pokusAnim');
+          platform.classList.add(choiced + 'Anim');
+        }
+        if(e.animationName === 'endAnim'){
+          var res = document.getElementsByClassName(choiced)[0];
+          res.classList.add('result');
+        }
+      }
+      var platform = document.getElementById("platform");
+      platform.addEventListener("webkitAnimationEnd", onEnd);
+      platform.addEventListener("animationend", onEnd);  
+    </script>
+  </body>
 </html>
