@@ -109,25 +109,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 [
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "_someNumber",
-				"type": "uint256"
-			}
-		],
-		"name": "testShit",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
 		"inputs": [],
 		"name": "payRoyalty",
 		"outputs": [
@@ -141,17 +122,43 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "gamesPlayed",
-		"outputs": [
+		"constant": false,
+		"inputs": [
 			{
-				"name": "",
-				"type": "uint256"
+				"name": "myid",
+				"type": "bytes32"
+			},
+			{
+				"name": "result",
+				"type": "string"
 			}
 		],
+		"name": "__callback",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_myid",
+				"type": "bytes32"
+			},
+			{
+				"name": "_result",
+				"type": "string"
+			},
+			{
+				"name": "_proof",
+				"type": "bytes"
+			}
+		],
+		"name": "__callback",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -183,20 +190,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "gamesWon",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -207,16 +200,8 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"name": "rollDice",
 		"outputs": [
 			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256[]"
-			},
-			{
-				"name": "",
-				"type": "uint256"
+				"name": "success",
+				"type": "bool"
 			}
 		],
 		"payable": true,
@@ -225,16 +210,60 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "numberGenerator",
+		"inputs": [
+			{
+				"name": "oraclizeQueryId",
+				"type": "bytes32"
+			}
+		],
+		"name": "gameStatus",
 		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			},
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
 			{
 				"name": "",
 				"type": "uint256"
 			}
 		],
 		"payable": false,
-		"stateMutability": "pure",
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "oraclizedIndices",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -253,28 +282,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 			}
 		],
 		"name": "GameStarted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_contract",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_player",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_winning_number",
-				"type": "uint256"
-			}
-		],
-		"name": "DiceRolled",
 		"type": "event"
 	},
 	{
@@ -314,16 +321,163 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 			},
 			{
 				"indexed": false,
+				"name": "_player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_description",
+				"type": "string"
+			}
+		],
+		"name": "RollDice",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_randomOrgQueryId",
+				"type": "bytes32"
+			}
+		],
+		"name": "NumberGeneratorQuery",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_oraclizeQueryId",
+				"type": "bytes32"
+			}
+		],
+		"name": "NumberGeneratorCallback",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_oraclizeQueryId",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"name": "_oraclizeResponse",
+				"type": "string"
+			}
+		],
+		"name": "NumberGeneratorResponse",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_oraclizeQueryId",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"name": "_betNumbers",
+				"type": "uint256[]"
+			},
+			{
+				"indexed": false,
+				"name": "_winningNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "NewWinningNumber",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
 				"name": "_winner",
 				"type": "address"
 			},
 			{
 				"indexed": false,
-				"name": "_win_amount",
+				"name": "_winningNumber",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_winAmount",
 				"type": "uint256"
 			}
 		],
 		"name": "PlayerWins",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_winner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_winningNumber",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_winAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "Cashout",
 		"type": "event"
 	}
 ]
