@@ -5,7 +5,6 @@ from django.conf.urls import url
 from django.urls import path
 from dice.views import home, ajax_bet, ajax_my_games, ajax_games
 from dice.views import get_clock, get_game_abi, get_game_contract
-from dice.views import temp_devel_shit_deleteme
 
 urlpatterns = [
     # common views
