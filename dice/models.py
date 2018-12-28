@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 
 class Bets(models.Model):
     player = models.CharField(max_length=42)
+    is_winning_bet = models.BooleanField(default=0)
     win_number = models.IntegerField(default=0)
     numbers = models.CharField(max_length=42, default="")
     amount = models.FloatField(default=0)
