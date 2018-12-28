@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -286,35 +288,50 @@
     </script>
 
 
+
+<!-- sorry za tohle smeti dolu je jenom tabulka -->
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
     <h3>My games</h3>
     [xxx]<br/>
     <br/>
 
+
+
+    
     <h3>Games history</h3>
 
     <table>
         <tr>
             <th>created</th>
-            <th>player</th>
-          <th>w</th>
-          <th>numbers</th>
-          <th>amount</th>
-          <th>win_amount</th>
-          <th>tx_hash</th>
-          <th>oracle_query_id</th>
-          <th>status</th>
+            <th>numbers</th>
+            <th>w</th>
+            <th>amount</th>
+            <th>wins</th>
+            <th>transaction</th>
         </tr>
         {% for game in games %}
         <tr>
-            <td>{{game.created}}</td>
-            <td>{{game.player|truncatechars:15}}</td>
-            <td>{{game.win_number}}</td>
+            <td>{{game.created|naturaltime}}</td>
             <td>{{game.numbers}}</td>
+            <td>{{game.win_number}}</td>
             <td>{{game.amount}}</td>
-            <td>{{game.win_amount}}</td>
-            <td>{{game.tx_hash|truncatechars:20}}</td>
-            <td>{{game.tx_hash|truncatechars:20}}</td>
-            <td>{{game.status}}</td>
+            {% if game.win_amount %}
+                <td>eth-{{game.win_amount}}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+            <td><a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">{{game.tx_hash}}</a></td>
         </tr>
         {% endfor %}
     </table>
