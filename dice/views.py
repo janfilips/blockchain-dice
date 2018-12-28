@@ -75,3 +75,20 @@ def home(request):
     )
 
     return response
+
+
+def temp_devel_shit_deleteme(request):
+
+    games = Bets.objects.all().order_by('-pk')
+
+    response = render(
+        request=request,
+        template_name='test.html',
+        context={
+            'contract': settings.ETHEREUM_DICE_CONTRACT,
+            'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
+            'games': games,
+            },
+    )
+
+    return response
