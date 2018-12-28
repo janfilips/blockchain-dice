@@ -18,11 +18,3 @@ class Bets(models.Model):
     blocknumber = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=0)
-
-class Wallets(models.Model):
-    address = models.CharField(max_length=42)
-    balance = models.FloatField(default=0)
-    # latest transactions hash
-    last_tx_hash = models.CharField(max_length=42)
-    bets_count = models.IntegerField(default=0)
-    created = models.DateTimeField(auto_now=True)
