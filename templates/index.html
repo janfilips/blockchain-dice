@@ -318,6 +318,7 @@
             <th>w</th>
             <th>amount</th>
             <th>wins</th>
+            <th>satoshi</th>
             <th>transaction</th>
         </tr>
         {% for game in games %}
@@ -337,6 +338,7 @@
             {% else %}
                 <td>-</td>
             {% endif %}
+            <td>satoshi</td>
             <td><a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">{{game.tx_hash}}</a></td>
         </tr>
         {% endfor %}
