@@ -53,6 +53,8 @@ def ajax_bet(request):
     bet_numbers = request.POST['numbers']
     bet_amount = request.POST['value']
     bet_tx_hash = request.POST['tx_hash']
+    player_wallet = request.POST['player_wallet']
+
     print('bet_tx_hash',bet_tx_hash,'bet_numbers',bet_numbers,'tx_hash', bet_tx_hash)
 
     return HttpResponse('Ok')
