@@ -8,7 +8,6 @@
     <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!!!</button>
     <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
     <button id='play_again_button' class="btn btn-5" onclick="playAgain()">Play again!</button>
-    xxxx
   <div id="wrapper">
     <div id="platform">
       <div id="dice">
@@ -285,5 +284,40 @@
       platform.addEventListener("webkitAnimationEnd", onEnd);
       platform.addEventListener("animationend", onEnd);  
     </script>
+
+
+    <h3>My games</h3>
+    [xxx]<br/>
+    <br/>
+
+    <h3>Games history</h3>
+
+    <table>
+        <tr>
+            <th>created</th>
+            <th>player</th>
+          <th>w</th>
+          <th>numbers</th>
+          <th>amount</th>
+          <th>win_amount</th>
+          <th>tx_hash</th>
+          <th>oracle_query_id</th>
+          <th>status</th>
+        </tr>
+        {% for game in games %}
+        <tr>
+            <td>{{game.created}}</td>
+            <td>{{game.player|truncatechars:15}}</td>
+            <td>{{game.win_number}}</td>
+            <td>{{game.numbers}}</td>
+            <td>{{game.amount}}</td>
+            <td>{{game.win_amount}}</td>
+            <td>{{game.tx_hash|truncatechars:20}}</td>
+            <td>{{game.tx_hash|truncatechars:20}}</td>
+            <td>{{game.status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
   </body>
 </html>
