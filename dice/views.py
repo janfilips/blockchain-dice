@@ -56,7 +56,7 @@ def ajax_bet(request):
     player_wallet = request.POST['player_wallet']
 
     # xxx todo create a new wallet
-    # xxx update 
+    # xxx update last wallet known transaction
 
     print('bet_tx_hash',bet_tx_hash,'bet_numbers',bet_numbers,'tx_hash', bet_tx_hash)
 
