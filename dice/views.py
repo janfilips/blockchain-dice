@@ -53,8 +53,21 @@ def ajax_bet(request):
     player_wallet = request.POST.get('wallet')
     bet_tx_hash = request.POST.get('value')
     bet_amount = request.POST.get('amount')
+
     bet_numbers = request.POST.getlist('numbers[]')
 
+    _bet_numbers = []
+    for _number in  bet_numbers:
+        _bet_numbers.append(int(_number))
+    bet_numbers = _bet_numbers
+
+    Bets.objects.create(
+        player = player_wallet,
+        tx_hash = bet_tx_hash,
+        amount = bet_amount,
+        numbers = str(bet_numbers),
+    )
+    print('ajax_bet')
     print('player_wallet', player_wallet)
     print('bet_tx_hash', bet_tx_hash)
     print('bet_amount', bet_amount)
