@@ -207,7 +207,7 @@
               return;
             }
             var txInfo = document.getElementById('txInfo');
-            txInfo.innerHTML = 'Waiting for your transaction <a href=“http://ropsten.etherscan.io/tx/'+transactionHash+'"> '+transactionHash+'</a> to get mined on the network..';
+            txInfo.innerHTML = 'Waiting for your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+'> '+transactionHash+'</a> to clear on the network..';
             sendTxData(transactionHash, 0.15, user_address);
             modal.style.opacity = "0";
             diff = Math.floor((new Date() - startDate)/1000);
@@ -312,6 +312,7 @@
     <table>
         <tr>
             <th>created</th>
+            <th>visual</th>
             <th>numbers</th>
             <th>w</th>
             <th>amount</th>
@@ -321,6 +322,7 @@
         {% for game in games %}
         <tr>
             <td>{{game.created|naturaltime}}</td>
+            <td>🎲🎲🎲🎲🎲</td>
             <td>{{game.numbers}}</td>
             {% if game.win_number %}
                 <td>{{game.win_number}}</td>
