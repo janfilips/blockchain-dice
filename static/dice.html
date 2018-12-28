@@ -1,5 +1,9 @@
 <head>
- <LINK rel=stylesheet type="text/css" href="css/main.css">
+  <link rel=stylesheet type="text/css" href="css/main.css">
+  <script>
+    // var settingsContractAddress="{{game.contract_address}}"
+    var settingsContractAddress="0xFa00c349e206731d05A204Ee94CFa91160e53826"
+  </script>
 </head>
 
 <body>
@@ -59,34 +63,34 @@
       <div id="error-message"></div>
       <div class="bet_area">
         <div>
-          <div onClick="selectBet(this, 1)" class="side front">
+          <div onClick="selectBet(this, 1)" class="side front one">
             <div class="dot center"></div>
           </div>
-          <div onClick="selectBet(this, 2)" class="side top">
+          <div onClick="selectBet(this, 2)" class="side top two">
             <div class="dot dtop dleft"></div>
             <div class="dot dbottom dright"></div>
           </div>
-          <div onClick="selectBet(this, 3)" class="side right">
+          <div onClick="selectBet(this, 3)" class="side right three">
             <div class="dot dtop dleft"></div>
             <div class="dot center"></div>
             <div class="dot dbottom dright"></div>
           </div>
         </div>
         <div>
-          <div onClick="selectBet(this, 4)" class="side left">
+          <div onClick="selectBet(this, 4)" class="side left four">
             <div class="dot dtop dleft"></div>
             <div class="dot dtop dright"></div>
             <div class="dot dbottom dleft"></div>
             <div class="dot dbottom dright"></div>
           </div>
-          <div onClick="selectBet(this, 5)" class="side bottom">
+          <div onClick="selectBet(this, 5)" class="side bottom five">
             <div class="dot center"></div>
             <div class="dot dtop dleft"></div>
             <div class="dot dtop dright"></div>
             <div class="dot dbottom dleft"></div>
             <div class="dot dbottom dright"></div>
           </div>
-          <div onClick="selectBet(this, 6)" class="side back">
+          <div onClick="selectBet(this, 6)" class="side back six">
             <div class="dot dtop dleft"></div>
             <div class="dot dtop dright"></div>
             <div class="dot dbottom dleft"></div>
@@ -114,6 +118,7 @@
     var endAnim = null;
     var popupOpened = false;
     var choiced = null;
+    var choicedVals = [];
 
     function onRoll(){
       startDate = new Date();
@@ -135,13 +140,22 @@
     
     function selectBet(e, choice){
       if(document.getElementById("overlay").style.opacity == 1){
-        document.getElementById("bet_button").disabled = false;
-        choiced = translator[choice];
-        var sides = document.querySelectorAll(".bet_area .side.selected");
-        if(sides.length > 0){
-          sides[0].classList.remove('selected');
+        if(choicedVals.length <= 0){
+          document.getElementById("bet_button").disabled = true;
+        } else{
+          document.getElementById("bet_button").disabled = false;
         }
-        e.classList.add('selected');
+        choiced = translator[choice];
+        var i = choicedVals.indexOf(choice);
+        var side = document.querySelectorAll(".bet_area .side." + choiced)
+        if(i >= 0){ //found
+          side[0].classList.remove('selected');
+          choicedVals = choicedVals.filter(function(o){ return o !== choice});
+        } else{
+          side[0].classList.add('selected');
+          choicedVals.push(choice)
+        }
+        console.log(choicedVals);
       }
     }
 
@@ -149,36 +163,40 @@
       if (typeof web3 === 'undefined') {
         return '<div>You need to install <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
       }
+      if (web3.eth.accounts.length === 0) {
+        return '<div>You need to log in to <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
+      }      
       return null;
     }
 
     function completeBet(){
       var modal = document.getElementById("overlay");
       if(diff === null){
-        // var error = document.getElementById("error-message");
-        // var errorMessage = checkMetamask();
-        // if(errorMessage !== null){
-        //   error.innerHTML = errorMessage;
-        //   return
-        // }
-        // var user_address = web3.eth.accounts[0]
-        // web3.eth.sendTransaction({
-        //   to: '',//TODO
-        //   from: user_address,
-        //   value: web3.toWei('1', 'ether'),
-        // }, function (err, transactionHash) {
-        //   if (err){
-        //     error.innerText = 'There was a problem!: ' + err.message;
-        //     return;
-        //   }
-        // })
-        modal.style.opacity = "0";
-        diff = Math.floor((new Date() - startDate)/1000);
-        var platform = document.getElementById('platform');
-        var dice = document.getElementById('dice');
-        platform.setAttribute('style', 'animation-iteration-count: ' + (diff + 2).toString())
-        dice.setAttribute('style', 'animation-iteration-count: ' + (Math.ceil(diff/2) + 4).toString())
-
+        var error = document.getElementById("error-message");
+        var errorMessage = checkMetamask();
+        if(errorMessage !== null){
+          error.innerHTML = errorMessage;
+          return;
+        }
+        var user_address = web3.eth.accounts[0]
+        web3.eth.sendTransaction({
+          to: settingsContractAddress,
+          from: user_address,
+          value: web3.toWei('0.666', 'ether'),
+          data: JSON.stringify(choicedVals)
+        }, function (err, transactionHash) {
+          if (err){
+            console.log('There was a problem!: ' + err.message);
+            return;
+          }
+          console.log(transactionHash);
+          modal.style.opacity = "0";
+          diff = Math.floor((new Date() - startDate)/1000);
+          var platform = document.getElementById('platform');
+          var dice = document.getElementById('dice');
+          platform.setAttribute('style', 'animation-iteration-count: ' + (diff + 2).toString())
+          dice.setAttribute('style', 'animation-iteration-count: ' + (Math.ceil(diff/2) + 4).toString())
+        })
       }
     }
 
