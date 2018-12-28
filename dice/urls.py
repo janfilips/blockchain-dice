@@ -11,7 +11,7 @@ urlpatterns = [
     # common views
     url(r'^$', home, name='home'),
     # ajax
-    url(r'^ajax/bet/$', ajax_bet, name='ajax_bet'),
+    url(r'^ajax/bet$', ajax_bet, name='ajax_bet'),
     url(r'^ajax/tabulky/games/all$', ajax_games_history, name='ajax_games_history'),
     url(r'^ajax/tabulky/games/mine$', ajax_my_games, name='ajax_my_games'),
     # bytecode, abi, clock
