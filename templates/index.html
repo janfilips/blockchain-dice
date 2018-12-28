@@ -7,6 +7,7 @@
   <body>
     <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!!!</button>
     <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
+    <button id='play_again_button' class="btn btn-5" onclick="playAgain()">Play again!</button>
   <div id="wrapper">
     <div id="platform">
       <div id="dice">
@@ -55,6 +56,7 @@
       </div>
     </div>
   </div>
+  <div id="txInfo"></div>
   <div id="overlay">
     <div class="modal_content">
         <h1>What is your bet?</h1>
@@ -115,10 +117,10 @@
       }
       var startDate = null;
       var diff = null;
-      var endAnim = null;
       var popupOpened = false;
       var choiced = null;
       var choicedVals = [];
+
   
       function onRoll(){
         startDate = new Date();
@@ -140,6 +142,7 @@
       
       function selectBet(e, choice){
         if(document.getElementById("overlay").style.opacity == 1){
+          if(e.classList.contains('disabledVal')) return;
           choiced = translator[choice];
           var i = choicedVals.indexOf(choice);
           var side = document.querySelectorAll(".bet_area .side." + choiced)
@@ -154,6 +157,14 @@
             document.getElementById("bet_button").disabled = true;
           } else{
             document.getElementById("bet_button").disabled = false;
+          }
+          if(choicedVals.length === 5){
+            var notDisabled = document.querySelectorAll(".bet_area .side:not(.selected)")
+            notDisabled[0].classList.add('disabledVal');
+          }
+          else{
+            var disabled = document.querySelectorAll(".bet_area .side.disabledVal");
+            if(disabled[0]) disabled[0].classList.remove('disabledVal');
           }
         }
       }
@@ -179,7 +190,6 @@
           }
           
           var user_address = web3.eth.accounts[0]
-          debugger;
           var contractAbi = web3.eth.contract(abi);
           var myContract = contractAbi.at(settingsContractAddress);
           var getData = myContract.rollDice.getData(choicedVals);
@@ -193,7 +203,9 @@
               console.log('There was a problem!: ' + err.message);
               return;
             }
-            console.log(transactionHash);
+            var txInfo = document.getElementById('txInfo');
+            txInfo.innerHTML = '<a href=“http://ropsten.etherscan.io/tx/' + transactionHash + '>Transaction</a> is waiting to get mined.';
+            sendTxData(transactionHash, 0.666, user_address);
             modal.style.opacity = "0";
             diff = Math.floor((new Date() - startDate)/1000);
             var platform = document.getElementById('platform');
@@ -202,6 +214,46 @@
             dice.setAttribute('style', 'animation-iteration-count: ' + (Math.ceil(diff/2) + 4).toString())
           })
         }
+      }
+
+      function sendTxData(txHash, amount, wallet){
+        var formData = new FormData();
+        formData.append("wallet", wallet);
+        formData.append("value", txHash);
+        formData.append("amount", amount);
+        choicedVals.forEach(function(v){
+          formData.append('numbers[]', v);
+        });
+
+        fetch('/ajax/bet', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'X-CSRFToken': "{{csrf_token}}"
+          },
+          body: formData
+        })
+      }
+
+      function playAgain(){
+        var playAgainButton = document.getElementById("play_again_button");
+        playAgainButton.style.top = "-5rem";
+        var rollButton = document.getElementById("roll_button");
+        var platform = document.getElementById("platform");
+        var dice = document.getElementById("dice");
+        platform.className = "";
+        platform.setAttribute('style', '');
+        dice.className = "";
+        dice.setAttribute('style', '');
+        document.getElementsByClassName('result')[0].classList.remove('result')
+        var sel = document.getElementsByClassName('selected');
+        [].forEach.call(sel, function (el) {
+          el.classList.remove('selected');
+        });
+        rollButton.style.top = "2rem";
+        startDate = null;
+        diff = null;
+        choiced = null;
+        choicedVals = [];
       }
   
       function onStop(){
@@ -213,6 +265,8 @@
       }
   
       function onEnd(e){
+        console.log(e.animationName);
+
         var platform = document.getElementById("platform");
         if(e.animationName === 'roll' && choiced !== null){
           var res = Math.floor(Math.random() * 6) + 1;
@@ -222,6 +276,8 @@
         if(e.animationName === 'endAnim'){
           var res = document.getElementsByClassName(choiced)[0];
           res.classList.add('result');
+          var playAgainButton = document.getElementById("play_again_button");
+          playAgainButton.style.top = "2rem";          
         }
       }
       var platform = document.getElementById("platform");
