@@ -80,7 +80,7 @@ def ajax_my_games(request):
     # XXX todo filter my games
     return HttpResponse('xxx todo filter my games')
 
-def ajax_games_history(request):
+def ajax_games(request):
     bets = Bets.objects.all().order_by('-pk')[:100]
     return JsonResponse(bets, safe=False)
 
