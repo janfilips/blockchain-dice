@@ -2,13 +2,8 @@
 <html>
   <head>
     <link rel=stylesheet type="text/css" href="/static/css/main.css">
-    <script>
-      var settingsContractAddress="{{contract}}";
-      var abi = "{{contract_abi}}";
-    //   var settingsContractAddress="0xFa00c349e206731d05A204Ee94CFa91160e53826"
     </script>
   </head>
-  
   <body>
     <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!!!</button>
     <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
@@ -108,6 +103,8 @@
     </div>
    </div>
   <script>
+      var settingsContractAddress="{{contract}}";
+      var abi = JSON.parse("{{contract_abi|escapejs}}");
       var translator = {
         1: 'one',
         2: 'two',
@@ -183,9 +180,9 @@
           
           var user_address = web3.eth.accounts[0]
           debugger;
-          var contractAbi = eth.contract(abi);
-          var myContract = contractAbi.at(contractAddress);
-          var getData = myContract.myFunction.getData(choicedVals);
+          var contractAbi = web3.eth.contract(abi);
+          var myContract = contractAbi.at(settingsContractAddress);
+          var getData = myContract.rollDice.getData(choicedVals);
           web3.eth.sendTransaction({
             to: settingsContractAddress,
             from: user_address,
