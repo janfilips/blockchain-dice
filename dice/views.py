@@ -49,7 +49,14 @@ def get_clock(request):
 
 
 def ajax_bet(request):
-    return HttpResponse('xxx todo ajax bet')
+    
+    bet_numbers = request.POST['numbers']
+    bet_amount = request.POST['value']
+    bet_tx_hash = request.POST['tx_hash']
+    print('bet_tx_hash',bet_tx_hash,'bet_numbers',bet_numbers,'tx_hash', bet_tx_hash)
+
+    return HttpResponse('Ok')
+
 
 def ajax_my_games(request):
     # XXX todo filter my games
@@ -67,6 +74,23 @@ def home(request):
     response = render(
         request=request,
         template_name='index.html',
+        context={
+            'contract': settings.ETHEREUM_DICE_CONTRACT,
+            'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
+            'games': games,
+            },
+    )
+
+    return response
+
+
+def temp_devel_shit_deleteme(request):
+
+    games = Bets.objects.all().order_by('-pk')
+
+    response = render(
+        request=request,
+        template_name='test.html',
         context={
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
