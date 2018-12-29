@@ -129,15 +129,18 @@
       var metamaskErrors = {
         missing: {
           message: '<div>You need to install <a href=“https://metmask.io“>MetaMask </a> first</a></div>',
-          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
+          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg',
+          popupWidth: -1
         },
         notLoggedIn: {
           message: '<div>Your Metamask is Locked.<br/><br/>Simply open Metamask and follow the instructions to unlock it.</div>',
-          image: ''
+          image: '',
+          popupWidth: -1
         },
         wrongNetwork: {
           message: "<div>Oops, you're on the wrong network.<br/>xxx-move-picture-here<br/>Simply open Metamask and switch over to Main Ethereum Network.</br></br></div>",
-          image: '/static/images/metamask-main-network.png'
+          image: '/static/images/metamask-main-network.png',
+          popupWidth: -1
         },
       }
       var startDate = null;
