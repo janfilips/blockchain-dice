@@ -207,7 +207,7 @@
               return;
             }
             var txInfo = document.getElementById('txInfo');
-            txInfo.innerHTML = 'Waiting for your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+'> '+transactionHash+'</a> to clear on the network..';
+            txInfo.innerHTML = 'Waiting for your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> to clear on the network..';
             sendTxData(transactionHash, 0.15, user_address);
             modal.style.opacity = "0";
             diff = Math.floor((new Date() - startDate)/1000);

@@ -1329,10 +1329,10 @@ contract Dice is usingOraclize {
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _randomOrgQueryId);
     event NumberGeneratorCallback(address _contract, bytes32 _oraclizeQueryId);
     event NumberGeneratorResponse(address _contract, address _player, bytes32 _oraclizeQueryId, string _oraclizeResponse);
-    event NewWinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
+    event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
-
+    event GameClosed(address _contract);
 
     constructor() 
         public
@@ -1416,7 +1416,7 @@ contract Dice is usingOraclize {
 
         uint[] memory betNumbers = oraclizeStructs[myid].betNumbers;
         
-        emit NewWinningNumber(address(this), myid, betNumbers, winningNumber);
+        emit WinningNumber(address(this), myid, betNumbers, winningNumber);
 
 
         oraclizeStructs[myid].winningNumber = winningNumber;
@@ -1473,6 +1473,8 @@ contract Dice is usingOraclize {
         }
 
         oraclizeStructs[myid].status = true;
+
+        emit GameClosed(address(this));
 
     }
     
