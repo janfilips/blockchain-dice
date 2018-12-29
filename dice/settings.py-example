@@ -330,6 +330,11 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 				"indexed": false,
 				"name": "_description",
 				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "_oraclizeQueryId",
+				"type": "bytes32"
 			}
 		],
 		"name": "RollDice",
