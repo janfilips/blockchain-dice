@@ -198,10 +198,10 @@
         if (typeof web3 === 'undefined') {
           error =  'missing';
         }
-        if (web3.eth.accounts.length === 0) {
+        else if (web3.eth.accounts.length === 0) {
           error = 'notLoggedIn';
         }
-        if (web3.version.network !== "3"){
+        else if (web3.version.network !== "3"){
           error =  'wrongNetwork';
         }
         if(error === null) return true;
