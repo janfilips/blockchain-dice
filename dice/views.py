@@ -87,7 +87,7 @@ def ajax_games(request):
 def home(request):
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
-    games = Bets.objects.all().order_by('-pk')[:100]
+    games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
 
     # XXX TODO my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
 
