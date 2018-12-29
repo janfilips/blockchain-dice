@@ -335,7 +335,12 @@ h1{
     top: 2rem;
     left: 50%;
     transform: translateX(-50%);
-} 
+}
+
+#popup-error-image{
+    max-width: 300px;
+    max-height: 300px;
+}
 
 #stop_button{
     position: fixed;
@@ -392,14 +397,12 @@ h1{
     transform: translateX(-50%);
 }
 
-
-#overlay {
+#overlay, #error-overlay {
     opacity: 0;
     transition: 0.5s;
     height: 100%;
     width: 100%;
     position: fixed;
-    z-index: 1;
     top: 0;
     left: 0;
     background-color: rgba(255, 255, 255, .1);
@@ -407,7 +410,7 @@ h1{
     display: flex;
  }
 
- #overlay > .modal_content{
+ #overlay > .modal_content, #error-overlay > .modal_content{
     background: #071a1e;
     margin: auto;
     border-radius: 15px;
@@ -415,7 +418,6 @@ h1{
     -webkit-box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.3);
     padding: 2rem;
-    width: 450px;
     z-index: 1;
     width: min-content;
  }

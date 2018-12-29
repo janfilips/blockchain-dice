@@ -60,6 +60,14 @@
     </div>
   </div>
   <div id="txInfo"></div>
+  <div id="error-overlay">
+      <div class="modal_content">
+          <h2>Wanna play?</h2>
+          <div id="popup-error-message"></div>
+          <img id="popup-error-image"><img>
+          <button class="btn btn-5" onclick="hideErrorPopup()">OK!</button>
+      </div>
+  </div>
   <div id="overlay">
     <div class="modal_content">
         <h1>What is your lucky number?</h1>
@@ -118,12 +126,25 @@
         5: 'five',
         6: 'six',
       }
+      var metamaskErrors = {
+        missing: {
+          message: '<div>You need to install <a href=“https://metmask.io“>MetaMask </a> first</a></div>',
+          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
+        },
+        notLoggedIn: {
+          message: '<div>You need to log in to <a href=“https://metmask.io“>MetaMask </a> first</a></div>',
+          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
+        },
+        wrongNetwork: {
+          message: '<div>You need to be on right network</div>',
+          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
+        },     
+      }
       var startDate = null;
       var diff = null;
       var popupOpened = false;
       var choiced = null;
       var choicedVals = [];
-
   
       function onRoll(){
         startDate = new Date();
@@ -173,26 +194,34 @@
       }
   
       function checkMetamask(){
+        var error = null;
         if (typeof web3 === 'undefined') {
-          return '<div>You need to install <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
+          error =  'missing';
         }
         if (web3.eth.accounts.length === 0) {
-          return '<div>You need to log in to <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
-        }      
-        return null;
+          error = 'notLoggedIn';
+        }
+        if (web3.version.network !== "3"){
+          error =  'wrongNetwork';
+        }
+        if(error === null) return true;
+        var modal = document.getElementById("error-overlay");
+        modal.style.opacity = "1";
+        modal.style.zIndex = "100";
+        var stopButton = document.getElementById("stop_button");
+        stopButton.style.top = "-5rem";
+        var message = document.getElementById('popup-error-message');
+        var image = document.getElementById('popup-error-image');
+        message.innerHTML = metamaskErrors[error].message;
+        image.src = metamaskErrors[error].image;
+        return false;
       }
   
       function completeBet(){
         var modal = document.getElementById("overlay");
         if(diff === null){
-          var error = document.getElementById("error-message");
-          var errorMessage = checkMetamask();
-          if(errorMessage !== null){
-            error.innerHTML = errorMessage;
-            return;
-          }
-          
-          var user_address = web3.eth.accounts[0]
+          if(!checkMetamask()) return;          
+          var user_address = web3.eth.accounts[0];
           var contractAbi = web3.eth.contract(abi);
           var myContract = contractAbi.at(settingsContractAddress);
           var getData = myContract.rollDice.getData(choicedVals);
@@ -227,7 +256,6 @@
         choicedVals.forEach(function(v){
           formData.append('numbers[]', v);
         });
-
         fetch('/ajax/bet', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           headers: {
@@ -261,20 +289,22 @@
   
       function onStop(){
         popupOpened = true;
-        var error = document.getElementById("error-message");
-        var errorMessage = checkMetamask();
-        if(errorMessage !== null){
-          error.innerHTML = errorMessage;
-        }
+        if(!checkMetamask()) return;
         var el = document.getElementById("overlay");
         el.style.opacity = "1";
         var stopButton = document.getElementById("stop_button");
         stopButton.style.top = "-5rem";
       }
+
+      function hideErrorPopup(){
+        var modal = document.getElementById("error-overlay");
+        modal.style.opacity = "0";
+        modal.style.zIndex = "1";
+        var stopButton = document.getElementById("stop_button");
+        stopButton.style.top = "2rem";
+      }
   
       function onEnd(e){
-        console.log(e.animationName);
-
         var platform = document.getElementById("platform");
         if(e.animationName === 'roll' && choiced !== null){
           var res = Math.floor(Math.random() * 6) + 1;
