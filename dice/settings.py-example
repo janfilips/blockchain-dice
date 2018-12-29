@@ -481,6 +481,18 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		],
 		"name": "Cashout",
 		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			}
+		],
+		"name": "GameClosed",
+		"type": "event"
 	}
 ]
 """

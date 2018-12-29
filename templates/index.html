@@ -317,7 +317,9 @@
             <th>w</th>
             <th>amount</th>
             <th>wins</th>
+            <th>blocknumber</th>            
             <th>transaction</th>
+            <th>status</th>
         </tr>
         {% for game in games %}
         <tr>
@@ -335,7 +337,9 @@
             {% else %}
                 <td>-</td>
             {% endif %}
+            <td>{{game.blocknumber}}</td>
             <td><a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">{{game.tx_hash}}</a></td>
+            <td>confirmed</td>
         </tr>
         {% endfor %}
     </table>
