@@ -1471,9 +1471,12 @@ contract Dice is usingOraclize {
             
         }
 
-        oraclizeStructs[myid].status = true;
+        if(playerWins==false) {
 
-        emit GameClosed(address(this));
+            emit GameClosed(address(this));
+        }
+
+        oraclizeStructs[myid].status = true;
 
     }
     
