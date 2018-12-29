@@ -62,10 +62,10 @@
   <div id="txInfo"></div>
   <div id="error-overlay">
       <div class="modal_content">
-          <h2>Metamask</h2>
+          <h2>Metamask is locked</h2>
           <div id="popup-error-message"></div>
           <img id="popup-error-image"><img>
-          <button class="btn btn-5" onclick="hideErrorPopup()">OK!</button>
+          <button class="btn btn-5" onclick="hideErrorPopup()">OK</button>
       </div>
   </div>
   <div id="overlay">
@@ -136,9 +136,9 @@
           image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
         },
         wrongNetwork: {
-          message: '<div>You need to be on right network</div>',
-          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
-        },     
+          message: "<div>Oops, you're on the wrong network.<br/>xxx-move-picture-here<br/>Simply open Metamask and switch over to Main Ethereum Network.</br></br></div>",
+          image: '/static/images/metamask-main-network.png'
+        },
       }
       var startDate = null;
       var diff = null;
@@ -236,7 +236,7 @@
               return;
             }
             var txInfo = document.getElementById('txInfo');
-            txInfo.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is pending to clear on the network..';
+            txInfo.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is waiting to clear on the network..';
             sendTxData(transactionHash, 0.0666, user_address);
             modal.style.opacity = "0";
             diff = Math.floor((new Date() - startDate)/1000);
