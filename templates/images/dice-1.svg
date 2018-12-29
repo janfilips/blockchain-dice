@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="109px" height="111px" viewBox="0 0 109 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>dice-1</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-525.000000, -321.000000)" fill="#9B9B9B" fill-rule="nonzero">
+            <g id="popup">
+                <g id="Group-2" transform="translate(525.000000, 321.000000)">
+                    <g id="dice-1">
+                        <path d="M0,8.83426581 L0,102.17396 C0,107.051725 4.05819551,111 9.07698579,111 L99.9187825,111 C104.929109,111 109,107.047612 109,102.17396 L109,8.83426581 C109,3.97706473 104.920646,0 99.9145508,0 L9.07698579,0 C4.05819551,0 0,3.97706473 0,8.83426581 Z M66.1785714,57.0814332 C66.1785714,63.6529003 60.9553861,68.9785714 54.5,68.9785714 C48.0614358,68.9785714 42.8214286,63.6529003 42.8214286,57.0814332 C42.8214286,50.5185282 48.0614358,45.1928571 54.5,45.1928571 C60.9553861,45.1928571 66.1785714,50.5185282 66.1785714,57.0814332 Z" id="Shape-Copy-2"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

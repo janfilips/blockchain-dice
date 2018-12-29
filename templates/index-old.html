@@ -2,170 +2,111 @@
 {% load dice_extras %}
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>Blockchain Dice Game</title>
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-<script type="text/jscript" src="js/function.js"></script>
-<link rel="stylesheet" href="css/qube.css" type="text/css" />
-<link rel="stylesheet" href="css/main.css" type="text/css" />
-</head>
-
-<body>
-  <header class="main-header">
-      <a href="#">
-        <img alt="git" src="images/git-logo.svg" />
-        <span>Blockchain Dice Game</span>
-      </a>
-  </header>
-  <main>
-    <section class="game-start"><!-- game start -->
-      <div class="center">
-        <div class="game-title"><!-- game title -->
-          <h1>play to win!</h1>
-          <p class="disclaimer">Ethereum Dice is a smart-contract-driven dice betting application using Oraclize and <a href="#">Random.org</a>.<br> It is fair play and pure trust in meaning.</p>
-        </div><!-- game title END -->
-        <div class="cubedice">
-          <div class="third-left"><h2>role the cubedice</h2></div>
-          <div class="dice-placeholder">
-            <div id="wrapper">
-
-
-              <div id="platform">
-                <div id="dice">
-                  <div class="side front one">
-                    <div class="dot center"></div>
-                  </div>
-                  <div class="side front inner"></div>
-                  <div class="side top two">
-                    <div class="dot dtop dleft"></div>
-                    <div class="dot dbottom dright"></div>
-                  </div>
-                  <div class="side top inner"></div>
-                  <div class="side right three">
-                    <div class="dot dtop dleft"></div>
-                    <div class="dot center"></div>
-                    <div class="dot dbottom dright"></div>
-                  </div>
-                  <div class="side right inner"></div>
-                  <div class="side left four">
-                    <div class="dot dtop dleft"></div>
-                    <div class="dot dtop dright"></div>
-                    <div class="dot dbottom dleft"></div>
-                    <div class="dot dbottom dright"></div>
-                  </div>
-                  <div class="side left inner"></div>
-                  <div class="side bottom five">
-                    <div class="dot center"></div>
-                    <div class="dot dtop dleft"></div>
-                    <div class="dot dtop dright"></div>
-                    <div class="dot dbottom dleft"></div>
-                    <div class="dot dbottom dright"></div>
-                  </div>
-                  <div class="side bottom inner"></div>
-                  <div class="side back six">
-                    <div class="dot dtop dleft"></div>
-                    <div class="dot dtop dright"></div>
-                    <div class="dot dbottom dleft"></div>
-                    <div class="dot dbottom dright"></div>
-                    <div class="dot center dleft"></div>
-                    <div class="dot center dright"></div>
-                  </div>
-                  <div class="side back inner"></div>
-                  <div class="side cover x"></div>
-                  <div class="side cover y"></div>
-                  <div class="side cover z"></div>
-                </div>
-              </div>
-
-
-            </div>
-            <div class="actions">
-              <a class="main-action roll-dice" id='roll_button' onclick="onRoll()" href="#">Roll it</a>
-              <a class="main-action stop-dice" id='stop_button' onclick="onStop()" href="#">Stop</a>
-            </div>
-          </div>
-          <div class="third-right"><h2>win the pot</h2></div>
+<html>
+  <head>
+    <link rel=stylesheet type="text/css" href="/static/css/main.css">
+    </script>
+  </head>
+  <body>
+    <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!!!</button>
+    <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
+    <button id='play_again_button' class="btn btn-5" onclick="playAgain()">Play again!</button>
+  <div id="wrapper">
+    <div id="platform">
+      <div id="dice">
+        <div class="side front one">
+          <div class="dot center"></div>
         </div>
+        <div class="side front inner"></div>
+        <div class="side top two">
+          <div class="dot dtop dleft"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side top inner"></div>
+        <div class="side right three">
+          <div class="dot dtop dleft"></div>
+          <div class="dot center"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side right inner"></div>
+        <div class="side left four">
+          <div class="dot dtop dleft"></div>
+          <div class="dot dtop dright"></div>
+          <div class="dot dbottom dleft"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side left inner"></div>
+        <div class="side bottom five">
+          <div class="dot center"></div>
+          <div class="dot dtop dleft"></div>
+          <div class="dot dtop dright"></div>
+          <div class="dot dbottom dleft"></div>
+          <div class="dot dbottom dright"></div>
+        </div>
+        <div class="side bottom inner"></div>
+        <div class="side back six">
+          <div class="dot dtop dleft"></div>
+          <div class="dot dtop dright"></div>
+          <div class="dot dbottom dleft"></div>
+          <div class="dot dbottom dright"></div>
+          <div class="dot center dleft"></div>
+          <div class="dot center dright"></div>
+        </div>
+        <div class="side back inner"></div>
+        <div class="side cover x"></div>
+        <div class="side cover y"></div>
+        <div class="side cover z"></div>
       </div>
-      <div class="clearfx"></div>
-    </section><!-- game start -->
-
-
-
-    <section class="lists">
-      <div class="half"><!-- table beets -->
-        <h3>game history</h3>
-        <table class="table-beets">
-          <tr>
-            <th>Address</th>
-            <th>Bid</th>
-            <th>Total bids (eth)</th>
-            <th>Refunds (eth)</th>
-            <th>Wins (eth)</th>
-          </tr>
-          <tr>
-            <td><a href="#">0x336f45b56ce1a20d0b5ebe7a5ac107da260364e0</a></td>
-            <td class="dice-list"><img src="images/dice-1.svg"><img src="images/dice-3.svg"><img src="images/dice-4.svg"></td>
-            <td class="bidon">2.45-eth</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><a href="#">0x336f45b56ce1a20d0b5ebe7a5ac107da260364e0</a></td>
-            <td class="dice-list"><img src="images/dice-2.svg"></td>
-            <td class="bidon">2.45-eth</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><a href="#">0x336f45b56ce1a20d0b5ebe7a5ac107da260364e0</a></td>
-            <td class="dice-list"><img src="images/dice-6.svg"></td>
-            <td class="bidon">2.45-eth</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </div><!-- table beets END -->
-    </section>
-  </main>
-
-  <div class="popup-wrap" id="overlay">
-    <div class="overlay"></div>
-    <div class="popupin"><!-- popup in -->
-      <a class="close" href="#"></a>
-      <h2>choose your lucky number</h2>
-      <div class="chouse-number">
-        <a class="no-1 front" onclick="selectBet(this, 1)" href="#"></a>
-        <a class="no-2 top" onclick="selectBet(this, 2)" href="#"></a>
-        <a class="no-3 right" onclick="selectBet(this, 3)" href="#"></a>
-        <a class="no-4 left" onclick="selectBet(this, 4)" href="#"></a>
-        <a class="no-5 bottom" onclick="selectBet(this, 5)" href="#"></a>
-        <a class="no-6 back" onclick="selectBet(this, 6)" href="#"></a>
-      </div>
-        <div class="footer-inpop">
-          <div class="halfs">
-            <div class="pays">
-              <h3>Winning Bid Pays</h3>
-              <span class="amount">1.96</span>
-            </div>
-            <div class="your-bid">
-              <h3>Place Your Bet</h3>
-              <span id="decrease" class="minus"></span>
-              <input id="number" class="bid-amount" type="number" min="0" max="100" placeholder="0.5">
-              <span id="increase" class="plus"></span>
-            </div>
-            <div class="clear"></div>
-          </div>
-          <a class="main-action" id="bet_button" onclick="completeBet()" href="#">Place</a>
-      </div>
-    </div><!-- popup in END -->
+    </div>
   </div>
-
+  <div id="txInfo"></div>
+  <div id="overlay">
+    <div class="modal_content">
+        <h1>What is your lucky number?</h1>
+        <div id="error-message"></div>
+        <div class="bet_area">
+          <div>
+            <div onClick="selectBet(this, 1)" class="side front one">
+              <div class="dot center"></div>
+            </div>
+            <div onClick="selectBet(this, 2)" class="side top two">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+            <div onClick="selectBet(this, 3)" class="side right three">
+              <div class="dot dtop dleft"></div>
+              <div class="dot center"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+          </div>
+          <div>
+            <div onClick="selectBet(this, 4)" class="side left four">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+            <div onClick="selectBet(this, 5)" class="side bottom five">
+              <div class="dot center"></div>
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
+            <div onClick="selectBet(this, 6)" class="side back six">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+              <div class="dot center dleft"></div>
+              <div class="dot center dright"></div>
+            </div>
+          </div>
+        </div>
+        <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
+        </div>
+    </div>
+   </div>
   <script>
       var settingsContractAddress="{{contract}}";
       var abi = JSON.parse("{{contract_abi|escapejs}}");
@@ -183,7 +124,7 @@
       var choiced = null;
       var choicedVals = [];
 
-
+  
       function onRoll(){
         startDate = new Date();
         var rollButton = document.getElementById("roll_button");
@@ -201,7 +142,7 @@
           }
         }, 30000)
       }
-
+      
       function selectBet(e, choice){
         if(document.getElementById("overlay").style.opacity == 1){
           if(e.classList.contains('disabledVal')) return;
@@ -230,17 +171,17 @@
           }
         }
       }
-
+  
       function checkMetamask(){
         if (typeof web3 === 'undefined') {
           return '<div>You need to install <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
         }
         if (web3.eth.accounts.length === 0) {
           return '<div>You need to log in to <a href=“https://metmask.io“>MetaMask </a> first</a></div>';
-        }
+        }      
         return null;
       }
-
+  
       function completeBet(){
         var modal = document.getElementById("overlay");
         if(diff === null){
@@ -250,7 +191,7 @@
             error.innerHTML = errorMessage;
             return;
           }
-
+          
           var user_address = web3.eth.accounts[0]
           var contractAbi = web3.eth.contract(abi);
           var myContract = contractAbi.at(settingsContractAddress);
@@ -317,7 +258,7 @@
         choiced = null;
         choicedVals = [];
       }
-
+  
       function onStop(){
         popupOpened = true;
         var el = document.getElementById("overlay");
@@ -325,7 +266,7 @@
         var stopButton = document.getElementById("stop_button");
         stopButton.style.top = "-5rem";
       }
-
+  
       function onEnd(e){
         console.log(e.animationName);
 
@@ -339,13 +280,77 @@
           var res = document.getElementsByClassName(choiced)[0];
           res.classList.add('result');
           var playAgainButton = document.getElementById("play_again_button");
-          playAgainButton.style.top = "2rem";
+          playAgainButton.style.top = "2rem";          
         }
       }
       var platform = document.getElementById("platform");
       platform.addEventListener("webkitAnimationEnd", onEnd);
-      platform.addEventListener("animationend", onEnd);
+      platform.addEventListener("animationend", onEnd);  
     </script>
 
-</body>
+
+
+<!-- sorry za tohle smeti dolu je jenom tabulka -->
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+    <h3>My games</h3>
+    [xxx]<br/>
+    <br/>
+
+    <h3>Games history</h3>
+
+    <table>
+        <tr>
+            <th>created</th>
+            <th>visual</th>
+            <th>numbers</th>
+            <th>w</th>
+            <th>amount</th>
+            <th>wins</th>
+            <th>blocknumber</th>            
+            <th>transaction</th>
+            <th>status</th>
+        </tr>
+        {% for game in games %}
+        <tr>
+            <td>{{game.created|naturaltime}}</td>
+            <td>🎲🎲🎲🎲🎲</td>
+            <td>{{game.numbers}}</td>
+            {% if game.win_number %}
+                <td>{{game.win_number}}</td>
+            {% else %}
+                <td>pending</td>
+            {% endif %}
+            <td>{{game.amount}}</td>
+            {% if game.win_amount %}
+                <td>eth-{{game.win_amount}}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+            {% if game.blocknumber %}
+                <td>#{{game.blocknumber}}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+            <td><a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">{{game.tx_hash}}</a></td>
+            {% if game.status %}
+                <td>confirmed</td>
+            {% else %}
+                <td>slow network..</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+  </body>
 </html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-978.000000, -732.000000)" fill="#9B9B9B">
+            <g id="popup">
+                <g id="Group-5" transform="translate(771.000000, 682.000000)">
+                    <path d="M222,65 L222,55 C222,52.2385763 224.238576,50 227,50 C229.761424,50 232,52.2385763 232,55 L232,65 L242,65 C244.761424,65 247,67.2385763 247,70 C247,72.7614237 244.761424,75 242,75 L232,75 L232,85 C232,87.7614237 229.761424,90 227,90 C224.238576,90 222,87.7614237 222,85 L222,75 L212,75 C209.238576,75 207,72.7614237 207,70 C207,67.2385763 209.238576,65 212,65 L222,65 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
