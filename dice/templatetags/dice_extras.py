@@ -17,7 +17,6 @@ def dict_get(h, key):
     except:
         return None
 
-
 @register.filter(name="random_int")
 def random_int(a, b=None):
     if b is None:
