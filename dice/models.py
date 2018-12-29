@@ -7,8 +7,8 @@ from django.contrib.auth import get_user_model
 
 
 class Bets(models.Model):
+    status = models.BooleanField(default=0)
     player = models.CharField(max_length=42)
-    winning_tx = models.BooleanField(default=0)
     win_number = models.IntegerField(default=0)
     numbers = models.CharField(max_length=42, default="")
     amount = models.FloatField(default=0)
@@ -18,4 +18,3 @@ class Bets(models.Model):
     contract = models.CharField(max_length=42)
     blocknumber = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
-    status = models.BooleanField(default=0)
