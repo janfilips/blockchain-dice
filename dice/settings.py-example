@@ -491,7 +491,7 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 				"type": "address"
 			}
 		],
-		"name": "GameClosed",
+		"name": "GameFinalized",
 		"type": "event"
 	}
 ]
