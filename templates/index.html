@@ -261,6 +261,11 @@
   
       function onStop(){
         popupOpened = true;
+        var error = document.getElementById("error-message");
+        var errorMessage = checkMetamask();
+        if(errorMessage !== null){
+          error.innerHTML = errorMessage;
+        }
         var el = document.getElementById("overlay");
         el.style.opacity = "1";
         var stopButton = document.getElementById("stop_button");
