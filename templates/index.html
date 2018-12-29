@@ -337,7 +337,14 @@
             {% else %}
                 <td>-</td>
             {% endif %}
-            <td>#{{game.blocknumber}}</td>
+
+            {% if game.blocknumber %}
+                <td>#{{game.blocknumber}}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+            
+            
             <td><a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">{{game.tx_hash}}</a></td>
             <td>confirmed</td>
         </tr>
