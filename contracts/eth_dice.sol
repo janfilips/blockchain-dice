@@ -1297,6 +1297,7 @@ END ORACLIZE_API
 */
 
 
+
 contract Dice is usingOraclize {
 
     uint minimumBet;
@@ -1324,14 +1325,14 @@ contract Dice is usingOraclize {
 
     event GameStarted(address _contract);
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
-    event RollDice(address _contract, address _player, string _description);
+    event RollDice(address _contract, address _player, string _description, bytes32 _oraclizeQueryId);
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _randomOrgQueryId);
     event NumberGeneratorCallback(address _contract, bytes32 _oraclizeQueryId);
     event NumberGeneratorResponse(address _contract, address _player, bytes32 _oraclizeQueryId, string _oraclizeResponse);
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
-    event GameClosed(address _contract);
+    event GameFinalized(address _contract);
 
     constructor() 
         public
@@ -1384,7 +1385,7 @@ contract Dice is usingOraclize {
 
         }
     
-        emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.");
+        emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.", oraclizeQueryId);
         
         emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
 
@@ -1473,7 +1474,7 @@ contract Dice is usingOraclize {
 
         if(playerWins==false) {
 
-            emit GameClosed(address(this));
+            emit GameFinalized(address(this));
         }
 
         oraclizeStructs[myid].status = true;
