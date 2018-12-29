@@ -87,7 +87,8 @@ def ajax_games(request):
 def home(request):
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
-    games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
+    #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
+    temp_games = Bets.objects.filter().order_by('-pk')[:100]
 
     # XXX TODO my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
 
@@ -97,7 +98,7 @@ def home(request):
         context={
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
-            'games': games,
+            'games': temp_games,
             },
     )
 
