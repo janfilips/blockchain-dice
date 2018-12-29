@@ -1,16 +1,15 @@
 pragma solidity ^0.5.0;
 
-//import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
-
 
 /*
 
 ORACLIZE_API
+github.com/oraclize/ethereum-api/oraclizeAPI.sol
 
 */
 
 contract solcChecker {
-/* INCOMPATIBLE SOLC: import the following instead: "github.com/oraclize/ethereum-api/oraclizeAPI_0.5.sol" */ function f(bytes calldata x) external;
+    /* INCOMPATIBLE SOLC: import the following instead: "github.com/oraclize/ethereum-api/oraclizeAPI_0.5.sol" */ function f(bytes calldata x) external;
 }
 
 contract OraclizeI {
