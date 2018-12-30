@@ -8,6 +8,15 @@
     </script>
   </head>
   <body>
+    <header class="main-header">
+      <a href="#">
+        <img alt="git" src="/static/images/git-logo.svg" />
+        <span>Blockchain Dice Game</span>
+      </a>
+    </header>
+    <div class="game-title"><!-- game title -->
+      <p class="disclaimer">Ethereum Dice is a smart-contract-driven dice betting application using Oraclize and <a href="#">Random.org</a>.<br> It is fair play and pure trust in meaning.</p>
+    </div><!-- game title END -->
     <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!</button>
     <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
     <button id='play_again_button' class="btn btn-5" onclick="playAgain()">Play again!</button>
@@ -180,9 +189,9 @@
       function onRoll(){
         startDate = new Date();
         var rollButton = document.getElementById("roll_button");
-        rollButton.style.top = "-5rem";
+        rollButton.style.bottom = "-10rem";
         var stopButton = document.getElementById("stop_button");
-        stopButton.style.top = "2rem";
+        stopButton.style.bottom = "2rem";
         var pl = document.getElementById("platform");
         pl.classList.add("running");
         setTimeout(function(){
@@ -190,7 +199,7 @@
           if(el.style.opacity == 0 && !popupOpened){
             el.style.opacity = "1";
             el.style.zIndex = "100";
-            stopButton.style.top = "-5rem";
+            stopButton.style.top = "-10rem";
             popupOpened = true;
           }
         }, 30000)
@@ -261,7 +270,7 @@
         modal.style.opacity = "1";
         modal.style.zIndex = "100";
         var stopButton = document.getElementById("stop_button");
-        stopButton.style.top = "-5rem";
+        stopButton.style.bottom = "-10rem";
         var message = document.getElementById('popup-error-message');
         var image = document.getElementById('popup-error-image');
         message.innerHTML = metamaskErrors[error].message;
@@ -305,11 +314,11 @@
       function sendTxData(txHash, amount, wallet){
         var formData = new FormData();
         formData.append("wallet", wallet);
-        // formData.append("value", txHash);
-        // formData.append("amount", amount);
-        // choicedVals.forEach(function(v){
-        //   formData.append('numbers[]', v);
-        // });
+        formData.append("value", txHash);
+        formData.append("amount", amount);
+        choicedVals.forEach(function(v){
+          formData.append('numbers[]', v);
+        });
         fetch('/ajax/player/update', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           headers: {
@@ -321,7 +330,7 @@
 
       function playAgain(){
         var playAgainButton = document.getElementById("play_again_button");
-        playAgainButton.style.top = "-5rem";
+        playAgainButton.style.bottom = "-10rem";
         var rollButton = document.getElementById("roll_button");
         var platform = document.getElementById("platform");
         var dice = document.getElementById("dice");
@@ -331,10 +340,12 @@
         dice.setAttribute('style', '');
         document.getElementsByClassName('result')[0].classList.remove('result')
         var sel = document.getElementsByClassName('selected');
-        [].forEach.call(sel, function (el) {
-          el.classList.remove('selected');
-        });
-        rollButton.style.top = "2rem";
+        while (sel.length) sel[0].classList.remove('selected');
+        rollButton.style.bottom = "2rem";
+        var bidPays = document.getElementById('bid-pays');
+        bidPays.classList.add('darker');
+        bidPays.innerText = "5.89";
+        document.getElementById('bidNumber').value = '0.15';
         startDate = null;
         diff = null;
         choiced = null;
@@ -347,8 +358,9 @@
         if(!checkMetamask()) return;
         var el = document.getElementById("overlay");
         el.style.opacity = "1";
+        el.style.zIndex = 100;
         var stopButton = document.getElementById("stop_button");
-        stopButton.style.top = "-5rem";
+        stopButton.style.bottom = "-10rem";
       }
 
       function hideErrorPopup(){
@@ -356,7 +368,7 @@
         modal.style.opacity = "0";
         modal.style.zIndex = "1";
         var rollButton = document.getElementById("roll_button");
-        rollButton.style.top = "2rem";
+        rollButton.style.bottom = "2rem";
         playAgain();
       }
   
@@ -371,7 +383,7 @@
           var res = document.getElementsByClassName(choiced)[0];
           res.classList.add('result');
           var playAgainButton = document.getElementById("play_again_button");
-          playAgainButton.style.top = "2rem";          
+          playAgainButton.style.bottom = "2rem";          
         }
       }
       var platform = document.getElementById("platform");
