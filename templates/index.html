@@ -140,8 +140,8 @@
             <span id="increase" class="plus" onclick="increaseBid()"></span>
           </div>
         </div>
-        <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
       </div>
+      <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
       </div>
     </div>
    </div>
@@ -203,7 +203,7 @@
           if(el.style.opacity == 0 && !popupOpened){
             el.style.opacity = "1";
             el.style.zIndex = "100";
-            stopButton.style.top = "-10rem";
+            stopButton.style.bottom = "-10rem";
             popupOpened = true;
           }
         }, 30000)
