@@ -55,6 +55,7 @@ def home(request):
     return response
 
 def ajax_update_player_wallet(request):
+    # xxx todo mozno prepojit to s django sessions a tak....
     return HttpResponse("xxx working on this currently")
 
 def get_game_abi(request):
