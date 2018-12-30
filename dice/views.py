@@ -47,14 +47,10 @@ def home(request):
     except Players.DoesNotExist:
         player_session_key = session_key
 
-    # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
-    # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
-    # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
-    # XXX todo potrebujem player wallet info aby som mohol toto spravit....
-    # XXX this down here with games list is only temporarily and it will be removed....
+    # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
+    # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
     games = Bets.objects.filter().order_by('-pk')[:100]
     my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')[:100]
-    #my_games = []
 
     response = render(
         request=request,
@@ -131,6 +127,8 @@ def ajax_my_games(request):
 
 def ajax_all_games(request):
     # XXX todo ajax call to list games table
+    # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
+    # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
     return JsonResponse([], safe=False)
 
 
