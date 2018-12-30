@@ -7,6 +7,8 @@ import datetime
 import random
 import time
 
+from web3.auto import w3
+
 from datetime import timedelta
 from django.utils import timezone
 
@@ -26,7 +28,6 @@ logger = logging.getLogger(__name__)
 
 from dice.models import Bets
 
-from web3.auto import w3
 
 def home(request):
 
@@ -43,7 +44,7 @@ def home(request):
 
 
     # XXX generate and write session ID on the template handle it within cookies
-    session_id = "xxx todo"
+    player_session_id = "xxx todo"
 
     response = render(
         request=request,
@@ -53,7 +54,7 @@ def home(request):
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
             'games': temp_games,
             'my_games': my_games,
-            'session_id': session_id,
+            'player_session_id': player_session_id,
             },
     )
     return response
@@ -62,6 +63,11 @@ def home(request):
 def ajax_update_player_wallet(request):
 
     player_wallet = request.POST.get('wallet')
+    player_session_id = request.POST.get('player_session_id')
+
+    print(request.POST)
+    print('player_wallet', player_wallet)
+    print('player_session_id',  player_session_id)
 
     return HttpResponse('Ok')
 
@@ -113,10 +119,8 @@ def ajax_bet(request):
 
 
 def ajax_games(request):
-    #bets = Bets.objects.filter(blah=mwah).order_by('-pk')[:250]
-    #return JsonResponse(bets, safe=False)
+    # XXX todo ajax call to list games table
     return JsonResponse([], safe=False)
-
 
 def ajax_my_games(request):
     # XXX todo filter my games

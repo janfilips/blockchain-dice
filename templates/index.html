@@ -328,7 +328,6 @@
         formData.append("wallet", wallet);
         formData.append("value", txHash);
         formData.append("amount", amount);
-        formData.append('session_id', '{{session_id}}')
         choicedVals.forEach(function(v){
           formData.append('numbers[]', v);
         });
@@ -416,6 +415,7 @@
         web3.eth.getAccounts(function(error, accounts) {
           var formData = new FormData();
           formData.append("wallet", accounts[0]);
+          formData.append('player_session_id', '{{player_session_id}}');
           fetch('/ajax/player/update', {
             method: "POST",
             headers: {
