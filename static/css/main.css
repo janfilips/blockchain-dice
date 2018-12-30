@@ -645,6 +645,10 @@ table{
     animation: pulse 1.5s infinite;
 }
 
+.bet_area .selected .dot{
+    background-color: #AF1E2D;
+}
+
 #error-message{
     color: red !important;
     position: absolute;
