@@ -25,10 +25,10 @@ def random_int(a, b=None):
         a, b = 0, a
     return random.randint(a, b)
 
+
 @register.filter(name="to_wei")
 def to_wei(value):
     return w3.toWei(value,'ether')
-
 
 @register.filter(name="get_list_len_from_string")
 def get_list_len_from_string(input_string):

@@ -22,6 +22,10 @@
           <br/>
         </p>
     </div><!-- game title END -->
+    <br/>
+        debug<br/>
+        {{player_session_key}}<br/>
+        {{tmp_wallet}}
     <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!</button>
     <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
     <button id='play_again_button' class="btn btn-5" onclick="playAgain()">Play again!</button>
@@ -415,7 +419,7 @@
         web3.eth.getAccounts(function(error, accounts) {
           var formData = new FormData();
           formData.append("wallet", accounts[0]);
-          formData.append('player_session_id', '{{player_session_id}}');
+          formData.append('player_session_key', '{{player_session_key}}');
           fetch('/ajax/player/update', {
             method: "POST",
             headers: {

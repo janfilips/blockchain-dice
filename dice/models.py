@@ -7,8 +7,8 @@ from django.contrib.auth import get_user_model
 
 
 class Players(models.Model):
-    player = models.CharField(max_length=42)
-    session_id = models.CharField(max_length=128)
+    address = models.CharField(max_length=42, default="")
+    session_key = models.CharField(max_length=128)
 
 class Bets(models.Model):
     status = models.BooleanField(default=0)

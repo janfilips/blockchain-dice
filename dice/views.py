@@ -5,6 +5,7 @@ import web3
 import django
 import datetime
 import random
+import uuid
 import time
 
 from web3.auto import w3
@@ -20,31 +21,39 @@ from django.shortcuts import render, redirect, get_object_or_404
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dice.settings")
 django.setup()
 
+from dice.models import Bets
+from dice.models import Players
+
 from web3 import Web3, Account
 from web3.providers.rpc import HTTPProvider
 
 import logging
 logger = logging.getLogger(__name__)
 
-from dice.models import Bets
-
 
 def home(request):
+
+    try:
+        session_key = request.COOKIES["session_key"]
+    except:
+        session_key = uuid.uuid4()
+
+    try:
+        player = Players.objects.get(session_key=session_key)
+        player_session_key = player.session_key
+        tmp_wallet = player.address
+    except Players.DoesNotExist:
+        player_session_key = session_key
+        tmp_wallet = "wallet_not_available"
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
     # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
     #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
-    temp_games = Bets.objects.filter().order_by('-pk')[:100]
-
+    #temp_my_games = Bets.objects.filter().order_by('-pk')[:100]
     # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
-
     # XXX todo potrebujem player wallet info aby som mohol toto spravit....
-    my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
+    #my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
     #my_games = []
-
-
-    # XXX generate and write session ID on the template handle it within cookies
-    player_session_id = "xxx todo"
 
     response = render(
         request=request,
@@ -54,25 +63,17 @@ def home(request):
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
             'games': temp_games,
             'my_games': my_games,
-            'player_session_id': player_session_id,
+            'player_session_key': player_session_key,
+            'tmp_wallet': tmp_wallet,
             },
     )
+    response.set_cookie(key="session_key",value=session_key)
+
     return response
 
 
-def ajax_update_player_wallet(request):
-
-    player_wallet = request.POST.get('wallet')
-    player_session_id = request.POST.get('player_session_id')
-
-    print(request.POST)
-    print('player_wallet', player_wallet)
-    print('player_session_id',  player_session_id)
-
-    return HttpResponse('Ok')
-
-
 def get_game_abi(request):
+
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT_ABI)
 
 
@@ -84,15 +85,6 @@ def get_game_contract(request):
         etherscan_url = "https://etherscan.io/address/"+settings.ETHEREUM_DICE_CONTRACT
 
     return HttpResponseRedirect(etherscan_url)
-
-
-def get_clock(request):
-
-    print('ajax_get_clock')
-
-    now = datetime.datetime.now(tz=timezone.utc).isoformat()
-
-    return JsonResponse({'clock': now})
 
 
 def ajax_bet(request):
@@ -118,9 +110,23 @@ def ajax_bet(request):
     return HttpResponse('Ok')
 
 
+def ajax_update_player_wallet(request):
+
+    player_wallet = request.POST.get('wallet')
+    player_session_key = request.POST.get('player_session_key')
+
+    Players.objects.get_or_create(
+        address = player_wallet,
+        session_key = player_session_key,
+    )
+
+    return HttpResponse('Ok')
+
+
 def ajax_games(request):
     # XXX todo ajax call to list games table
     return JsonResponse([], safe=False)
+
 
 def ajax_my_games(request):
     # XXX todo filter my games
