@@ -141,9 +141,6 @@
             <span id="increase" class="plus" onclick="increaseBid()"></span>
           </div>
         </div>
-        <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
-        <br/>
-        <br/>
       </div>
       <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
       </div>
@@ -215,7 +212,7 @@
 
       function decreaseBid(){
         var n = document.getElementById('bidNumber');
-        var val = Math.max(0, n.valueAsNumber - 0.05).toFixed(2);
+        var val = Math.max(0.01, n.valueAsNumber - 0.05).toFixed(2);
         n.value = val;
       }
 
