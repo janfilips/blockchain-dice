@@ -5,11 +5,6 @@ from django.db import models
 
 from django.contrib.auth import get_user_model
 
-
-class Players(models.Model):
-    player = models.CharField(max_length=42)
-    session_id = models.CharField(max_length=128)
-
 class Bets(models.Model):
     status = models.BooleanField(default=0)
     player = models.CharField(max_length=42)

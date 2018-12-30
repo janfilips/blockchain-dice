@@ -28,18 +28,22 @@ from dice.models import Bets
 
 from web3.auto import w3
 
-
 def home(request):
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
+    # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
     #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
-    temp_games = Bets.objects.filter().order_by('-pk')[:300]
+    temp_games = Bets.objects.filter().order_by('-pk')[:100]
 
     # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
 
     # XXX todo potrebujem player wallet info aby som mohol toto spravit....
     my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
     #my_games = []
+
+
+    # XXX generate and write session ID on the template handle it within cookies
+    session_id = "xxx todo"
 
     response = render(
         request=request,
@@ -49,20 +53,20 @@ def home(request):
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
             'games': temp_games,
             'my_games': my_games,
+            'session_id': session_id,
             },
     )
-
     return response
 
+
 def ajax_update_player_wallet(request):
-    # xxx todo mozno prepojit to s django sessions a tak....
 
+    player_wallet = request.POST.get('wallet')
 
-    
-    return HttpResponse("xxx working on this currently")
+    return HttpResponse('Ok')
+
 
 def get_game_abi(request):
-
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT_ABI)
 
 
@@ -104,11 +108,6 @@ def ajax_bet(request):
         amount = bet_amount,
         numbers = str(bet_numbers),
     )
-    print('ajax_bet')
-    print('player_wallet', player_wallet)
-    print('bet_tx_hash', bet_tx_hash)
-    print('bet_amount', bet_amount)
-    print('bet_numbers', bet_numbers)
 
     return HttpResponse('Ok')
 
@@ -117,6 +116,7 @@ def ajax_games(request):
     #bets = Bets.objects.filter(blah=mwah).order_by('-pk')[:250]
     #return JsonResponse(bets, safe=False)
     return JsonResponse([], safe=False)
+
 
 def ajax_my_games(request):
     # XXX todo filter my games
