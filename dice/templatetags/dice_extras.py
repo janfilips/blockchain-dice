@@ -34,7 +34,7 @@ def to_wei(value):
 def get_list_len_from_string(input_string):
     return len(json.loads(input_string))
 
-@register.filter(name="get_list_len_from_string")
+@register.filter(name="get_list_from_string")
 def get_list_from_string(input_string):
     return json.loads(input_string)
 
