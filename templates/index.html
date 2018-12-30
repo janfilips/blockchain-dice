@@ -8,7 +8,7 @@
     </script>
   </head>
   <body>
-    <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!!!</button>
+    <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!</button>
     <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
     <button id='play_again_button' class="btn btn-5" onclick="playAgain()">Play again!</button>
   <div id="wrapper">
@@ -62,10 +62,10 @@
   <div id="txInfo"></div>
   <div id="error-overlay">
       <div class="modal_content">
-          <h2>Wanna play?</h2>
+          <h2>Metamask</h2>
           <div id="popup-error-message"></div>
           <img id="popup-error-image"><img>
-          <button class="btn btn-5" onclick="hideErrorPopup()">OK!</button>
+          <button class="btn btn-5" onclick="hideErrorPopup()">OK</button>
       </div>
   </div>
   <div id="overlay">
@@ -153,17 +153,23 @@
       }
       var metamaskErrors = {
         missing: {
-          message: '<div>You need to install <a href=“https://metmask.io“>MetaMask </a> first</a></div>',
-          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
+          title: 'Install Metamask',
+          message: '<div>xxx-move-picture-above<br/>You need to install Metamask to be able to play.<br/>Metamask is an Ethereum Wallet extension for your browser.</a></div>',
+          image: '/static/images/metamask.png',
+          popupWidth: -1
         },
         notLoggedIn: {
-          message: '<div>You need to log in to <a href=“https://metmask.io“>MetaMask </a> first</a></div>',
-          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
+          title: 'Metamask',
+          message: '<div>Your Metamask is Locked.<br/>xxx-todo-move-picture-here<br/>Simply open Metamask and follow the instructions to unlock it.</div>',
+          image: '/static/images/metamask.png',
+          popupWidth: -1
         },
         wrongNetwork: {
-          message: '<div>You need to be on right network</div>',
-          image: 'https://i.kym-cdn.com/entries/icons/facebook/000/000/913/Error_Message_Icon.jpg'
-        },     
+          title: 'Metamask Network',
+          message: "<div>Oops, you're on the wrong network.<br/>xxx-todo-move-picture-here<br/>Simply open Metamask and switch over to Main Ethereum Network.</br></br></div>",
+          image: '/static/images/metamask-main-network.png',
+          popupWidth: -1
+        },
       }
       var startDate = null;
       var diff = null;
@@ -284,6 +290,7 @@
             var txInfo = document.getElementById('txInfo');
             txInfo.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is pending to clear on the network..';
             sendTxData(transactionHash, document.getElementById('bidNumber').valueAsNumber, user_address);
+
             modal.style.opacity = "0";
             modal.style.zIndex = "1";
             diff = Math.floor((new Date() - startDate)/1000);
@@ -369,72 +376,19 @@
       }
       var platform = document.getElementById("platform");
       platform.addEventListener("webkitAnimationEnd", onEnd);
-      platform.addEventListener("animationend", onEnd);  
+      platform.addEventListener("animationend", onEnd);
     </script>
 
 
+<!-- sorry ze som to len takto svacol skusam tabulky krmit data ze co tam mame -->
 
-<!-- sorry za tohle smeti dolu je jenom tabulka -->
+    {% if my_games %}
+        {% include "my-games-table.html" %}
+    {% endif %}
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+    {% include "games-table.html" %}
 
-    <h3>My games</h3>
-    [xxx table also shows win multiplier and potential win amount]<br/>
-    <br/>
-
-    <h3>Games history</h3>
-
-    <table>
-        <tr>
-            <th>created</th>
-            <th>visual</th>
-            <th>numbers</th>
-            <th>w</th>
-            <th>amount</th>
-            <th>wins</th>
-            <th>blocknumber</th>            
-            <th>transaction</th>
-            <th>status</th>
-        </tr>
-        {% for game in games %}
-        <tr>
-            <td>{{game.created|naturaltime}}</td>
-            <td>🎲🎲🎲🎲🎲</td>
-            <td>{{game.numbers}}</td>
-            {% if game.win_number %}
-                <td>{{game.win_number}}</td>
-            {% else %}
-                <td>pending</td>
-            {% endif %}
-            <td>{{game.amount}}</td>
-            {% if game.win_amount %}
-                <td>eth-{{game.win_amount}}</td>
-            {% else %}
-                <td>-</td>
-            {% endif %}
-            {% if game.blocknumber %}
-                <td>#{{game.blocknumber}}</td>
-            {% else %}
-                <td>-</td>
-            {% endif %}
-            <td><a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">{{game.tx_hash}}</a></td>
-            {% if game.status %}
-                <td>confirmed</td>
-            {% else %}
-                <td>slow network</td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
+    {% include "footer.html" %}
 
   </body>
 </html>

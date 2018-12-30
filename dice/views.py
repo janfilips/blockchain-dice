@@ -29,13 +29,47 @@ from dice.models import Bets
 from web3.auto import w3
 
 
+def home(request):
+
+    # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
+    #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
+    temp_games = Bets.objects.filter().order_by('-pk')[:300]
+
+    # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
+
+    # XXX todo potrebujem player wallet info aby som mohol toto spravit....
+    my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
+    #my_games = []
+
+    response = render(
+        request=request,
+        template_name='index.html',
+        context={
+            'contract': settings.ETHEREUM_DICE_CONTRACT,
+            'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
+            'games': temp_games,
+            'my_games': my_games,
+            },
+    )
+
+    return response
+
+def ajax_update_player_wallet(request):
+    return HttpResponse("xxx working on this currently")
+
 def get_game_abi(request):
 
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT_ABI)
 
+
 def get_game_contract(request):
 
-    return HttpResponse(settings.ETHEREUM_DICE_CONTRACT)
+    if('ropsten' in settings.ETHEREUM_PROVIDER_HOST):
+        etherscan_url = "https://ropsten.etherscan.io/address/"+settings.ETHEREUM_DICE_CONTRACT
+    else:
+        etherscan_url = "https://etherscan.io/address/"+settings.ETHEREUM_DICE_CONTRACT
+
+    return HttpResponseRedirect(etherscan_url)
 
 
 def get_clock(request):
@@ -75,31 +109,12 @@ def ajax_bet(request):
     return HttpResponse('Ok')
 
 
+def ajax_games(request):
+    #bets = Bets.objects.filter(blah=mwah).order_by('-pk')[:250]
+    #return JsonResponse(bets, safe=False)
+    return JsonResponse([], safe=False)
+
 def ajax_my_games(request):
     # XXX todo filter my games
-    return HttpResponse('xxx todo filter my games')
+    return JsonResponse([], safe=False)
 
-def ajax_games(request):
-    bets = Bets.objects.all().order_by('-pk')[:100]
-    return JsonResponse(bets, safe=False)
-
-
-def home(request):
-
-    # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
-    #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
-    temp_games = Bets.objects.filter().order_by('-pk')[:100]
-
-    # XXX TODO my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
-
-    response = render(
-        request=request,
-        template_name='index.html',
-        context={
-            'contract': settings.ETHEREUM_DICE_CONTRACT,
-            'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
-            'games': temp_games,
-            },
-    )
-
-    return response
