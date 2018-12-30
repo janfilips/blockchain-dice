@@ -31,8 +31,9 @@ from web3.auto import w3
 def home(request):
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
+    # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
     #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
-    temp_games = Bets.objects.filter().order_by('-pk')[:300]
+    temp_games = Bets.objects.filter().order_by('-pk')[:100]
 
     # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
 
