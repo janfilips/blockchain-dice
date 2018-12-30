@@ -456,7 +456,7 @@ table{
 }
 .main-header span {
     font-size: 1.6rem;
-    color: #999;
+    color: rgb(249, 243, 246);
     text-transform: uppercase;
     letter-spacing: 0.2rem;
 }
