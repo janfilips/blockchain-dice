@@ -123,12 +123,13 @@ def ajax_update_player_wallet(request):
     return HttpResponse('Ok')
 
 
-def ajax_games(request):
-    # XXX todo ajax call to list games table
-    return JsonResponse([], safe=False)
-
 
 def ajax_my_games(request):
     # XXX todo filter my games
     return JsonResponse([], safe=False)
+
+def ajax_all_games(request):
+    # XXX todo ajax call to list games table
+    return JsonResponse([], safe=False)
+
 

@@ -3,7 +3,7 @@ from django.conf.urls import url
 
 from django.urls import path
 from dice.views import ajax_update_player_wallet
-from dice.views import home, ajax_bet, ajax_my_games, ajax_games
+from dice.views import home, ajax_bet, ajax_my_games, ajax_all_games
 from dice.views import get_game_abi, get_game_contract
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^$', home, name='home'),
     # ajax
     url(r'^ajax/bet$', ajax_bet, name='ajax_bet'),
-    url(r'^ajax/tabulky/games/all$', ajax_games, name='ajax_games'),
+    url(r'^ajax/tabulky/games/all$', ajax_all_games, name='ajax_all_games'),
     url(r'^ajax/tabulky/games/mine$', ajax_my_games, name='ajax_my_games'),    
     url(r'^ajax/player/update', ajax_update_player_wallet, name='ajax_update_player_wallet'),
     # bytecode, abi, clock
