@@ -40,8 +40,6 @@ def home(request):
     except:
         session_key = uuid.uuid4()
 
-    print('session_key', session_key)
-
     try:
         player = Players.objects.get(session_key=session_key)
         player_session_key = player.session_key
@@ -51,11 +49,11 @@ def home(request):
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
     # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
-    games = Bets.objects.filter().order_by('-pk')[:100]
-    my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')[:100]
     # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
     # XXX todo potrebujem player wallet info aby som mohol toto spravit....
-    #my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
+    # XXX this down here with games list is only temporarily and it will be removed....
+    games = Bets.objects.filter().order_by('-pk')[:100]
+    my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')[:100]
     #my_games = []
 
     response = render(
