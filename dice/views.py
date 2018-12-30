@@ -63,7 +63,7 @@ def ajax_update_player_wallet(request):
 
     player_wallet = request.POST.get('wallet')
 
-    return HttpResponse(s.session_key)
+    return HttpResponse('Ok')
 
 
 def get_game_abi(request):
