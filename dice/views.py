@@ -37,6 +37,7 @@ def home(request):
 
     # XXX todo potrebujem player wallet info aby som mohol toto spravit....
     #my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
+    temp_my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
 
     response = render(
         request=request,
