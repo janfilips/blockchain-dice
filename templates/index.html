@@ -124,8 +124,8 @@
           </div>
         </div>
       </div>
-      <div id="amount_area" class="amount_area area_hidden">
-        <div class="flex">
+      <div id="amount_area" class="amount_area">
+        <div id="bid-area" class="flex bid-area area_hidden">
           <div class="pays">
             <h3>Winning Bid Pays</h3>
             <div class="flex flex-center">
@@ -141,8 +141,8 @@
             <span id="increase" class="plus" onclick="increaseBid()"></span>
           </div>
         </div>
+        <button id='bet_button' class="btn btn-5 modal-btn" onclick="completeBet()">Let's go!</button>
       </div>
-      <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
       </div>
     </div>
    </div>
@@ -224,7 +224,7 @@
 
       function selectBet(e, choice){
         if(document.getElementById("overlay").style.opacity == 1){
-          if(e.classList.contains('disabledVal')) return;
+          if(e && e.classList.contains('disabledVal')) return;
           choiced = translator[choice];
           var i = choicedVals.indexOf(choice);
           var side = document.querySelectorAll(".bet_area .side." + choiced)
@@ -235,11 +235,11 @@
             side[0].classList.add('selected');
             choicedVals.push(choice)
           }
-          if(choicedVals.length <= 0){
-            document.getElementById("bet_button").disabled = true;
-          } else{
-            document.getElementById("bet_button").disabled = false;
-          }
+          // if(choicedVals.length <= 0){
+          //   document.getElementById("bet_button").disabled = true;
+          // } else{
+          //   document.getElementById("bet_button").disabled = false;
+          // }
           if(choicedVals.length === 5){
             var notDisabled = document.querySelectorAll(".bet_area .side:not(.selected)")
             notDisabled[0].classList.add('disabledVal');
@@ -248,16 +248,16 @@
             var disabled = document.querySelectorAll(".bet_area .side.disabledVal");
             if(disabled[0]) disabled[0].classList.remove('disabledVal');
           }
-          var amountArea = document.getElementById('amount_area');
+          var bidArea = document.getElementById('bid-area');
           var bidPays = document.getElementById('bid-pays');
           bidPays.innerText = winMultiplication[choicedVals.length];
           if(choicedVals.length === 0){
             bidPays.classList.add('darker');
-            amountArea.classList.add('area_hidden');
+            bidArea.classList.add('area_hidden');
           }
           else{
             bidPays.classList.remove('darker');
-            amountArea.classList.remove('area_hidden');
+            bidArea.classList.remove('area_hidden');
 
           }
         }
@@ -288,6 +288,11 @@
       }
   
       function completeBet(){
+
+        if(choicedVals.length === 0){
+          selectBet(null, Math.floor(Math.random() * 6) + 1);
+          return;
+        }
         var modal = document.getElementById("overlay");
         if(diff === null){
           if(!checkMetamask()) return;          
@@ -295,7 +300,6 @@
           var contractAbi = web3.eth.contract(abi);
           var myContract = contractAbi.at(settingsContractAddress);
           var getData = myContract.rollDice.getData(choicedVals);
-          debugger;
           web3.eth.sendTransaction({
             to: settingsContractAddress,
             from: user_address,
@@ -306,10 +310,8 @@
               console.log('There was a problem!: ' + err.message);
               return;
             }
-            var txInfo = document.getElementById('txInfo');
-            txInfo.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is pending to clear on the network..';
             sendTxData(transactionHash, document.getElementById('bidNumber').valueAsNumber, user_address);
-
+            appendNotification(transactionHash);
             modal.style.opacity = "0";
             modal.style.zIndex = "1";
             diff = Math.floor((new Date() - startDate)/1000);
@@ -326,6 +328,7 @@
         formData.append("wallet", wallet);
         formData.append("value", txHash);
         formData.append("amount", amount);
+        formData.append('session_id', '{{session_id}}')
         choicedVals.forEach(function(v){
           formData.append('numbers[]', v);
         });
@@ -336,6 +339,13 @@
           },
           body: formData
         })
+      }
+
+      function appendNotification(transactionHash){
+        var txInfo = document.getElementById('txInfo');
+        var node = document.createElement('div');
+        node.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is pending to clear on the network..';
+        txInfo.appendChild(node);
       }
 
       function playAgain(){
@@ -356,7 +366,7 @@
         bidPays.classList.add('darker');
         bidPays.innerText = "5.89";
         document.getElementById('bidNumber').value = '0.15';
-        document.getElementById("bet_button").disabled = true;
+        // document.getElementById("bet_button").disabled = true;
         document.getElementById('amount_area').classList.add('area_hidden');
         startDate = null;
         diff = null;

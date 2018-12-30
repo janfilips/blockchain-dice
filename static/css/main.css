@@ -471,13 +471,13 @@ table{
     z-index: 2;
 }
 
-.amount_area{
+.bid-area{
     max-height: 100vh;
     overflow: hidden;
     transition: max-height 0.3s linear, padding 0.1s linear;
 }
 
-.amount_area.area_hidden{
+.bid-area.area_hidden{
     max-height: 0;
     padding: 0;
 }
@@ -490,10 +490,10 @@ table{
 }
 .game-title .disclaimer a {
     text-decoration: underline;
-    color: #2573b7;
+    color: rgb(26, 26, 26);
 }
 .game-title .disclaimer a:hover {
-    color: #023770;
+    color: #2573b7;
 }
 
 .dot {
@@ -524,14 +524,6 @@ table{
 }
 .dot.center.dright {
     margin:77px 0 0 134px;
-}
-
-#txInfo{
-    position: fixed;
-    z-index: 20;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .amount {
@@ -583,6 +575,17 @@ table{
     padding: 2rem;
     z-index: 1;
     width: min-content;
+ }
+ #txInfo{
+     position: sticky;
+     top: 80vh;
+ }
+ #txInfo > div{
+     width: 80%;
+     background-color: rgba(255, 232, 23, 0.39);
+     padding: 1rem;
+     margin: 0.5rem auto;
+     border-radius: 10px;
  }
 
  #overlay > .modal_content .bet_area > div{
@@ -703,7 +706,7 @@ table{
 
 .bet_area .selected {
     box-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
-    animation: pulse 1.5s infinite;
+    /* animation: pulse 1.5s infinite; */
 }
 
 .bet_area .selected .dot{
