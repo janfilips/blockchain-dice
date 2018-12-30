@@ -10,7 +10,6 @@
             <th>created</th>
             <th>status</th>
             <th>numbers</th>            
-            <th>block</th>
             <th>transaction</th>
             <th>bet</th>
             <th>amount</th>
@@ -27,7 +26,8 @@
         <tr>
             <td>{{game.created|naturaltime}}</td>
             {% if game.status %}
-                <td>confirmed</td>
+                
+                <td>confirmed (xxx or wins if winning)</td>
             {% else %}
                 <td>slow network</td>
             {% endif %}
@@ -43,11 +43,6 @@
                     🎲
                 {% endfor %}
             </td>
-            {% if game.blocknumber %}
-                <td>#{{game.blocknumber}}</td>
-            {% else %}
-                <td>-</td>
-            {% endif %}
             <td>
                 <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
                     <!-- like a fucking pig -->
