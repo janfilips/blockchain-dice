@@ -44,7 +44,10 @@
             {% endif %}
             <td>
                 <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
-                    {{game.tx_hash|slice:":30"}}
+                    <!-- like a fucking pig -->
+                    <font color="lightgrey">
+                            {{game.tx_hash|slice:":42"}}
+                    </font>
                 </a>
             </td>
             {% if game.win_number %}
