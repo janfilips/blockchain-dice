@@ -9,12 +9,11 @@ from dice.views import get_game_abi, get_game_contract
 urlpatterns = [
     # common views
     url(r'^$', home, name='home'),
+    url(r'^abi$', get_game_abi, name='get_game_abi'),
+    url(r'^contract$', get_game_contract, name='get_game_contract'),
     # ajax
     url(r'^ajax/bet$', ajax_bet, name='ajax_bet'),
     url(r'^ajax/tabulky/games/all$', ajax_all_games, name='ajax_all_games'),
     url(r'^ajax/tabulky/games/mine$', ajax_my_games, name='ajax_my_games'),    
     url(r'^ajax/player/update', ajax_update_player_wallet, name='ajax_update_player_wallet'),
-    # bytecode, abi, clock
-    url(r'^abi$', get_game_abi, name='get_game_abi'),
-    url(r'^contract$', get_game_contract, name='get_game_contract'),
 ]
