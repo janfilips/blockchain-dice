@@ -16,10 +16,11 @@
     </header>
     <div class="game-title"><!-- game title -->
       <p class="disclaimer">
-          Ethereum Dice is a <a href="https://ropsten.etherscan.io/address/{{contract}}" target="_blank">smart-contract-driven</a> dice betting application using Oraclize and <a href="#" target="_blank">Random.org</a>.
+          Ethereum Dice is a <a href="https://ropsten.etherscan.io/address/{{contract}}" target="_blank">smart-contract-driven</a> dice betting application using Oraclize and <a href="http://random.org/" target="_blank">Random.org</a>.
           <br/> 
           It is 100% <a href="https://github.com/jparicka/cryptodice2" target="_blank">open-source</a>, fair play and pure <a href="https://medium.com/@tomroa/the-trust-protocol-how-blockchain-will-change-the-internet-e3c3101561c1" target="_blank">trust in meaning</a>.
-      </p>
+          <br/>
+        </p>
     </div><!-- game title END -->
     <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!</button>
     <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
@@ -140,6 +141,9 @@
             <span id="increase" class="plus" onclick="increaseBid()"></span>
           </div>
         </div>
+        <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
+        <br/>
+        <br/>
       </div>
       <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
       </div>
