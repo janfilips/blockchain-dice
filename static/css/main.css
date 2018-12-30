@@ -469,8 +469,19 @@ table{
     position: absolute;
     width: 100%;
     z-index: 2;
-
 }
+
+.amount_area{
+    max-height: 100vh;
+    overflow: hidden;
+    transition: max-height 0.3s linear, padding 0.1s linear;
+}
+
+.amount_area.area_hidden{
+    max-height: 0;
+    padding: 0;
+}
+
 .game-title .disclaimer {
     text-align: center;
     font-size: 1.4rem;
