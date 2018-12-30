@@ -35,7 +35,8 @@ def home(request):
     #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
     temp_games = Bets.objects.filter().order_by('-pk')[:300]
 
-    # XXX TODO my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
+    # XXX todo potrebujem player wallet info aby som mohol toto spravit....
+    #my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
 
     response = render(
         request=request,
@@ -44,6 +45,7 @@ def home(request):
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
             'games': temp_games,
+            'my_games': temp_my_games,
             },
     )
 
