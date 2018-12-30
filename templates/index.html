@@ -346,7 +346,7 @@
       function appendNotification(transactionHash){
         var txInfo = document.getElementById('txInfo');
         var node = document.createElement('div');
-        node.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was recorded on the network and is waiting to be processed..';
+        node.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was recorded on the network and is waiting to get processed..';
         txInfo.appendChild(node);
       }
 
