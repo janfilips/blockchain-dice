@@ -33,10 +33,14 @@ logger = logging.getLogger(__name__)
 
 def home(request):
 
+    player_wallet = None
+
     try:
         session_key = request.COOKIES["session_key"]
     except:
         session_key = uuid.uuid4()
+
+    print('session_key', session_key)
 
     try:
         player = Players.objects.get(session_key=session_key)
@@ -44,7 +48,6 @@ def home(request):
         player_wallet = player.address
     except Players.DoesNotExist:
         player_session_key = session_key
-        player_wallet = "n/a"
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
     # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
@@ -115,10 +118,10 @@ def ajax_update_player_wallet(request):
     player_wallet = request.POST.get('wallet')
     player_session_key = request.POST.get('player_session_key')
 
-    Players.objects.get_or_create(
-        address = player_wallet,
-        session_key = player_session_key,
-    )
+    Players.objects.get_or_create(session_key=player_session_key)
+    player = Players.objects.get(session_key=session_key)
+    player.address = player_wallet
+    player.save()
 
     return HttpResponse('Ok')
 
