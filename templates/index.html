@@ -70,49 +70,66 @@
   </div>
   <div id="overlay">
     <div class="modal_content">
-        <h1>What are your lucky numbers?</h1>
-        <div id="error-message"></div>
-        <div class="bet_area">
-          <div>
-            <div onClick="selectBet(this, 1)" class="side front one">
-              <div class="dot center"></div>
-            </div>
-            <div onClick="selectBet(this, 2)" class="side top two">
-              <div class="dot dtop dleft"></div>
-              <div class="dot dbottom dright"></div>
-            </div>
-            <div onClick="selectBet(this, 3)" class="side right three">
-              <div class="dot dtop dleft"></div>
-              <div class="dot center"></div>
-              <div class="dot dbottom dright"></div>
+      <h1>What are your lucky numbers?</h1>
+      <div class="bet_area">
+        <div>
+          <div onClick="selectBet(this, 1)" class="side front one">
+            <div class="dot center"></div>
+          </div>
+          <div onClick="selectBet(this, 2)" class="side top two">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div onClick="selectBet(this, 3)" class="side right three">
+            <div class="dot dtop dleft"></div>
+            <div class="dot center"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+        </div>
+        <div>
+          <div onClick="selectBet(this, 4)" class="side left four">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div onClick="selectBet(this, 5)" class="side bottom five">
+            <div class="dot center"></div>
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div onClick="selectBet(this, 6)" class="side back six">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+            <div class="dot center dleft"></div>
+            <div class="dot center dright"></div>
+          </div>
+        </div>
+      </div>
+      <div class="amount_area">
+        <div class="flex">
+          <div class="pays">
+            <h3>Winning Bid Pays</h3>
+            <div class="flex flex-center">
+              <span class="amount-before icon"></span>
+              <span id="bid-pays" class="amount darker">5.89</span>
+              <span class="amount-after icon"></span>
             </div>
           </div>
-          <div>
-            <div onClick="selectBet(this, 4)" class="side left four">
-              <div class="dot dtop dleft"></div>
-              <div class="dot dtop dright"></div>
-              <div class="dot dbottom dleft"></div>
-              <div class="dot dbottom dright"></div>
-            </div>
-            <div onClick="selectBet(this, 5)" class="side bottom five">
-              <div class="dot center"></div>
-              <div class="dot dtop dleft"></div>
-              <div class="dot dtop dright"></div>
-              <div class="dot dbottom dleft"></div>
-              <div class="dot dbottom dright"></div>
-            </div>
-            <div onClick="selectBet(this, 6)" class="side back six">
-              <div class="dot dtop dleft"></div>
-              <div class="dot dtop dright"></div>
-              <div class="dot dbottom dleft"></div>
-              <div class="dot dbottom dright"></div>
-              <div class="dot center dleft"></div>
-              <div class="dot center dright"></div>
-            </div>
+          <div class="your-bid">
+            <h3>Place Your Bet</h3>
+            <span id="decrease" class="minus" onclick="decreaseBid()"></span>
+            <input id="bidNumber" class="bid-amount" type="number" value="0.15">
+            <span id="increase" class="plus" onclick="increaseBid()"></span>
           </div>
         </div>
         <button id='bet_button' class="btn btn-5 modal-btn" disabled onclick="completeBet()">Let's go!</button>
-        </div>
+      </div>
+      </div>
     </div>
    </div>
   <script>
@@ -125,6 +142,14 @@
         4: 'four',
         5: 'five',
         6: 'six',
+      }
+      var winMultiplication = {
+        0: 5.89,
+        1: 5.89,
+        2: 2.93,
+        3: 1.95,
+        4: 1.42,
+        5: 1.07
       }
       var metamaskErrors = {
         missing: {
@@ -164,19 +189,32 @@
           el = document.getElementById("overlay");
           if(el.style.opacity == 0 && !popupOpened){
             el.style.opacity = "1";
+            el.style.zIndex = "100";
             stopButton.style.top = "-5rem";
             popupOpened = true;
           }
         }, 30000)
       }
-      
+
+      function decreaseBid(){
+        var n = document.getElementById('bidNumber');
+        var val = Math.max(0, n.valueAsNumber - 0.05).toFixed(2);
+        n.value = val;
+      }
+
+      function increaseBid(){
+        var n = document.getElementById('bidNumber');
+        var val = Math.min(10, n.valueAsNumber + 0.05).toFixed(2);
+        n.value = val;
+      }
+
       function selectBet(e, choice){
         if(document.getElementById("overlay").style.opacity == 1){
           if(e.classList.contains('disabledVal')) return;
           choiced = translator[choice];
           var i = choicedVals.indexOf(choice);
           var side = document.querySelectorAll(".bet_area .side." + choiced)
-          if(i >= 0){ //found
+          if(i >= 0){
             side[0].classList.remove('selected');
             choicedVals = choicedVals.filter(function(o){ return o !== choice});
           } else{
@@ -195,6 +233,14 @@
           else{
             var disabled = document.querySelectorAll(".bet_area .side.disabledVal");
             if(disabled[0]) disabled[0].classList.remove('disabledVal');
+          }
+          var bidPays = document.getElementById('bid-pays');
+          bidPays.innerText = winMultiplication[choicedVals.length];
+          if(choicedVals.length === 0){
+            bidPays.classList.add('darker');
+          }
+          else{
+            bidPays.classList.remove('darker');
           }
         }
       }
@@ -234,7 +280,7 @@
           web3.eth.sendTransaction({
             to: settingsContractAddress,
             from: user_address,
-            value: web3.toWei('0.0666', 'ether'),
+            value: web3.toWei(document.getElementById('bidNumber').value, 'ether'),
             data: getData
           }, function (err, transactionHash) {
             if (err){
@@ -242,9 +288,11 @@
               return;
             }
             var txInfo = document.getElementById('txInfo');
-            txInfo.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is waiting to clear on the network..';
-            sendTxData(transactionHash, 0.0666, user_address);
+            txInfo.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is pending to clear on the network..';
+            sendTxData(transactionHash, document.getElementById('bidNumber').valueAsNumber, user_address);
+
             modal.style.opacity = "0";
+            modal.style.zIndex = "1";
             diff = Math.floor((new Date() - startDate)/1000);
             var platform = document.getElementById('platform');
             var dice = document.getElementById('dice');

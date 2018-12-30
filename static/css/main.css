@@ -350,6 +350,10 @@ table{
     box-shadow:inset 0 0 40px #ccc;
     border-radius: 40px;
 }
+
+.darker{
+    filter: saturate(0.4);
+}
 #dice .cover, #dice .inner {
     background: #e0e0e0;
     box-shadow: none;
@@ -469,6 +473,32 @@ table{
     transform: translateX(-50%);
 }
 
+.amount {
+    font-size: 2.3rem;
+    color: #AF1E2D;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.pays .amount-before {
+    margin-right: 0.6rem;
+    background: url('../images/eth-bag.svg') no-repeat;
+    background-size: 2.3rem 2.3rem;
+    height: 2.3rem;
+    width: 2.3rem;
+}
+
+.pays .amount-after {
+    margin-left: 0.4rem;
+    background: url('../images/amount-plus.svg') no-repeat;
+    background-size: 1.6rem 1.6rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    position: relative;
+    top: 0.6rem;
+}
+
+
 #overlay, #error-overlay {
     opacity: 0;
     transition: 0.5s;
@@ -541,12 +571,65 @@ table{
 	}
 }
 
-.bet_area{
-    padding-top: 1rem;
-}
-
 .bet_area .side{
     transition: 0.3s;
+}
+
+.your-bid input {
+    height: 1.6rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 5rem;
+    background: #fff;
+    text-align: center;
+    border: solid 1px #979797;
+    color: #4A4A4A;
+    outline: none;
+    display: inline-block;
+    font-weight: bold;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.your-bid span {
+    width: 1.6rem;
+    height: 1.6rem;
+    vertical-align: middle;
+    margin: 0 0.5rem;
+    display: inline-block;
+    background-position: center;
+}
+
+.your-bid span:hover{
+    filter: brightness(200);
+}
+
+.your-bid span.minus {
+    background: url('../images/minus.svg') no-repeat;
+    background-position: center;
+}
+
+.your-bid span.plus {
+    background: url('../images/plus.svg') no-repeat;
+    background-position: center;
+}
+
+.flex{
+    display: flex;
+}
+
+.flex-center{
+    justify-content: center;
+}
+
+.amount_area .flex > div{
+    width: 50%;
+}
+
+.amount_area{
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    border-radius: 10px;
 }
 
 .bet_area .side.disabledVal{
@@ -643,4 +726,13 @@ table{
     100% {
         background:#444
     }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }
