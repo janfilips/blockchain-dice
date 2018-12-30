@@ -1296,8 +1296,6 @@ END ORACLIZE_API
 
 */
 
-
-
 contract Dice is usingOraclize {
 
     uint minimumBet;
@@ -1481,7 +1479,6 @@ contract Dice is usingOraclize {
 
     }
     
-    
     function payRoyalty()
         public
         payable
@@ -1489,7 +1486,6 @@ contract Dice is usingOraclize {
     {
 
         // It costs $0.01 for each and every query to random.org, there is a cost associated cost to this service.
-
         uint royalty = address(this).balance/2;
 
         address payable trustedParty1 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
@@ -1499,7 +1495,6 @@ contract Dice is usingOraclize {
 
         return (true);
     }
-
 
     function gameStatus(bytes32 oraclizeQueryId)
         public
@@ -1516,7 +1511,6 @@ contract Dice is usingOraclize {
 
         return (status, player, betNumbers, winningNumber, betAmount, winAmount);
     }
-
 
     function getBlockTimestamp()
         public
