@@ -456,7 +456,7 @@ table{
 }
 .main-header span {
     font-size: 1.6rem;
-    color: #999;
+    color: rgb(249, 243, 246);
     text-transform: uppercase;
     letter-spacing: 0.2rem;
 }
@@ -486,7 +486,7 @@ table{
     text-align: center;
     font-size: 1.4rem;
     line-height: 1.6;
-    color: rgb(26, 26, 26);
+    color: rgb(200, 230, 255);
 }
 .game-title .disclaimer a {
     text-decoration: underline;
