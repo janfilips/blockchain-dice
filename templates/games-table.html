@@ -1,4 +1,5 @@
 {% load humanize %}
+{% load dice_extras %}
 
 <section>
 <h1>Games History</h1>
@@ -31,7 +32,9 @@
             {% else %}
                 <td>slow network</td>
             {% endif %}
-            <td>🎲🎲🎲🎲🎲</td>
+            <td>
+                {{game.numbers|get_list_len_from_string}}x 🎲🎲🎲🎲🎲
+            </td>
             {% if game.blocknumber %}
                 <td>#{{game.blocknumber}}</td>
             {% else %}
