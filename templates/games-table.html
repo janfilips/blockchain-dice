@@ -11,7 +11,6 @@
             <th>status</th>
             <th>numbers</th>            
             <th>block</th>
-            <th>player</th>
             <th>transaction</th>
             <th></th>
             <th>bet</th>
@@ -43,7 +42,6 @@
             {% else %}
                 <td>-</td>
             {% endif %}
-            <td>playerplayerplayerplayerpl..</td>
             <td>
                 <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
                     {{game.tx_hash|slice:":30"}}
