@@ -29,7 +29,6 @@ from dice.models import Bets
 from web3.auto import w3
 
 
-
 def home(request):
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
@@ -102,11 +101,12 @@ def ajax_bet(request):
     return HttpResponse('Ok')
 
 
+def ajax_games(request):
+    #bets = Bets.objects.filter(blah=mwah).order_by('-pk')[:250]
+    #return JsonResponse(bets, safe=False)
+    return JsonResponse([], safe=False)
+
 def ajax_my_games(request):
     # XXX todo filter my games
-    return HttpResponse('xxx todo filter my games')
-
-def ajax_games(request):
-    bets = Bets.objects.all().order_by('-pk')[:100]
-    return JsonResponse(bets, safe=False)
+    return JsonResponse([], safe=False)
 
