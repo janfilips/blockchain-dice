@@ -12,7 +12,6 @@
             <th>numbers</th>            
             <th>block</th>
             <th>transaction</th>
-            <th></th>
             <th>bet</th>
             <th>amount</th>
             <th>wins</th>
@@ -33,6 +32,13 @@
                 <td>slow network</td>
             {% endif %}
             <td>
+                {% if game.win_number %}
+                    {{game.win_number}}
+                {% else %}
+                    ?
+                {% endif %}
+                &nbsp;
+                &nbsp;    
                 {% for number in game.numbers|get_list_from_string %}
                     🎲
                 {% endfor %}
@@ -50,11 +56,6 @@
                     </font>
                 </a>
             </td>
-            {% if game.win_number %}
-                <td>{{game.win_number}}</td>
-            {% else %}
-                <td></td>
-            {% endif %}
             <td>{{game.numbers}}</td>
             <td>{{game.amount}}</td>
             {% if game.win_amount %}
