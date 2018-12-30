@@ -334,7 +334,9 @@
 
 <!-- sorry ze som to len takto svacol skusam tabulky krmit data ze co tam mame -->
 
-    {% include "my-games-table.html" %}
+    {% if my_games %}
+        {% include "my-games-table.html" %}
+    {% endif %}
 
     {% include "games-table.html" %}
 

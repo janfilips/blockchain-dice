@@ -36,8 +36,8 @@ def home(request):
     temp_games = Bets.objects.filter().order_by('-pk')[:300]
 
     # XXX todo potrebujem player wallet info aby som mohol toto spravit....
-    #my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')
-    temp_my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
+    #my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
+    my_games = []
 
     response = render(
         request=request,
@@ -46,11 +46,14 @@ def home(request):
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
             'games': temp_games,
-            'my_games': temp_my_games,
+            'my_games': my_games,
             },
     )
 
     return response
+
+def ajax_update_player_wallet(request):
+    return HttpResponse("xxx working on this currently")
 
 def get_game_abi(request):
 

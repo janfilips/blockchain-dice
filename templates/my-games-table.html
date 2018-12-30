@@ -1,12 +1,72 @@
+{% load humanize %}
+{% load dice_extras %}
 
 <section>
+<h1>My Games</h1>
+<div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+    <thead>
+        <tr>
+            <th>created</th>
+            <th>status</th>
+            <th>numbers</th>            
+            <th>block</th>
+            <th>transaction</th>
+            <th>bet</th>
+            <th>amount</th>
+            <th>wins</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+    <tbody>
 
-    <h3>Your games</h3>
-    <br/>
-    {% for game in my_games %}
-        {{game}}<br/>
-    {% endfor %}
+        {% for game in my_games %}
+        <tr>
+            <td>{{game.created|naturaltime}}</td>
+            {% if game.status %}
+                <td>confirmed</td>
+            {% else %}
+                <td>slow network</td>
+            {% endif %}
+            <td>
+                {% if game.win_number %}
+                    {{game.win_number}}
+                {% else %}
+                    ?
+                {% endif %}
+                &nbsp;
+                &nbsp;    
+                {% for number in game.numbers|get_list_from_string %}
+                    🎲
+                {% endfor %}
+            </td>
+            {% if game.blocknumber %}
+                <td>#{{game.blocknumber}}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+            <td>
+                <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
+                    <!-- like a fucking pig -->
+                    <font color="lightgrey">
+                            {{game.tx_hash|slice:":35"}}
+                    </font>
+                </a>
+            </td>
+            <td>{{game.numbers}}</td>
+            <td>{{game.amount}}</td>
+            {% if game.win_amount %}
+                <td>{{game.win_amount}}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
 
-
+    </tbody>
+    </table>
+</div>
 </section>
-

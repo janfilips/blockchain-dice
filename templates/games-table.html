@@ -2,7 +2,17 @@
 {% load dice_extras %}
 
 <section>
-<h1>Games History</h1>
+
+    {% if my_games %}
+
+        <h1>All Games</h1>
+
+    {% else %}
+
+        <h1>Games History</h1>
+
+    {% endif %}
+
 <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
     <thead>
