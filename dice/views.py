@@ -35,6 +35,8 @@ def home(request):
     #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
     temp_games = Bets.objects.filter().order_by('-pk')[:300]
 
+    # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
+
     # XXX todo potrebujem player wallet info aby som mohol toto spravit....
     my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
     #my_games = []
