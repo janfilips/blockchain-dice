@@ -41,15 +41,13 @@ def home(request):
     try:
         player = Players.objects.get(session_key=session_key)
         player_session_key = player.session_key
-        tmp_wallet = player.address
     except Players.DoesNotExist:
         player_session_key = session_key
-        tmp_wallet = "wallet_not_available"
 
     # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
     # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
-    #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
-    #temp_my_games = Bets.objects.filter().order_by('-pk')[:100]
+    games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
+    my_games = Bets.objects.filter().order_by('-pk')[:100]
     # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
     # XXX todo potrebujem player wallet info aby som mohol toto spravit....
     #my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
@@ -61,10 +59,9 @@ def home(request):
         context={
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
-            'games': temp_games,
+            'games': games,
             'my_games': my_games,
             'player_session_key': player_session_key,
-            'tmp_wallet': tmp_wallet,
             },
     )
     response.set_cookie(key="session_key",value=session_key)
