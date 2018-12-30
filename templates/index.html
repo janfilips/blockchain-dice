@@ -305,12 +305,12 @@
       function sendTxData(txHash, amount, wallet){
         var formData = new FormData();
         formData.append("wallet", wallet);
-        formData.append("value", txHash);
-        formData.append("amount", amount);
-        choicedVals.forEach(function(v){
-          formData.append('numbers[]', v);
-        });
-        fetch('/ajax/bet', {
+        // formData.append("value", txHash);
+        // formData.append("amount", amount);
+        // choicedVals.forEach(function(v){
+        //   formData.append('numbers[]', v);
+        // });
+        fetch('/ajax/player/update', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           headers: {
             'X-CSRFToken': "{{csrf_token}}"
