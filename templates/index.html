@@ -377,6 +377,21 @@
       var platform = document.getElementById("platform");
       platform.addEventListener("webkitAnimationEnd", onEnd);
       platform.addEventListener("animationend", onEnd);
+
+      window.addEventListener('load', function() {
+        web3.eth.getAccounts(function(error, accounts) {
+          alert(accounts[0]);
+          var formData = new FormData();
+          formData.append("wallet", accounts[0]);
+          fetch('/ajax/player/update', {
+            method: "POST",
+            headers: {
+              'X-CSRFToken': "{{csrf_token}}"
+            },
+            body: formData
+          })
+        });
+      });
     </script>
 
 
