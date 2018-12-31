@@ -123,11 +123,12 @@ def ajax_update_player_wallet(request):
 
 
 def ajax_my_games_html_tabulka(request):
-    # XXX todo filter my games
+    # XXX TODO filter my games
+    # XXX TODO get rid off results older than 1 day from my_games..
     return JsonResponse([], safe=False)
 
 def ajax_all_games_html_tabulka(request):
-    # XXX todo ajax call to list games table
+    # XXX TODO ajax call to list games table
     # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
     # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
     return JsonResponse([], safe=False)
