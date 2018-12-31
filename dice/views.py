@@ -50,6 +50,7 @@ def home(request):
     # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
     # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
     games = Bets.objects.filter().order_by('-pk')[:100]
+    # XXX TODO get rid off results older than 1 day from my_games..
     my_games = Bets.objects.filter(player=player_wallet).order_by('-pk')[:100]
 
     response = render(
