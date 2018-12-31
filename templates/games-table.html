@@ -2,19 +2,7 @@
 {% load dice_extras %}
 
 <section>
-
-    {% if my_games %}
-
-        <h1>All Games</h1>
-
-    {% else %}
-
-        <h1>Games History</h1>
-
-    {% endif %}
-
-
-
+<h1>All Games</h1>
 <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
     <thead>
@@ -22,7 +10,6 @@
             <th>created</th>
             <th>status</th>
             <th>numbers</th>            
-            <th>block</th>
             <th>transaction</th>
             <th>bet</th>
             <th>amount</th>
@@ -55,16 +42,11 @@
                     🎲
                 {% endfor %}
             </td>
-            {% if game.blocknumber %}
-                <td>#{{game.blocknumber}}</td>
-            {% else %}
-                <td>-</td>
-            {% endif %}
             <td>
                 <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
                     <!-- like a fucking pig -->
                     <font color="lightgrey">
-                            {{game.tx_hash|slice:":4"}}
+                            {{game.tx_hash|slice:":42"}}
                     </font>
                 </a>
             </td>
