@@ -1,3 +1,4 @@
-### About
+### about
 
-Ethereum Dice is a smart-contract-driven dice betting application using Oraclize and Random.org. 
+cryptodice2.win is an ethereum smart-contract-driven dice betting application using Oraclize and Random.org. 
+
