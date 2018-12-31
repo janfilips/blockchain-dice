@@ -7,13 +7,14 @@
     <table cellpadding="0" cellspacing="0" border="0">
     <thead>
         <tr>
-            <th>created</th>
-            <th>status</th>
-            <th>numbers</th>            
-            <th>transaction</th>
-            <th>bet</th>
-            <th>amount</th>
-            <th>wins</th>
+            <th width="75">created</th>
+            <th width="110">numbers</th>            
+            <th width="255">player</th>
+            <th width="420">transaction</th>
+            <th width="55"></th>
+            <th width="20"></th>
+            <th width="11"></th>
+            <th></th>
         </tr>
         </thead>
     </table>
@@ -24,13 +25,8 @@
 
         {% for game in my_games %}
         <tr>
-            <td>{{game.created|naturaltime}}</td>
-            {% if game.status %}
-                <td>confirmed</td>
-            {% else %}
-                <td>pending</td>
-            {% endif %}
-            <td>
+            <td width="90">{{game.created|naturaltime}}</td>
+            <td width="120">
                 {% if game.win_number %}
                     {{game.win_number}}
                 {% else %}
@@ -42,20 +38,32 @@
                     🎲
                 {% endfor %}
             </td>
-            <td>
-                <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
-                    <!-- like a fucking pig -->
-                    <font color="lightgrey">
-                        {{game.tx_hash}}
+            <td width="265">
+                <a href="http://ropsten.etherscan.io/tx/{{game.player}}" target="_blank">
+                    <!-- font color like a fucking pig -->
+                    <font color="white">
+                        {{game.player}}
                     </font>
                 </a>
             </td>
-            <td>{{game.numbers}}</td>
-            <td>{{game.amount}}</td>
+            <td width="430">
+                <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
+                    <font color="lightgrey">
+                    {{game.tx_hash}}
+                    </font>
+                </a>
+            </td>
+            <td width="70">{{game.numbers}}</td>
+            <td width="20">{{game.amount}}</td>
             {% if game.win_amount %}
-                <td>{{game.win_amount}} Ether</td>
+                <td width="30" style="text-align:center">{{game.win_amount}}</td>
             {% else %}
-                <td>-</td>
+                <td width="30" style="text-align:center">-</td>
+            {% endif %}
+            {% if game.status %}
+                <td width="45">confirmed</td>
+            {% else %}
+                <td width="45">pending</td>
             {% endif %}
         </tr>
         {% endfor %}
