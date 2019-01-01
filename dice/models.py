@@ -24,6 +24,7 @@ class Bets(models.Model):
     created = models.DateTimeField(auto_now=True)
 
 class Events(models.Model):
+    event_type = models.CharField(max_length=32)
     oracle_query_id = models.CharField(max_length=128)
     tx_hash = models.CharField(max_length=128)
     player = models.CharField(max_length=128)
