@@ -50,10 +50,10 @@ def home(request):
 
     # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
     # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
-    games = Bets.objects.filter().order_by('-pk')[:100]
+    games = Bets.objects.filter().order_by('-pk')[:300]
 
     my_games_time_threshold = datetime.datetime.now() - timedelta(hours=24)
-    my_games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')[:100]
+    my_games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')
 
     response = render(
         request=request,
