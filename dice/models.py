@@ -13,6 +13,7 @@ class Players(models.Model):
 class Bets(models.Model):
     status = models.BooleanField(default=0)
     player = models.CharField(max_length=128)
+    win_bet = models.BooleanField(default=0)
     win_number = models.IntegerField(default=0)
     numbers = models.CharField(max_length=128, default="")
     amount = models.FloatField(default=0)
