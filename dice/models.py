@@ -6,7 +6,6 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-
 class Players(models.Model):
     address = models.CharField(max_length=128, default="")
     session_key = models.CharField(max_length=128)
@@ -23,3 +22,12 @@ class Bets(models.Model):
     contract = models.CharField(max_length=128)
     blocknumber = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
+
+class Events(models.Model):
+    oracle_query_id = models.CharField(max_length=128)
+    tx_hash = models.CharField(max_length=128)
+    player = models.CharField(max_length=128)
+    numbers = models.CharField(max_length=128, default="")
+    win_number = models.IntegerField(default=0)
+    amount = models.FloatField(default=0)
+    win_amount = models.FloatField(default=0)
