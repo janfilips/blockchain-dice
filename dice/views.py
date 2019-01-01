@@ -115,8 +115,8 @@ def ajax_update_player_wallet(request):
     player_wallet = request.POST.get('wallet')
     player_session_key = request.POST.get('player_session_key')
 
-    Players.objects.get_or_create(session_key=player_session_key)
-    player = Players.objects.get(session_key=player_session_key)
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    player = player[0]
     player.address = player_wallet
     player.save()
 
