@@ -123,29 +123,12 @@ def ajax_update_player_wallet(request):
     return HttpResponse('Ok')
 
 
-
-def ajax_my_games_json_tabulka(request):
-
-    player_wallet = request.POST.get('wallet')
-    time_threshold = datetime.datetime.now() - timedelta(day=1)
-    my_games = Bets.objects.filter(player=player_wallet,created__gt=time_threshold).order_by('-pk')[:100]
-    
-    return JsonResponse([], safe=False)
-
-
 def ajax_my_games_html_tabulka(request):
 
     player_wallet = request.POST.get('wallet')
     time_threshold = datetime.datetime.now() - timedelta(day=1)
     my_games = Bets.objects.filter(player=player_wallet,created__gt=time_threshold).order_by('-pk')[:100]
-
-    return JsonResponse([], safe=False)
-
-
-def ajax_all_games_json_tabulka(request):
-    # XXX TODO ajax call to list games table
-    # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
-    # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
+    # XXX todo
     return JsonResponse([], safe=False)
 
 def ajax_all_games_html_tabulka(request):
