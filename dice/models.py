@@ -33,5 +33,6 @@ class Events(models.Model):
     win_number = models.IntegerField(default=0)
     amount = models.FloatField(default=0)
     win_amount = models.FloatField(default=0)
-    seen_on_by_player = models.DateTimeField(null=True)
     created = models.DateTimeField(auto_now=True)
+    seen_by_player = models.BooleanField(default=0)
+    seen_on = models.DateTimeField(null=True)

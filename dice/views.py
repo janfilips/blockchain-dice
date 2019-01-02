@@ -126,8 +126,9 @@ def ajax_update_player_wallet(request):
 
 def ajax_notifications(request):
 
-    player_wallet = request.POST.get('wallet')
+    player = request.POST.get('wallet')
 
+    notifications = Events.objects.filer(player=player, )
     # XXX mark off events as seen by user...
 
     return HttpResponse('xxx working on this currently')
