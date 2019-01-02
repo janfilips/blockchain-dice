@@ -77,8 +77,7 @@
   <div id="error-overlay">
       <div class="modal_content">
           <h2>Metamask</h2>
-          <div id="popup-error-message"></div>
-          <img id="popup-error-image"><img>
+          <div id="popup-error-content"></div>
           <button class="btn btn-5" onclick="hideErrorPopup()">OK</button>
       </div>
   </div>
@@ -170,20 +169,17 @@
       var metamaskErrors = {
         missing: {
           title: 'Install Metamask',
-          message: '<div>xxx-move-picture-above<br/>You need to install Metamask to be able to play.<br/>Metamask is an Ethereum Wallet extension for your browser.</a></div>',
-          image: '/static/images/metamask.png',
+          content: '<div><img id=\"popup-error-image\" src=\"/static/images/metamask.png\"></img>You need to install Metamask to be able to play.<br/>Metamask is an Ethereum Wallet extension for your browser.</a></div>',
           popupWidth: -1
         },
         notLoggedIn: {
           title: 'Metamask',
-          message: '<div>Your Metamask is Locked.<br/>xxx-todo-move-picture-here<br/>Simply open Metamask and follow the instructions to unlock it.</div>',
-          image: '/static/images/metamask.png',
+          content: '<div>Your Metamask is Locked.<br/><img id=\"popup-error-image\" src=\"/static/images/metamask.png\"></img><br/>Simply open Metamask and follow the instructions to unlock it.</div>',
           popupWidth: -1
         },
         wrongNetwork: {
           title: 'Metamask Network',
-          message: "<div>Oops, you're on the wrong network.<br/>xxx-todo-move-picture-here<br/>Simply open Metamask and switch over to Main Ethereum Network.</br></br></div>",
-          image: '/static/images/metamask-main-network.png',
+          content: "<div>Oops, you're on the wrong network.<br/><img id=\"popup-error-image\" src=\"/static/images/metamask-main-network.png\"></img><br/>Simply open Metamask and switch over to Main Ethereum Network.</br></br></div>",
           popupWidth: -1
         },
       }
@@ -265,6 +261,7 @@
       }
   
       function checkMetamask(){
+        // return true;
         var error = null;
         if (typeof web3 === 'undefined') {
           error =  'missing';
@@ -281,10 +278,8 @@
         modal.style.zIndex = "100";
         var stopButton = document.getElementById("stop_button");
         stopButton.style.bottom = "-10rem";
-        var message = document.getElementById('popup-error-message');
-        var image = document.getElementById('popup-error-image');
-        message.innerHTML = metamaskErrors[error].message;
-        image.src = metamaskErrors[error].image;
+        var message = document.getElementById('popup-error-content');
+        message.innerHTML = metamaskErrors[error].content;
         return false;
       }
   
