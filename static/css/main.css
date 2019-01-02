@@ -280,8 +280,9 @@ table{
 }
 
 .result .dot{
-    animation: dot-pulse 2s linear infinite;
-    animation-delay: 1s;
+    background: rgba(255, 0, 0, 0.61);
+    /* animation: dot-pulse 2s linear infinite; */
+    /* animation-delay: 1s; */
 }
 
 #platform.pokusAnim > #dice{
