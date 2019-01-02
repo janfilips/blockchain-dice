@@ -23,6 +23,7 @@ django.setup()
 
 from dice.models import Bets
 from dice.models import Players
+from dice.models import Events
 
 from web3 import Web3, Account
 from web3.providers.rpc import HTTPProvider
@@ -124,8 +125,13 @@ def ajax_update_player_wallet(request):
 
 
 def ajax_notifications(request):
+
+    player_wallet = request.POST.get('wallet')
+
+    # XXX mark off events as seen by user...
+
     return HttpResponse('xxx working on this currently')
-    
+
 
 def ajax_my_games_html_tabulka(request):
 
