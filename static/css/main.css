@@ -5,6 +5,7 @@ body {
   font-family:sans-serif;
   color: #fff;
   background: linear-gradient(-45deg, #761E41, #12556D, #126D58);
+  overflow-x: hidden;
   background-size: 200vw 200vw;
   -webkit-animation: Gradient 15s ease infinite;
   -moz-animation: Gradient 15s ease infinite;
