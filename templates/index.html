@@ -260,12 +260,12 @@
           else{
             bidPays.classList.remove('darker');
             bidArea.classList.remove('area_hidden');
-
           }
         }
       }
   
       function checkMetamask(){
+        return true;
         var error = null;
         if (typeof web3 === 'undefined') {
           error =  'missing';
@@ -345,8 +345,15 @@
       function appendNotification(transactionHash){
         var txInfo = document.getElementById('txInfo');
         var node = document.createElement('div');
+        var close = document.createElement('div');
+        close.classList.add('closeNotif');
+        close.innerHTML = 'X';
         node.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..';
+        node.appendChild(close);
         txInfo.appendChild(node);
+        close.onclick = function() {
+          this.parentNode.parentNode.removeChild(this.parentNode);
+        }
       }
 
       function playAgain(){
