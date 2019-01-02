@@ -411,9 +411,31 @@
           playAgainButton.style.bottom = "2rem";          
         }
       }
+
+      function getTables(){
+        var formData = new FormData();
+        formData.append("player_session_id", '{{player_session_id}}');
+        fetch('/ajax/games/mine', {
+            method: "POST",
+            headers: {
+              'X-CSRFToken': "{{csrf_token}}"
+            },
+            body: formData
+          }).then(function (response) {
+            if(!response.ok) return null;
+            return response.text();
+          })
+          .then(function (text) {
+            if(text){
+              document.getElementById("my_games").innerHTML = text;
+            }
+          });
+      }
       var platform = document.getElementById("platform");
       platform.addEventListener("webkitAnimationEnd", onEnd);
       platform.addEventListener("animationend", onEnd);
+
+      setInterval(getTables, 3000);
 
       window.addEventListener('load', function() {
         web3.eth.getAccounts(function(error, accounts) {
