@@ -18,7 +18,7 @@
       <p class="disclaimer">
           Ethereum Dice is a <a href="https://ropsten.etherscan.io/address/{{contract}}" target="_blank">smart-contract-driven</a> dice betting application using Oraclize and <a href="http://random.org/" target="_blank">Random.org</a>.
           <br/> 
-          It is 100% <a href="https://github.com/jparicka/cryptodice2" target="_blank">open-source</a>, fair play and pure <a href="https://medium.com/@tomroa/the-trust-protocol-how-blockchain-will-change-the-internet-e3c3101561c1" target="_blank">trust in meaning</a>.
+          It is 100% <a href="https://github.com/jparicka/cryptodice2.win" target="_blank">open-source</a>, fair play and pure <a href="https://medium.com/@tomroa/the-trust-protocol-how-blockchain-will-change-the-internet-e3c3101561c1" target="_blank">trust in meaning</a>.
           <br/>
         </p>
     </div><!-- game title END -->
@@ -142,6 +142,8 @@
           </div>
         </div>
         <button id='bet_button' class="btn btn-5 modal-btn" onclick="completeBet()">Let's go!</button>
+        <br/>
+        <br/>
       </div>
       </div>
     </div>
@@ -328,7 +330,6 @@
         formData.append("wallet", wallet);
         formData.append("value", txHash);
         formData.append("amount", amount);
-        formData.append('session_id', '{{session_id}}')
         choicedVals.forEach(function(v){
           formData.append('numbers[]', v);
         });
@@ -344,7 +345,7 @@
       function appendNotification(transactionHash){
         var txInfo = document.getElementById('txInfo');
         var node = document.createElement('div');
-        node.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> is pending to clear on the network..';
+        node.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..';
         txInfo.appendChild(node);
       }
 
@@ -416,6 +417,7 @@
         web3.eth.getAccounts(function(error, accounts) {
           var formData = new FormData();
           formData.append("wallet", accounts[0]);
+          formData.append('player_session_key', '{{player_session_key}}');
           fetch('/ajax/player/update', {
             method: "POST",
             headers: {
@@ -431,7 +433,7 @@
 <!-- sorry ze som to len takto svacol skusam tabulky krmit data ze co tam mame -->
 
     {% if my_games %}
-        {% include "my-games-table.html" %}
+        {% include "games-mine-table.html" %}
     {% endif %}
 
     {% include "games-table.html" %}

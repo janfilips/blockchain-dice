@@ -5,7 +5,10 @@ import web3
 import django
 import datetime
 import random
+import uuid
 import time
+
+from web3.auto import w3
 
 from datetime import timedelta
 from django.utils import timezone
@@ -18,32 +21,39 @@ from django.shortcuts import render, redirect, get_object_or_404
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dice.settings")
 django.setup()
 
+from dice.models import Bets
+from dice.models import Players
+
 from web3 import Web3, Account
 from web3.providers.rpc import HTTPProvider
 
 import logging
 logger = logging.getLogger(__name__)
 
-from dice.models import Bets
-
-from web3.auto import w3
 
 def home(request):
 
-    # XXX TODO filter for paired transactions (status=1, tx_hash and player is not empty)
-    # XXX TODO pretriedit transakce aby tie nie-vyherne boli menej frequentne
-    #games = Bets.objects.filter(status=True,).order_by('-pk')[:100]
-    temp_games = Bets.objects.filter().order_by('-pk')[:100]
+    player_wallet = None
 
-    # XXX TODO zredukuj list povuhadzuj z neho len par tych co prehrali.....
+    try:
+        session_key = request.COOKIES["session_key"]
+    except:
+        session_key = uuid.uuid4()
 
-    # XXX todo potrebujem player wallet info aby som mohol toto spravit....
-    my_games = Bets.objects.filter(player="0xeacd131110FA9241dEe05ccf3e3635D12f629A3b".lower()).order_by("-pk")
-    #my_games = []
+    try:
+        player = Players.objects.get(session_key=session_key)
+        player_session_key = player.session_key
+        player_wallet = player.address
+    except Players.DoesNotExist:
+        player_session_key = session_key
 
 
-    # XXX generate and write session ID on the template handle it within cookies
-    session_id = "xxx todo"
+    # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
+    # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
+    games = Bets.objects.filter().order_by('-pk')[:300]
+
+    my_games_time_threshold = datetime.datetime.now() - timedelta(hours=24)
+    my_games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')
 
     response = render(
         request=request,
@@ -51,22 +61,19 @@ def home(request):
         context={
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
-            'games': temp_games,
+            'games': games,
             'my_games': my_games,
-            'session_id': session_id,
+            'player_session_key': player_session_key,
+            'player_wallet': player_wallet,
             },
     )
+    response.set_cookie(key="session_key",value=session_key)
+
     return response
 
 
-def ajax_update_player_wallet(request):
-
-    player_wallet = request.POST.get('wallet')
-
-    return HttpResponse('Ok')
-
-
 def get_game_abi(request):
+
     return HttpResponse(settings.ETHEREUM_DICE_CONTRACT_ABI)
 
 
@@ -78,15 +85,6 @@ def get_game_contract(request):
         etherscan_url = "https://etherscan.io/address/"+settings.ETHEREUM_DICE_CONTRACT
 
     return HttpResponseRedirect(etherscan_url)
-
-
-def get_clock(request):
-
-    print('ajax_get_clock')
-
-    now = datetime.datetime.now(tz=timezone.utc).isoformat()
-
-    return JsonResponse({'clock': now})
 
 
 def ajax_bet(request):
@@ -112,13 +110,31 @@ def ajax_bet(request):
     return HttpResponse('Ok')
 
 
-def ajax_games(request):
-    #bets = Bets.objects.filter(blah=mwah).order_by('-pk')[:250]
-    #return JsonResponse(bets, safe=False)
-    return JsonResponse([], safe=False)
+def ajax_update_player_wallet(request):
+
+    player_wallet = request.POST.get('wallet')
+    player_session_key = request.POST.get('player_session_key')
+
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    player = player[0]
+    player.address = player_wallet
+    player.save()
+
+    return HttpResponse('Ok')
 
 
-def ajax_my_games(request):
-    # XXX todo filter my games
+def ajax_my_games_html_tabulka(request):
+
+    player_wallet = request.POST.get('wallet')
+    time_threshold = datetime.datetime.now() - timedelta(day=1)
+    my_games = Bets.objects.filter(player=player_wallet,created__gt=time_threshold).order_by('-pk')[:100]
+    # XXX todo
     return JsonResponse([], safe=False)
+
+def ajax_all_games_html_tabulka(request):
+    # XXX TODO ajax call to list games table
+    # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
+    # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
+    return JsonResponse([], safe=False)
+
 

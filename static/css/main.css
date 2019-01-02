@@ -48,6 +48,7 @@ table{
     margin: 10px;
   }  
   
+  
   /* footer */
   .made-with-love {
     margin-top: 40px;
@@ -491,10 +492,10 @@ table{
 }
 .game-title .disclaimer a {
     text-decoration: underline;
-    color: rgb(26, 26, 26);
+    color: #2573b7;
 }
 .game-title .disclaimer a:hover {
-    color: #2573b7;
+    color: #023770;
 }
 
 .dot {
