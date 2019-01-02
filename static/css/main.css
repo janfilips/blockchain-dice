@@ -281,8 +281,9 @@ table{
 }
 
 .result .dot{
-    animation: dot-pulse 2s linear infinite;
-    animation-delay: 1s;
+    background: rgba(255, 0, 0, 0.61);
+    /* animation: dot-pulse 2s linear infinite; */
+    /* animation-delay: 1s; */
 }
 
 #platform.pokusAnim > #dice{
@@ -580,6 +581,7 @@ table{
  #txInfo{
      position: sticky;
      top: 80vh;
+     z-index: 100;
  }
  #txInfo > div{
      width: 80%;
@@ -588,6 +590,16 @@ table{
      margin: 0.5rem auto;
      border-radius: 10px;
  }
+
+ .closeNotif{
+     float: right;
+     height: 1rem;
+     width: 1rem;
+ }
+ .closeNotif:hover{
+    font-weight: bold;
+    cursor: default;
+}
 
  #overlay > .modal_content .bet_area > div{
      display: flex;
