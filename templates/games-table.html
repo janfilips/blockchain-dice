@@ -61,7 +61,11 @@
                 <td width="30" style="text-align:center">-</td>
             {% endif %}
             {% if game.status %}
-                <td width="45">confirmed</td>
+                {% if game.win_bet %}
+                    <td width="45">winning</td>
+                {% else %}
+                   <td width="45">confirmed</td>
+                {% endif %}
             {% else %}
                 <td width="45">pending</td>
             {% endif %}
