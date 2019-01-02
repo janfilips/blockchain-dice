@@ -326,6 +326,10 @@ table{
     perspective: 1200px;
 }
 
+.flex-baseline{
+    align-items: baseline;
+}
+
 #platform {
   margin-top:220px;
 }
@@ -551,8 +555,6 @@ table{
     background-size: 1.6rem 1.6rem;
     height: 1.6rem;
     width: 1.6rem;
-    position: relative;
-    top: 0.6rem;
 }
 
 
