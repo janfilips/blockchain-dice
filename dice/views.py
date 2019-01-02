@@ -23,6 +23,7 @@ django.setup()
 
 from dice.models import Bets
 from dice.models import Players
+from dice.models import Events
 
 from web3 import Web3, Account
 from web3.providers.rpc import HTTPProvider
@@ -50,7 +51,7 @@ def home(request):
 
     # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
     # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
-    games = Bets.objects.filter().order_by('-pk')[:300]
+    games = Bets.objects.filter().order_by('-pk')[:100]
 
     my_games_time_threshold = datetime.datetime.now() - timedelta(hours=24)
     my_games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')
@@ -121,6 +122,15 @@ def ajax_update_player_wallet(request):
     player.save()
 
     return HttpResponse('Ok')
+
+
+def ajax_notifications(request):
+
+    player_wallet = request.POST.get('wallet')
+
+    # XXX mark off events as seen by user...
+
+    return HttpResponse('xxx working on this currently')
 
 
 def ajax_my_games_html_tabulka(request):
