@@ -123,6 +123,10 @@ def ajax_update_player_wallet(request):
     return HttpResponse('Ok')
 
 
+def ajax_notifications(request):
+    return HttpResponse('xxx working on this currently')
+    
+
 def ajax_my_games_html_tabulka(request):
 
     player_wallet = request.POST.get('wallet')
