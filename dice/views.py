@@ -127,11 +127,17 @@ def ajax_update_player_wallet(request):
 def ajax_notifications(request):
 
     player = request.POST.get('wallet')
+    events = Events.objects.filer(player=player, seen_by_player=True)
 
-    notifications = Events.objects.filer(player=player, )
-    # XXX mark off events as seen by user...
+    player_notifications = []
 
-    return HttpResponse('xxx working on this currently')
+    # marking off notifs as seen by user
+    for notification in events:
+        notification.seen_by_player = True
+        notification.save()
+        notification.append(notification)
+ 
+    return JsonResponse(player_notifications, safe=False)
 
 
 def ajax_my_games_html_tabulka(request):
