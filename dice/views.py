@@ -48,22 +48,12 @@ def home(request):
     except Players.DoesNotExist:
         player_session_key = session_key
 
-
-    # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
-    # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
-    games = Bets.objects.filter().order_by('-pk')[:100]
-
-    my_games_time_threshold = datetime.datetime.now() - timedelta(hours=24)
-    my_games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')
-
     response = render(
         request=request,
         template_name='index.html',
         context={
             'contract': settings.ETHEREUM_DICE_CONTRACT,
             'contract_abi': settings.ETHEREUM_DICE_CONTRACT_ABI,
-            'games': games,
-            'my_games': my_games,
             'player_session_key': player_session_key,
             'player_wallet': player_wallet,
             },
@@ -124,6 +114,26 @@ def ajax_update_player_wallet(request):
     return HttpResponse('Ok')
 
 
+def ajax_games_html_table(request):
+
+    if(request.POST):
+        player_wallet = request.POST.get('wallet')
+        my_games_time_threshold = datetime.datetime.now() - timedelta(hours=24)
+        games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')[:100]
+    else:
+        games = Bets.objects.filter().order_by('-pk')[:100]
+
+    response = render(
+        request=request,
+        template_name='games-table.html',
+        context={
+            'games': games,
+            },
+    )
+
+    return response
+
+
 def ajax_notifications(request):
 
     player = request.POST.get('wallet')
@@ -138,20 +148,3 @@ def ajax_notifications(request):
         notification.append(notification)
  
     return JsonResponse(player_notifications, safe=False)
-
-
-def ajax_my_games_html_tabulka(request):
-
-    player_wallet = request.POST.get('wallet')
-    time_threshold = datetime.datetime.now() - timedelta(day=1)
-    my_games = Bets.objects.filter(player=player_wallet,created__gt=time_threshold).order_by('-pk')[:100]
-    # XXX todo
-    return JsonResponse([], safe=False)
-
-def ajax_all_games_html_tabulka(request):
-    # XXX TODO ajax call to list games table
-    # XXX TODO filter for paired transactions only (status=1, tx_hash and player is not empty)
-    # XXX TODO manualne zredukuj games list povuhadzuj z neho len par tych co prehrali.....
-    return JsonResponse([], safe=False)
-
-
