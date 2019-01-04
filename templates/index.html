@@ -476,7 +476,7 @@
           var formData = new FormData();
           formData.append("wallet", accounts[0]);
           formData.append('player_session_key', '{{player_session_key}}');
-          fetch('/ajax/player/update', {
+          fetch('/ajax/player/update/', {
             method: "POST",
             headers: {
               'X-CSRFToken': "{{csrf_token}}"
