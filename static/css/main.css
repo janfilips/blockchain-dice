@@ -592,6 +592,7 @@ table{
 
  .notifText{
      margin-right: 1rem;
+     flex: 1;
  }
  .closeNotif{
      float: right;

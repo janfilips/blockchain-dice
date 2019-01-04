@@ -78,8 +78,7 @@
     <div id="txInfo"></div>
     <div class="game_tables">
       <div>
-        <h1>MY GAMES</h1>
-        <div id="my_games_loader" class="lds-ripple"><div></div><div></div></div>
+        <h1 id="my_games_header"style="display: none">MY GAMES</h1>
         <div id="my_games">
         </div>
       </div>
@@ -345,11 +344,12 @@
       function appendNotification(transactionHash, winText){
         var txInfo = document.getElementById('txInfo');
         var node = document.createElement('div');
+        if(winText) node.classList.add('winNotif');
         var close = document.createElement('div');
         close.classList.add('closeNotif');
         close.innerHTML = 'X';
         if(winText){
-          node.innerHTML = '<div class="notifText winNotif">' + winText + '</div>';
+          node.innerHTML = '<div class="notifText">' + winText + '</div>';
         } else {
           node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..</div>';
         }
@@ -429,7 +429,7 @@
           })
           .then(function (text) {
             if(text){
-              document.getElementById("my_games_loader").style.display = "none";
+              document.getElementById("my_games_header").style.display = "unset";
               document.getElementById("my_games").innerHTML = text;
             }
           });
@@ -460,7 +460,7 @@
           })
           .then(function (text) {
             if(text){
-              document.getElementById("my_games_loader").style.display = "none";
+              appendNotification(null, text);
             }
           });            
       }
