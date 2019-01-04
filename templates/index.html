@@ -333,7 +333,7 @@
         choicedVals.forEach(function(v){
           formData.append('numbers[]', v);
         });
-        fetch('/ajax/bet', {
+        fetch('/ajax/bet/', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           headers: {
             'X-CSRFToken': "{{csrf_token}}"
