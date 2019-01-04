@@ -116,10 +116,13 @@ def ajax_update_player_wallet(request):
 
 def ajax_games_html_table(request):
 
+    my_games = False
+
     if(request.POST):
         player_wallet = request.POST.get('wallet')
         my_games_time_threshold = datetime.datetime.now() - timedelta(hours=24)
         games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')[:100]
+        my_games = True
     else:
         games = Bets.objects.filter().order_by('-pk')[:100]
 
@@ -129,6 +132,7 @@ def ajax_games_html_table(request):
             template_name='games-table.html',
             context={
                 'games': games,
+                'my_games': my_games,
                 },
         )
         return response

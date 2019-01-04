@@ -11,7 +11,9 @@
         <tr>
             <th width="75">created</th>
             <th width="110">numbers</th>            
-            <th width="255">player</th>
+            {% if not my_games %}
+                <th width="255">player</th>
+            {% endif %}
             <th width="420">transaction</th>
             <th width="55"></th>
             <th width="20"></th>
@@ -40,14 +42,16 @@
                     🎲
                 {% endfor %}
             </td>
-            <td width="265">
-                <a href="http://ropsten.etherscan.io/tx/{{game.player}}" target="_blank">
-                    <!-- font color like a fucking pig -->
-                    <font color="white">
-                        {{game.player}}
-                    </font>
-                </a>
-            </td>
+            {% if not my_games %}
+                <td width="265">
+                    <a href="http://ropsten.etherscan.io/tx/{{game.player}}" target="_blank">
+                        <!-- font color like a fucking pig -->
+                        <font color="white">
+                            {{game.player}}
+                        </font>
+                    </a>
+                </td>
+            {% endif %}
             <td width="430">
                 <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
                     <font color="lightgrey">
@@ -64,7 +68,11 @@
             {% endif %}
             {% if game.status %}
                 {% if game.win_bet %}
-                    <td width="45">winning</td>
+                    {% if my_games %}
+                        <td width="45">you win</td>
+                    {% else %}
+                        <td width="45">winning</td>
+                    {% endif %}
                 {% else %}
                    <td width="45">&#10003;</td>
                 {% endif %}
