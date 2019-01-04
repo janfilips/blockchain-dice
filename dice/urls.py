@@ -14,6 +14,6 @@ urlpatterns = [
     # ajax
     url(r'^ajax/bet$', ajax_bet, name='ajax_bet'),
     url(r'^ajax/notifications$', ajax_notifications, name='ajax_notifications'),
-    url(r'^ajax/games$', ajax_games_html_table, name='ajax_games_html_table'),
+    url(r'^ajax/games/$', ajax_games_html_table, name='ajax_games_html_table'),
     url(r'^ajax/player/update', ajax_update_player_wallet, name='ajax_update_player_wallet'),
 ]
