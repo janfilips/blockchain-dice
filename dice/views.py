@@ -137,13 +137,7 @@ def ajax_games_html_table(request):
 def ajax_notifications(request):
 
     player = request.POST.get('wallet')
-    events = Events.objects.filer(player=player, seen_by_player=True)
+    events = Events.objects.filer(player=player, seen_by_player=True).last()
 
-    player_notifications = []
-
-    for notification in events:
-        notification.seen_by_player = True
-        notification.save()
-        notification.append(notification)
- 
-    return JsonResponse(player_notifications, safe=False)
+    notification_text = "xxx todo hello world notification"
+    return HttpResponse(notification_text)
