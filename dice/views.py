@@ -144,8 +144,16 @@ def ajax_notifications(request):
 
     player = request.POST.get('wallet')
     recent_event = Events.objects.filter(player=player, seen_by_player=False).last()
-    print('notification', request.POST)
-    print('player', player)
-    print('recent_event', recent_event)
-    notification_text = "xxx todo hello world notification"
+
+    notification_text = ""
+
+    if(recent_event):
+
+        if(recent_event.event_type == "player_wins"):
+
+            notification_text = "Transaction "+str(recent_event.tx_hash)+" wins Ether "+str(win_amount)
+            recent_event.seen_by_player = True
+            recent_event.seen_on = datetime.datetime.now()
+            recent_event.save()
+
     return HttpResponse(notification_text)
