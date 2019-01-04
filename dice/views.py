@@ -123,21 +123,24 @@ def ajax_games_html_table(request):
     else:
         games = Bets.objects.filter().order_by('-pk')[:100]
 
-    response = render(
-        request=request,
-        template_name='games-table.html',
-        context={
-            'games': games,
-            },
-    )
-
-    return response
+    if(games):
+        response = render(
+            request=request,
+            template_name='games-table.html',
+            context={
+                'games': games,
+                },
+        )
+        return response
+    
+    return HttpResponse("")
 
 
 def ajax_notifications(request):
 
     player = request.POST.get('wallet')
     events = Events.objects.filter(player=player, seen_by_player=True).last()
-
+    print('notification', request.POST)
+    print('player', player)
     notification_text = "xxx todo hello world notification"
     return HttpResponse(notification_text)
