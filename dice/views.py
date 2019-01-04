@@ -141,7 +141,6 @@ def ajax_notifications(request):
 
     player_notifications = []
 
-    # marking off notifs as seen by user
     for notification in events:
         notification.seen_by_player = True
         notification.save()
