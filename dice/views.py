@@ -151,7 +151,7 @@ def ajax_notifications(request):
 
         if(recent_event.event_type == "player_wins"):
 
-            notification_text = "Transaction "+str(recent_event.tx_hash)+" wins Ether "+str(win_amount)
+            notification_text = "Transaction "+str(recent_event.tx_hash)+" wins Ether "+str(recent_event.win_amount)
             recent_event.seen_by_player = True
             recent_event.seen_on = datetime.datetime.now()
             recent_event.save()
