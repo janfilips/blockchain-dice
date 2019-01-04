@@ -14,6 +14,54 @@
         <span>CryptoDice2.win</span>
       </a>
     </header>
+    <div id="wrapper">
+      <div id="platform">
+        <div id="dice">
+          <div class="side front one">
+            <div class="dot center"></div>
+          </div>
+          <div class="side front inner"></div>
+          <div class="side top two">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div class="side top inner"></div>
+          <div class="side right three">
+            <div class="dot dtop dleft"></div>
+            <div class="dot center"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div class="side right inner"></div>
+          <div class="side left four">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div class="side left inner"></div>
+          <div class="side bottom five">
+            <div class="dot center"></div>
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+          </div>
+          <div class="side bottom inner"></div>
+          <div class="side back six">
+            <div class="dot dtop dleft"></div>
+            <div class="dot dtop dright"></div>
+            <div class="dot dbottom dleft"></div>
+            <div class="dot dbottom dright"></div>
+            <div class="dot center dleft"></div>
+            <div class="dot center dright"></div>
+          </div>
+          <div class="side back inner"></div>
+          <div class="side cover x"></div>
+          <div class="side cover y"></div>
+          <div class="side cover z"></div>
+        </div>
+      </div>
+    </div>
     <div class="game-title"><!-- game title -->
       <p class="disclaimer">
           Ethereum Dice is a <a href="https://ropsten.etherscan.io/address/{{contract}}" target="_blank">smart-contract-driven</a> dice betting application using Oraclize and <a href="http://random.org/" target="_blank">Random.org</a>.
@@ -22,65 +70,19 @@
           <br/>
         </p>
     </div><!-- game title END -->
-    <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!</button>
-    <button id='stop_button' class="btn btn-5" onclick="onStop()">Stop!</button>
-    <button id='play_again_button' class="btn btn-5" onclick="playAgain()">Play again!</button>
-  <div id="wrapper">
-    <div id="platform">
-      <div id="dice">
-        <div class="side front one">
-          <div class="dot center"></div>
-        </div>
-        <div class="side front inner"></div>
-        <div class="side top two">
-          <div class="dot dtop dleft"></div>
-          <div class="dot dbottom dright"></div>
-        </div>
-        <div class="side top inner"></div>
-        <div class="side right three">
-          <div class="dot dtop dleft"></div>
-          <div class="dot center"></div>
-          <div class="dot dbottom dright"></div>
-        </div>
-        <div class="side right inner"></div>
-        <div class="side left four">
-          <div class="dot dtop dleft"></div>
-          <div class="dot dtop dright"></div>
-          <div class="dot dbottom dleft"></div>
-          <div class="dot dbottom dright"></div>
-        </div>
-        <div class="side left inner"></div>
-        <div class="side bottom five">
-          <div class="dot center"></div>
-          <div class="dot dtop dleft"></div>
-          <div class="dot dtop dright"></div>
-          <div class="dot dbottom dleft"></div>
-          <div class="dot dbottom dright"></div>
-        </div>
-        <div class="side bottom inner"></div>
-        <div class="side back six">
-          <div class="dot dtop dleft"></div>
-          <div class="dot dtop dright"></div>
-          <div class="dot dbottom dleft"></div>
-          <div class="dot dbottom dright"></div>
-          <div class="dot center dleft"></div>
-          <div class="dot center dright"></div>
-        </div>
-        <div class="side back inner"></div>
-        <div class="side cover x"></div>
-        <div class="side cover y"></div>
-        <div class="side cover z"></div>
-      </div>
+    <div class="buttons">
+      <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!</button>
+      <button id='stop_button' class="btn btn-5 down" onclick="onStop()">Stop!</button>
+      <button id='play_again_button' class="btn btn-5 down" onclick="playAgain()">Play again!</button>    
     </div>
-  </div>
-  <div id="txInfo"></div>
-  <div id="error-overlay">
-      <div class="modal_content">
-          <h2>Metamask</h2>
-          <div id="popup-error-content"></div>
-          <button class="btn btn-5" onclick="hideErrorPopup()">OK</button>
-      </div>
-  </div>
+    <div id="txInfo"></div>
+    <div id="error-overlay">
+        <div class="modal_content">
+            <h2>Metamask</h2>
+            <div id="popup-error-content"></div>
+            <button class="btn btn-5" onclick="hideErrorPopup()">OK</button>
+        </div>
+    </div>
   <div id="overlay">
     <div class="modal_content">
       <h1>What are your lucky numbers?</h1>
@@ -191,18 +193,15 @@
   
       function onRoll(){
         startDate = new Date();
-        var rollButton = document.getElementById("roll_button");
-        rollButton.style.bottom = "-10rem";
-        var stopButton = document.getElementById("stop_button");
-        stopButton.style.bottom = "2rem";
+        var rollButton = document.getElementById("roll_button").classList.add('down');
+        var stopButton = document.getElementById("stop_button").classList.remove('down');
         var pl = document.getElementById("platform");
         pl.classList.add("running");
         setTimeout(function(){
           el = document.getElementById("overlay");
-          if(el.style.opacity == 0 && !popupOpened){
-            el.style.opacity = "1";
-            el.style.zIndex = "100";
-            stopButton.style.bottom = "-10rem";
+          if(el.style.display === 'none' && !popupOpened){
+            el.style.display = "flex";
+            stopButton.classList.add('down');
             popupOpened = true;
           }
         }, 30000)
@@ -221,7 +220,7 @@
       }
 
       function selectBet(e, choice){
-        if(document.getElementById("overlay").style.opacity == 1){
+        if(document.getElementById("overlay").style.display == 'flex'){
           if(e && e.classList.contains('disabledVal')) return;
           choiced = translator[choice];
           var i = choicedVals.indexOf(choice);
@@ -233,11 +232,6 @@
             side[0].classList.add('selected');
             choicedVals.push(choice)
           }
-          // if(choicedVals.length <= 0){
-          //   document.getElementById("bet_button").disabled = true;
-          // } else{
-          //   document.getElementById("bet_button").disabled = false;
-          // }
           if(choicedVals.length === 5){
             var notDisabled = document.querySelectorAll(".bet_area .side:not(.selected)")
             notDisabled[0].classList.add('disabledVal');
@@ -274,18 +268,15 @@
         }
         if(error === null) return true;
         var modal = document.getElementById("error-overlay");
-        modal.style.opacity = "1";
-        modal.style.zIndex = "100";
+        modal.style.display = 'flex';
         modal.style.width = "900";
-        var stopButton = document.getElementById("stop_button");
-        stopButton.style.bottom = "-10rem";
+        document.getElementById("stop_button").classList.add('down');
         var message = document.getElementById('popup-error-content');
         message.innerHTML = metamaskErrors[error].content;
         return false;
       }
   
       function completeBet(){
-
         if(choicedVals.length === 0){
           selectBet(null, Math.floor(Math.random() * 6) + 1);
           return;
@@ -309,8 +300,7 @@
             }
             sendTxData(transactionHash, document.getElementById('bidNumber').valueAsNumber, user_address);
             appendNotification(transactionHash);
-            modal.style.opacity = "0";
-            modal.style.zIndex = "1";
+            modal.style.display = "none";
             diff = Math.floor((new Date() - startDate)/1000);
             var platform = document.getElementById('platform');
             var dice = document.getElementById('dice');
@@ -343,7 +333,7 @@
         var close = document.createElement('div');
         close.classList.add('closeNotif');
         close.innerHTML = 'X';
-        node.innerHTML = 'Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..';
+        node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..</div>';
         node.appendChild(close);
         txInfo.appendChild(node);
         close.onclick = function() {
@@ -352,9 +342,8 @@
       }
 
       function playAgain(){
-        var playAgainButton = document.getElementById("play_again_button");
-        playAgainButton.style.bottom = "-10rem";
-        var rollButton = document.getElementById("roll_button");
+        document.getElementById("play_again_button").classList.add('down');
+        document.getElementById("roll_button").classList.remove('down');
         var platform = document.getElementById("platform");
         var dice = document.getElementById("dice");
         platform.className = "";
@@ -364,13 +353,11 @@
         document.getElementsByClassName('result')[0].classList.remove('result')
         var sel = document.getElementsByClassName('selected');
         while (sel.length) sel[0].classList.remove('selected');
-        rollButton.style.bottom = "2rem";
         var bidPays = document.getElementById('bid-pays');
         bidPays.classList.add('darker');
         bidPays.innerText = "5.89";
         document.getElementById('bidNumber').value = '0.15';
         document.getElementById('bid-area').classList.add('area_hidden');
-        // document.getElementById("bet_button").disabled = true;
         document.getElementById('amount_area').classList.add('area_hidden');
         startDate = null;
         diff = null;
@@ -383,18 +370,15 @@
         popupOpened = true;
         if(!checkMetamask()) return;
         var el = document.getElementById("overlay");
-        el.style.opacity = "1";
-        el.style.zIndex = 100;
-        var stopButton = document.getElementById("stop_button");
-        stopButton.style.bottom = "-10rem";
+        el.style.display = "flex";
+        var stopButton = document.getElementById("stop_button").classList.add('down');
       }
 
       function hideErrorPopup(){
         var modal = document.getElementById("error-overlay");
-        modal.style.opacity = "0";
-        modal.style.zIndex = "1";
+        modal.style.display = "none";
         var rollButton = document.getElementById("roll_button");
-        rollButton.style.bottom = "2rem";
+        rollButton.classList.remove('down');
         playAgain();
       }
   
@@ -402,14 +386,12 @@
         var platform = document.getElementById("platform");
         if(e.animationName === 'roll' && choiced !== null){
           var res = Math.floor(Math.random() * 6) + 1;
-          // platform.classList.add('pokusAnim');
           platform.classList.add(choiced + 'Anim');
         }
         if(e.animationName === 'endAnim'){
           var res = document.getElementsByClassName(choiced)[0];
           res.classList.add('result');
-          var playAgainButton = document.getElementById("play_again_button");
-          playAgainButton.style.bottom = "2rem";          
+          document.getElementById("play_again_button").classList.remove('down');
         }
       }
 
@@ -453,8 +435,6 @@
         });
       });
     </script>
-
     {% include "footer.html" %}
-
   </body>
 </html>

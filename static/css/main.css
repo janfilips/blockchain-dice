@@ -47,8 +47,9 @@ table{
   }
   section{
     margin: 10px;
-  }  
-  
+  } 
+
+
   
   /* footer */
   .made-with-love {
@@ -61,6 +62,7 @@ table{
     color: #fff;
   }
   .made-with-love i {
+    z-index: -1;
     font-style: normal;
     color: #F50057;
     font-size: 14px;
@@ -320,9 +322,9 @@ table{
 }
 
 #wrapper {
-    position: relative;
+    padding-top: 250px;
     width: 200px;
-    padding-top: 100px;
+    height: 200px;
     margin: 0 auto;
     perspective: 1200px;
 }
@@ -331,9 +333,6 @@ table{
     align-items: baseline;
 }
 
-#platform {
-  margin-top:220px;
-}
 #dice span {
     position: absolute;
     margin: 100px 0 0 100px;
@@ -412,12 +411,28 @@ table{
     transform: rotateX(-90deg) translateZ(98px);
 }
 
-#roll_button{
-    position: fixed;
-    z-index: 20;
-    bottom: 2rem;
+.buttons{
+    /* overflow: hidden; */
+    height: 100px;
+    position: relative;
+}
+
+.buttons > button{
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
+    margin: 0 !important;
+}
+
+.buttons .down{
+    transform: translate(-50%, 300%);
+    opacity: 0;
+    z-index: -1;
+}
+
+#stop_button{
+    background: #ff00004f;
 }
 
 #popup-error-content img{
@@ -425,23 +440,6 @@ table{
     max-height: 300px;
     display: block;
     margin: auto;
-}
-
-#stop_button{
-    position: fixed;
-    z-index: 20;
-    bottom: -10rem;
-    left: 50%;
-    background: #ff00004f;
-    transform: translateX(-50%);
-}
-
-#play_again_button{
-    position: fixed;
-    z-index: 20;
-    bottom: -10rem;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .main-header {
@@ -474,8 +472,7 @@ table{
 }
 
 .game-title {
-    margin-top: 4rem;
-    position: absolute;
+    margin-top: 100px;
     width: 100%;
     z-index: 2;
 }
@@ -560,7 +557,7 @@ table{
 
 
 #overlay, #error-overlay {
-    opacity: 0;
+    display: none;
     transition: 0.5s;
     height: 100%;
     width: 100%;
@@ -569,7 +566,6 @@ table{
     left: 0;
     background-color: rgba(255, 255, 255, .1);
     text-align: center;
-    display: flex;
  }
 
  #overlay > .modal_content, #error-overlay > .modal_content{
@@ -580,14 +576,10 @@ table{
     -webkit-box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.3);
     padding: 2rem;
-    z-index: 1;
  }
- #txInfo{
-     position: sticky;
-     top: 80vh;
-     z-index: 100;
- }
+ 
  #txInfo > div{
+     display: flex;
      width: 70%;
      background-color: rgba(255, 232, 23, 0.39);
      padding: 1rem;
@@ -595,10 +587,14 @@ table{
      border-radius: 10px;
  }
 
+ .notifText{
+     margin-right: 1rem;
+ }
  .closeNotif{
      float: right;
      height: 1rem;
      width: 1rem;
+     align-self: center;
  }
  .closeNotif:hover{
     font-weight: bold;
@@ -749,7 +745,7 @@ table{
     text-transform: uppercase;
     width: 100%; 
     box-shadow: none;
-    transition: all 0.3s;
+    transition: all 0.3s !important;
 }
 
 .btn:focus{
