@@ -169,7 +169,7 @@
       var metamaskErrors = {
         missing: {
           title: 'Install Metamask',
-          content: '<div><img id=\"popup-error-image\" src=\"/static/images/metamask.png\"></img>You need to install Metamask to be able to play.<br/>Metamask is an Ethereum Wallet extension for your browser.</a></div>',
+          content: '<div><img id=\"popup-error-image\" src=\"/static/images/metamask.png\"></img>You need to install Metamask to play the game.<br/><br/><br/></div>',
           popupWidth: -1
         },
         notLoggedIn: {
@@ -276,6 +276,7 @@
         var modal = document.getElementById("error-overlay");
         modal.style.opacity = "1";
         modal.style.zIndex = "100";
+        modal.style.width = "900";
         var stopButton = document.getElementById("stop_button");
         stopButton.style.bottom = "-10rem";
         var message = document.getElementById('popup-error-content');
