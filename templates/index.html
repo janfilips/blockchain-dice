@@ -76,6 +76,21 @@
       <button id='play_again_button' class="btn btn-5 down" onclick="playAgain()">Play again!</button>    
     </div>
     <div id="txInfo"></div>
+    <div class="game_tables">
+      <div>
+        <h1>MY GAMES</h1>
+        <div id="my_games_loader" class="lds-ripple"><div></div><div></div></div>
+        <div id="my_games">
+        </div>
+      </div>
+      <div>
+        <h1>ALL GAMES</h1>
+        <div id="all_games_loader" class="lds-ripple"><div></div><div></div></div>
+
+        <div id="all_games">
+        </div>      
+      </div>
+    </div>
     <div id="error-overlay">
         <div class="modal_content">
             <h2>Metamask</h2>
@@ -327,13 +342,17 @@
         })
       }
 
-      function appendNotification(transactionHash){
+      function appendNotification(transactionHash, winText){
         var txInfo = document.getElementById('txInfo');
         var node = document.createElement('div');
         var close = document.createElement('div');
         close.classList.add('closeNotif');
         close.innerHTML = 'X';
-        node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..</div>';
+        if(winText){
+          node.innerHTML = '<div class="notifText winNotif">' + winText + '</div>';
+        } else {
+          node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..</div>';
+        }
         node.appendChild(close);
         txInfo.appendChild(node);
         close.onclick = function() {
@@ -397,8 +416,8 @@
 
       function getTables(){
         var formData = new FormData();
-        formData.append("player_session_id", '{{player_session_id}}');
-        fetch('/ajax/games/mine', {
+        formData.append("wallet", web3.eth.accounts[0]);
+        fetch('/ajax/games/', {
             method: "POST",
             headers: {
               'X-CSRFToken': "{{csrf_token}}"
@@ -410,10 +429,42 @@
           })
           .then(function (text) {
             if(text){
+              document.getElementById("my_games_loader").style.display = "none";
               document.getElementById("my_games").innerHTML = text;
             }
           });
+          fetch('/ajax/games/', {
+            method: "GET",
+            headers: {
+              'X-CSRFToken': "{{csrf_token}}"
+            },
+          }).then(function (response) {
+            if(!response.ok) return null;
+            return response.text();
+          })
+          .then(function (text) {
+            if(text){
+              document.getElementById("all_games_loader").style.display = "none";
+              document.getElementById("all_games").innerHTML = text;
+            }
+          });        
+        fetch('/ajax/notifications/', {
+            method: "POST",
+            headers: {
+              'X-CSRFToken': "{{csrf_token}}"
+            },
+            body: formData
+          }).then(function (response) {
+            if(!response.ok) return null;
+            return response.text();
+          })
+          .then(function (text) {
+            if(text){
+              document.getElementById("my_games_loader").style.display = "none";
+            }
+          });            
       }
+
       var platform = document.getElementById("platform");
       platform.addEventListener("webkitAnimationEnd", onEnd);
       platform.addEventListener("animationend", onEnd);
