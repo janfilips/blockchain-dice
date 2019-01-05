@@ -374,6 +374,8 @@
         document.getElementsByClassName('result')[0].classList.remove('result')
         var sel = document.getElementsByClassName('selected');
         while (sel.length) sel[0].classList.remove('selected');
+        var dis = document.getElementsByClassName('disabledVal');
+        while (dis.length) dis[0].classList.remove('disabledVal');
         var bidPays = document.getElementById('bid-pays');
         bidPays.classList.add('darker');
         bidPays.innerText = "5.89";
