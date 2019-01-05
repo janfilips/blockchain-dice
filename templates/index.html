@@ -315,7 +315,9 @@
               return;
             }
             sendTxData(transactionHash, document.getElementById('bidNumber').valueAsNumber, user_address);
-            appendNotification(transactionHash);
+            setTimeout(function() {
+              appendNotification(transactionHash);
+            }, 3000)
             modal.style.display = "none";
             diff = Math.floor((new Date() - startDate)/1000);
             var platform = document.getElementById('platform');
