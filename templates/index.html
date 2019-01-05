@@ -358,13 +358,15 @@
           node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> '+transactionHash+'</a> was succesfully recorded on the network..</div>';
         }
         node.appendChild(close);
-        txInfo.appendChild(node);
+        //txInfo.appendChild(node);
+        txInfo.prepend(node);
         close.onclick = function() {
           this.parentNode.parentNode.removeChild(this.parentNode);
         }
       }
 
       function playAgain(){
+        console.log(document.getElementsByClassName('result').length);
         document.getElementById("play_again_button").classList.add('down');
         document.getElementById("roll_button").classList.remove('down');
         var platform = document.getElementById("platform");
@@ -373,7 +375,6 @@
         platform.setAttribute('style', '');
         dice.className = "";
         dice.setAttribute('style', '');
-        document.getElementsByClassName('result')[0].classList.remove('result')
         var sel = document.getElementsByClassName('selected');
         while (sel.length) sel[0].classList.remove('selected');
         var dis = document.getElementsByClassName('disabledVal');
@@ -388,7 +389,8 @@
         diff = null;
         choiced = null;
         choicedVals = [];
-        onRoll();
+        if(document.getElementsByClassName('result').length > 0) onRoll();
+        if(document.getElementsByClassName('result').length > 0)document.getElementsByClassName('result')[0].classList.remove('result')
       }
   
       function onStop(){
