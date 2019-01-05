@@ -1359,11 +1359,11 @@ contract Dice is usingOraclize {
 
         if(betNumbers.length < 6) {
 
-            // Making oraclized query to random.org.
+            // Making oraclized query to random.org
 
             oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=8&format=plain");
 
-            // Recording the bet info for future reference.
+            // Recording the bet info for future reference
             
             oraclizeStructs[oraclizeQueryId].status = false;
             oraclizeStructs[oraclizeQueryId].queryId = oraclizeQueryId;
@@ -1371,13 +1371,13 @@ contract Dice is usingOraclize {
             oraclizeStructs[oraclizeQueryId].betNumbers = betNumbers;
             oraclizeStructs[oraclizeQueryId].betAmount = betAmount;
 
-            // Recording oraclize indices.
+            // Recording oraclize indices
             
             oraclizedIndices.push(oraclizeQueryId) -1;
    
         } else {
             
-            // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
+            // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins
 
             msg.sender.transfer(msg.value);
 
