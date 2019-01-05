@@ -94,7 +94,7 @@
     </div>
     <div id="error-overlay">
         <div class="modal_content">
-            <h2>Metamask</h2>
+            <h2 id="popup-error-heading"></h2>
             <div id="popup-error-content"></div>
             <button class="btn btn-5" onclick="hideErrorPopup()">OK</button>
         </div>
@@ -287,8 +287,8 @@
         modal.style.display = 'flex';
         modal.style.width = "900";
         document.getElementById("stop_button").classList.add('down');
-        var message = document.getElementById('popup-error-content');
-        message.innerHTML = metamaskErrors[error].content;
+        document.getElementById('popup-error-content').innerHTML = metamaskErrors[error].content;
+        document.getElementById('popup-error-heading').innerHTML = metamaskErrors[error].title;
         return false;
       }
   
