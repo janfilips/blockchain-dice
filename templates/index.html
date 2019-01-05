@@ -417,9 +417,10 @@
       }
 
       function getTables(){
-        var formData = new FormData();
-        formData.append("wallet", web3.eth.accounts[0]);
-        fetch('/ajax/games/', {
+        if(typeof web3 !== 'undefined' && web3.eth.accounts.length > 0){
+          var formData = new FormData();
+          formData.append("wallet", web3.eth.accounts[0]);
+          fetch('/ajax/games/', {
             method: "POST",
             headers: {
               'X-CSRFToken': "{{csrf_token}}"
@@ -435,22 +436,7 @@
               document.getElementById("my_games").innerHTML = text;
             }
           });
-          fetch('/ajax/games/', {
-            method: "GET",
-            headers: {
-              'X-CSRFToken': "{{csrf_token}}"
-            },
-          }).then(function (response) {
-            if(!response.ok) return null;
-            return response.text();
-          })
-          .then(function (text) {
-            if(text){
-              document.getElementById("all_games_loader").style.display = "none";
-              document.getElementById("all_games").innerHTML = text;
-            }
-          });        
-        fetch('/ajax/notifications/', {
+          fetch('/ajax/notifications/', {
             method: "POST",
             headers: {
               'X-CSRFToken': "{{csrf_token}}"
@@ -464,7 +450,23 @@
             if(text){
               appendNotification(null, text);
             }
-          });            
+          });   
+        }
+        fetch('/ajax/games/', {
+          method: "GET",
+          headers: {
+            'X-CSRFToken': "{{csrf_token}}"
+          },
+        }).then(function (response) {
+          if(!response.ok) return null;
+          return response.text();
+        })
+        .then(function (text) {
+          if(text){
+            document.getElementById("all_games_loader").style.display = "none";
+            document.getElementById("all_games").innerHTML = text;
+          }
+        });                   
       }
 
       var platform = document.getElementById("platform");
@@ -474,7 +476,8 @@
       setInterval(getTables, 3000);
 
       window.addEventListener('load', function() {
-        web3.eth.getAccounts(function(error, accounts) {
+        if(typeof web3 !== 'undefined'){
+          web3.eth.getAccounts(function(error, accounts) {
           var formData = new FormData();
           formData.append("wallet", accounts[0]);
           formData.append('player_session_key', '{{player_session_key}}');
@@ -486,6 +489,7 @@
             body: formData
           })
         });
+        }
       });
     </script>
     {% include "footer.html" %}
