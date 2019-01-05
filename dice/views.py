@@ -152,8 +152,13 @@ def ajax_notifications(request):
         if(recent_event.event_type == "player_wins"):
 
             notification_text = "Congratulations your transaction <a href=\""+str(recent_event.tx_hash)+"\"><font color=\"white\">"+str(recent_event.tx_hash)+"</font></a> bet " +str(recent_event.amount)+" numnber "+str(recent_event.win_number)+" wins <b>"+str(recent_event.win_amount)+" Ether</b>."
-            recent_event.seen_by_player = True
-            recent_event.seen_on = datetime.datetime.now()
-            recent_event.save()
+
+        if(recent_event.event_type == "player_loses"):
+
+            notification_text = "XXX lost bet, winning number was......"
+
+        recent_event.seen_by_player = True
+        recent_event.seen_on = datetime.datetime.now()
+        recent_event.save()
 
     return HttpResponse(notification_text)
