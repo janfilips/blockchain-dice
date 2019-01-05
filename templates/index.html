@@ -315,7 +315,9 @@
               return;
             }
             sendTxData(transactionHash, document.getElementById('bidNumber').valueAsNumber, user_address);
-            appendNotification(transactionHash);
+            setTimeout(function() {
+              appendNotification(transactionHash);
+            }, 3000)
             modal.style.display = "none";
             diff = Math.floor((new Date() - startDate)/1000);
             var platform = document.getElementById('platform');
@@ -374,6 +376,8 @@
         document.getElementsByClassName('result')[0].classList.remove('result')
         var sel = document.getElementsByClassName('selected');
         while (sel.length) sel[0].classList.remove('selected');
+        var dis = document.getElementsByClassName('disabledVal');
+        while (dis.length) dis[0].classList.remove('disabledVal');
         var bidPays = document.getElementById('bid-pays');
         bidPays.classList.add('darker');
         bidPays.innerText = "5.89";
