@@ -78,6 +78,30 @@ def get_game_contract(request):
     return HttpResponseRedirect(etherscan_url)
 
 
+def ajax_notifications(request):
+
+    player = request.POST.get('wallet')
+    recent_event = Events.objects.filter(player=player, seen_by_player=False).last()
+
+    notification_text = ""
+
+    if(recent_event):
+
+        if(recent_event.event_type == "player_wins"):
+
+            notification_text = "Congratulations your transaction <a href=\""+str(recent_event.tx_hash)+"\"><font color=\"#C0C0C0\">"+str(recent_event.tx_hash)+"</font></a> bet on number "+str(recent_event.win_number)+" wins <b>"+str(recent_event.win_amount)+" Ether</b>."
+
+        if(recent_event.event_type == "player_loses"):
+
+            notification_text = "XXX transaction xxx betting on numbers [] lost, the winning number was......"
+
+        recent_event.seen_by_player = True
+        recent_event.seen_on = datetime.datetime.now()
+        recent_event.save()
+
+    return HttpResponse(notification_text)
+
+
 def ajax_bet(request):
     
     player_wallet = request.POST.get('wallet')
@@ -97,19 +121,6 @@ def ajax_bet(request):
         amount = bet_amount,
         numbers = str(bet_numbers),
     )
-
-    return HttpResponse('Ok')
-
-
-def ajax_update_player_wallet(request):
-
-    player_wallet = request.POST.get('wallet')
-    player_session_key = request.POST.get('player_session_key')
-
-    player = Players.objects.get_or_create(session_key=player_session_key)
-    player = player[0]
-    player.address = player_wallet
-    player.save()
 
     return HttpResponse('Ok')
 
@@ -140,20 +151,15 @@ def ajax_games_html_table(request):
     return HttpResponse("")
 
 
-def ajax_notifications(request):
+def ajax_update_player_wallet(request):
 
-    player = request.POST.get('wallet')
-    recent_event = Events.objects.filter(player=player, seen_by_player=False).last()
+    player_wallet = request.POST.get('wallet')
+    player_session_key = request.POST.get('player_session_key')
 
-    notification_text = ""
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    player = player[0]
+    player.address = player_wallet
+    player.save()
 
-    if(recent_event):
+    return HttpResponse('Ok')
 
-        if(recent_event.event_type == "player_wins"):
-
-            notification_text = "Congratulations your transaction "+str(recent_event.tx_hash)+" bet " +str(recent_event.amount)+" wins <b>"+str(recent_event.win_amount)+" Ether</b>."
-            recent_event.seen_by_player = True
-            recent_event.seen_on = datetime.datetime.now()
-            recent_event.save()
-
-    return HttpResponse(notification_text)
