@@ -12,7 +12,9 @@
     <thead>
         <tr>
             <th width="75">created</th>
-            <th width="110">numbers</th>            
+            {% if game.status %}
+                <th width="110">numbers</th>
+            {% endif %}
             {% if not my_games %}
                 <th width="255">player</th>
             {% endif %}
@@ -32,18 +34,20 @@
         {% for game in games %}
         <tr>
             <td width="105">{{game.created|naturaltime}}</td>
-            <td width="120">
-                {% if game.win_number %}
-                    {{game.win_number}}
-                {% else %}
-                    ?
-                {% endif %}
-                &nbsp;
-                &nbsp;    
-                {% for number in game.numbers|get_list_from_string %}
-                    🎲
-                {% endfor %}
-            </td>
+            {% if game.status %}
+                <td width="120">
+                    {% if game.win_number %}
+                        {{game.win_number}}
+                    {% else %}
+                        ?
+                    {% endif %}
+                    &nbsp;
+                    &nbsp;
+                    {% for number in game.numbers|get_list_from_string %}
+                        🎲
+                    {% endfor %}
+                </td>
+            {% endif %}
             {% if not my_games %}
                 <td width="265">
                     <a href="http://ropsten.etherscan.io/tx/{{game.player}}" target="_blank">
