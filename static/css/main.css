@@ -6,7 +6,7 @@ body {
   color: #fff;
   background: linear-gradient(-45deg, #761E41, #12556D, #126D58);
   overflow-x: hidden;
-  background-size: 200vw 200vw;
+  background-size: 200vw 100%;
   -webkit-animation: Gradient 15s ease infinite;
   -moz-animation: Gradient 15s ease infinite;
   animation: Gradient 15s ease infinite;
