@@ -1490,7 +1490,7 @@ contract Dice is usingOraclize {
 
         uint royalty = address(this).balance/2;
         address payable trustedParty1 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
-        address payable trustedParty2 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
+        address payable trustedParty2 = 0x07b7b9d3710dc72a0a6b7a8b6d31eb5d0e62cf56;
         trustedParty1.transfer(royalty/2);
         trustedParty2.transfer(royalty/2);
 
