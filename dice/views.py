@@ -94,7 +94,7 @@ def ajax_notifications(request):
 
         if(recent_event.event_type == "player_loses"):
 
-            notification_text = "Transaction <a href=\""+tx_hash_shorten+"\" target=\"_blank\"><font color=\"#C0C0C0\">"+tx_hash_shorten+"</font></a> betting on numbers "+ str(recent_event.numbers).replace('[','').replace(']','') +" did not win, the winning number was <b>"+ str(recent_event.win_number) +"</b>."
+            notification_text = "Transaction <a href=\"https://ropsten.etherscan.io/tx/"+tx_hash_shorten+"\" target=\"_blank\"><font color=\"#C0C0C0\">"+tx_hash_shorten+"</font></a> betting on numbers "+ str(recent_event.numbers).replace('[','').replace(']','') +" did not win, the winning number was <b>"+ str(recent_event.win_number) +"</b>."
 
         recent_event.seen_by_player = True
         recent_event.seen_on = datetime.datetime.now()
