@@ -88,7 +88,7 @@ def ajax_notifications(request):
     if(recent_event):
 
         if(recent_event.event_type == "player_wins"):
-            tx_hash_shorten = recent_event.tx_hash[:20]+'..'+recent_event.tx_hash[-10:]
+            tx_hash_shorten = recent_event.tx_hash[:20]+'...'+recent_event.tx_hash[-10:]
             notification_text = "Congratulations your transaction <a href=\""+recent_event.tx_hash+"\"><font color=\"#C0C0C0\">"+str(tx_hash_shorten)+"</font></a> bet on number "+str(recent_event.win_number)+" wins <b>"+str(recent_event.win_amount)+" Ether</b>."
 
         if(recent_event.event_type == "player_loses"):

@@ -371,7 +371,7 @@
         if(winText){
           node.innerHTML = '<div class="notifText">' + winText + '</div>';
         } else {
-          var transactionHash_shorten = transactionHash.slice(20)+'..'+transactionHash.slice(-10);
+          var transactionHash_shorten = transactionHash.slice(20)+'...'+transactionHash.slice(-10);
           node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> <font color="#C0C0C0">'+transactionHash_shorten+'</font></a> was recorded on the network..</div>';
         }
         node.appendChild(close);
