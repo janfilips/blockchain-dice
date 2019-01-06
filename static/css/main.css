@@ -590,6 +590,10 @@ table{
     background-color: rgba(77, 255, 23, 0.39);
  }
 
+ #txInfo > div.lostNotif{
+    background-color: rgba(255, 23, 23, 0.3);
+ }
+
  .notifText{
      margin-right: 1rem;
      flex: 1;
