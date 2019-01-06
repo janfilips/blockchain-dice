@@ -377,6 +377,10 @@
         close.onclick = function() {
           this.parentNode.parentNode.removeChild(this.parentNode);
         }
+        setTimeout(function(){
+          close.click();
+        },  5 * 60 * 1000)
+
       }
 
       function playAgain(){
@@ -495,6 +499,7 @@
       platform.addEventListener("animationend", onEnd);
 
       setInterval(getTables, 3000);
+      getTables();
 
       window.addEventListener('load', function() {
         if(typeof web3 !== 'undefined'){
