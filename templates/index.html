@@ -270,17 +270,25 @@
         }
       }
   
-      function checkMetamask(){
-        // return true;
+      async function checkMetamask(){
         var error = null;
-        if (typeof web3 === 'undefined') {
-          error =  'missing';
-        }
-        else if (web3.eth.accounts.length === 0) {
-          error = 'notLoggedIn';
-        }
-        else if (web3.version.network !== "3"){
-          error =  'wrongNetwork';
+        if (window.ethereum) {
+          window.web3 = new Web3(ethereum);
+          try {
+              await ethereum.enable();
+          } catch (e) {
+              error = 'private';
+          }
+        } else {
+          if (typeof web3 === 'undefined') {
+            error =  'missing';
+          }
+          else if (web3.eth.accounts.length === 0) {
+            error = 'notLoggedIn';
+          }
+          else if (web3.version.network !== "3"){
+            error =  'wrongNetwork';
+          }          
         }
         if(error === null) return true;
         var modal = document.getElementById("error-overlay");
@@ -292,14 +300,15 @@
         return false;
       }
   
-      function completeBet(){
+      async function completeBet(){
         if(choicedVals.length === 0){
           selectBet(null, Math.floor(Math.random() * 6) + 1);
           return;
         }
         var modal = document.getElementById("overlay");
         if(diff === null){
-          if(!checkMetamask()) return;          
+          var r = await checkMetamask()
+          if(!r) return;          
           var user_address = web3.eth.accounts[0];
           var contractAbi = web3.eth.contract(abi);
           var myContract = contractAbi.at(settingsContractAddress);
@@ -393,9 +402,10 @@
         if(document.getElementsByClassName('result').length > 0)document.getElementsByClassName('result')[0].classList.remove('result')
       }
   
-      function onStop(){
+      async function onStop(){
         popupOpened = true;
-        if(!checkMetamask()) return;
+        var r = await checkMetamask();
+        if(!r) return;
         var el = document.getElementById("overlay");
         el.style.display = "flex";
         var stopButton = document.getElementById("stop_button").classList.add('down');
