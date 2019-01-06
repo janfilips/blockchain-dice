@@ -73,21 +73,23 @@
     <div class="buttons">
       <button id='roll_button' class="btn btn-5" onclick="onRoll()">Roll It!</button>
       <button id='stop_button' class="btn btn-5 down" onclick="onStop()">Stop!</button>
-      <button id='play_again_button' class="btn btn-5 down" onclick="playAgain()">Play again!</button>    
+      <button id='play_again_button' class="btn btn-5 down" onclick="playAgain()">Roll again!</button>    
     </div>
     <div id="txInfo"></div>
     <div class="game_tables">
       <div>
         <h1 id="my_games_header"style="display: none">MY GAMES</h1>
+        <!-- this is to add an extra spacing in there, didn't know any better -->
         <div></div>
         <br/>
         <div id="my_games">
         </div>
       </div>
       <div>
-        <h1>ALL GAMES</h1>
-        <div id="all_games_loader" class="lds-ripple"><div></div><div></div></div>
-
+        <h1>GAMES HISTORY</h1>
+        <div id="all_games_loader" class="lds-ripple">
+            <div></div><div></div>
+        </div>
         <div id="all_games">
         </div>      
       </div>
@@ -369,7 +371,8 @@
         if(winText){
           node.innerHTML = '<div class="notifText">' + winText + '</div>';
         } else {
-          node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> <font color="#C0C0C0">'+transactionHash+'</font></a> was recorded on the network..</div>';
+          var transactionHash_shorten = transactionHash.slice(20)+'...'+transactionHash.slice(-10);
+          node.innerHTML = '<div class="notifText">Your transaction <a href=http://ropsten.etherscan.io/tx/'+transactionHash+' target="_blank"> <font color="#C0C0C0">0x'+transactionHash_shorten+'</font></a> was recorded on the blockchain.</div>';
         }
         node.appendChild(close);
         //txInfo.appendChild(node);

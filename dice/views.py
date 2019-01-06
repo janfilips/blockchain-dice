@@ -87,13 +87,14 @@ def ajax_notifications(request):
 
     if(recent_event):
 
-        if(recent_event.event_type == "player_wins"):
+        tx_hash_shorten = recent_event.tx_hash[:20]+'...'+recent_event.tx_hash[-10:]
 
-            notification_text = "Congratulations your transaction <a href=\""+str(recent_event.tx_hash)+"\"><font color=\"#C0C0C0\">"+str(recent_event.tx_hash)+"</font></a> bet on number "+str(recent_event.win_number)+" wins <b>"+str(recent_event.win_amount)+" Ether</b>."
+        if(recent_event.event_type == "player_wins"):
+            notification_text = "Congratulations your transaction <a href=\""+recent_event.tx_hash+"\"><font color=\"#C0C0C0\">"+str(tx_hash_shorten)+"</font></a> "+str(recent_event.amount)+" bet "+str(recent_event.numbers).replace('[','').replace(']','')+" on number <b>"+str(recent_event.win_number)+"</b> wins <b>"+str(recent_event.win_amount)+" Ether</b>."
 
         if(recent_event.event_type == "player_loses"):
 
-            notification_text = "XXX transaction xxx betting on numbers [] lost, the winning number was......"
+            notification_text = "Transaction "+tx_hash_shorten+" betting on numbers "+ str(recent_event.numbers).replace('[','').replace(']','') +" lost - the winning number was <b>"+ str(recent_event.win_number) +"</b>."
 
         recent_event.seen_by_player = True
         recent_event.seen_on = datetime.datetime.now()
