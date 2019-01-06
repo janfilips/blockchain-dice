@@ -44,6 +44,8 @@
                         {% for number in game.numbers|get_list_from_string %}
                             🎲
                         {% endfor %}
+                {% else %}
+                    ?
                 {% endif %}
             </td>
             {% if not my_games %}
