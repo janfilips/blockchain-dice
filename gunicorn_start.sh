@@ -1,8 +1,8 @@
 #!/bin/bash
 
-NAME="ethereum-dice"
-DJANGODIR=/var/www/ethereum-dice
-SOCKFILE=/var/www/ethereum-dice/gunicorn.sock
+NAME="cryptodice2.win"
+DJANGODIR=/var/www/cryptodice2.win
+SOCKFILE=/var/www/cryptodice2.win/gunicorn.sock
 USER=hello                                        
 GROUP=webapps                                     
 NUM_WORKERS=3                                     
