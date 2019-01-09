@@ -1356,7 +1356,7 @@ contract Dice is usingOraclize {
         require(betAmount >= minimumBet);
         require(betNumbers.length >= 1);
 
-        emit PlayerBetAccepted(address(this), player, betNumbers, msg.value);
+        emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.", oraclizeQueryId);
 
         if(betNumbers.length < 6) {
 
@@ -1375,7 +1375,10 @@ contract Dice is usingOraclize {
             // Recording oraclize indices.
             
             oraclizedIndices.push(oraclizeQueryId) -1;
-   
+  
+            emit AwaitingRandomOrgCallback(address(this), oraclizeQueryId);
+ 
+ 
         } else {
             
             // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
@@ -1384,11 +1387,9 @@ contract Dice is usingOraclize {
 
         }
     
-        emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.", oraclizeQueryId);
         
         emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
 
-        emit AwaitingRandomOrgCallback(address(this), oraclizeQueryId);
 
         return true;
 
@@ -1532,3 +1533,4 @@ contract Dice is usingOraclize {
     }
 
 }
+
