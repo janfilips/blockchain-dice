@@ -1325,6 +1325,7 @@ contract Dice is usingOraclize {
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
     event RollDice(address _contract, address _player, string _description, bytes32 _oraclizeQueryId);
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _randomOrgQueryId);
+    event AwaitingRandomOrgCallback(address _contract, bytes32 _randomOrgQueryId);
     event NumberGeneratorCallback(address _contract, bytes32 _oraclizeQueryId);
     event NumberGeneratorResponse(address _contract, address _player, bytes32 _oraclizeQueryId, string _oraclizeResponse);
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
@@ -1359,11 +1360,11 @@ contract Dice is usingOraclize {
 
         if(betNumbers.length < 6) {
 
-            // Making oraclized query to random.org
+            // Making oraclized query to random.org.
 
             oraclizeQueryId = oraclize_query("URL", "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=8&format=plain");
 
-            // Recording the bet info for future reference
+            // Recording the bet info for future reference.
             
             oraclizeStructs[oraclizeQueryId].status = false;
             oraclizeStructs[oraclizeQueryId].queryId = oraclizeQueryId;
@@ -1371,13 +1372,13 @@ contract Dice is usingOraclize {
             oraclizeStructs[oraclizeQueryId].betNumbers = betNumbers;
             oraclizeStructs[oraclizeQueryId].betAmount = betAmount;
 
-            // Recording oraclize indices
+            // Recording oraclize indices.
             
             oraclizedIndices.push(oraclizeQueryId) -1;
    
         } else {
             
-            // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins
+            // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
 
             msg.sender.transfer(msg.value);
 
@@ -1386,6 +1387,8 @@ contract Dice is usingOraclize {
         emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.", oraclizeQueryId);
         
         emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
+
+        emit AwaitingRandomOrgCallback(address(this), oraclizeQueryId);
 
         return true;
 
@@ -1485,12 +1488,11 @@ contract Dice is usingOraclize {
         returns (bool success)
     {
 
-        // as with everything in life, there is a cost associated cost to this service..
-        // for example querying random.org costs 0.004 to process..
-
+        // It costs $0.01 for each and every query to random.org, there is a cost associated cost to this service.
         uint royalty = address(this).balance/2;
+
         address payable trustedParty1 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
-        address payable trustedParty2 = 0x07b7b9d3710dc72a0a6b7a8b6d31eb5d0e62cf56;
+        address payable trustedParty2 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
         trustedParty1.transfer(royalty/2);
         trustedParty2.transfer(royalty/2);
 
@@ -1530,4 +1532,3 @@ contract Dice is usingOraclize {
     }
 
 }
-
