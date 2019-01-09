@@ -136,7 +136,7 @@ def ajax_games_html_table(request):
         games = Bets.objects.filter(player=player_wallet,created__gt=my_games_time_threshold).order_by('-pk')[:100]
         my_games = True
     else:
-        games = Bets.objects.filter().order_by('-pk')[:200]
+        games = Bets.objects.filter().order_by('-pk')[:100]
 
     if(games):
         response = render(
