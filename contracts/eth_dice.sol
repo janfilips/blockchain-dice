@@ -1357,6 +1357,8 @@ contract Dice is usingOraclize {
         require(betAmount >= minimumBet);
         require(betNumbers.length >= 1);
 
+        emit PlayerBetAccepted(address(this), player, betNumbers, betAmount);
+
         emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.", oraclizeQueryId);
 
         if(betNumbers.length < 6) {
@@ -1382,7 +1384,7 @@ contract Dice is usingOraclize {
  
         } else {
             
-            // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
+            // Player bets on every number, we cannot run oraclize service, it's 1:1, player wins.
 
             msg.sender.transfer(msg.value);
 
