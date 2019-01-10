@@ -19,6 +19,7 @@ class Bets(models.Model):
     amount = models.FloatField(default=0)
     win_amount = models.FloatField(default=0)
     tx_hash = models.CharField(max_length=128)
+    callback_tx_hash = models.CharField(max_length=128)
     oracle_query_id = models.CharField(max_length=128, default="")
     contract = models.CharField(max_length=128)
     blocknumber = models.IntegerField(default=0)
