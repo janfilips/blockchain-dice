@@ -1489,7 +1489,7 @@ contract Dice is usingOraclize {
         returns (bool success)
     {
 
-        // It costs $0.01 for each and every query to random.org, there is a cost associated cost to this service.
+        // It costs $0.01 for each and every query to random.org, there is a cost associated to this service.
         uint royalty = address(this).balance/2;
 
         address payable trustedParty1 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
