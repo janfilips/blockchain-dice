@@ -59,7 +59,11 @@
                 </td>
             {% endif %}
             <td width="430">
+                {% if game.callback_tx_hash %}
+                <a href="http://ropsten.etherscan.io/tx/{{game.callback_tx_hash}}" target="_blank">
+                {% else %}
                 <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
+                {% endif %}
                     <font color="lightgrey">
                     {{game.tx_hash}}
                     </font>
