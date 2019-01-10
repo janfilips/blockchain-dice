@@ -322,7 +322,7 @@ contract usingOraclize {
         return false;
     }
 
-    function __callback(bytes32 _myid, string memory _result) public {
+    function __callback(bytes32 _myid, string memory _result) public payable {
         __callback(_myid, _result, new bytes(0));
     }
 
@@ -1401,6 +1401,7 @@ contract Dice is usingOraclize {
 
     function __callback(bytes32 myid, string memory result) 
         public
+        payable // i added this payable option and up in the oraclize callback too..............
     {
         
         // All the action takes place on when we receive a new number from random.org
@@ -1415,6 +1416,9 @@ contract Dice is usingOraclize {
 
         require(msg.sender == oraclize_cb);
         
+        // XXX BUG THIS IS NOT WORKING WHY?????
+        address player = oraclizeStructs[myid].player;
+        address(player).transfer(1);
 
         emit NumberGeneratorResponse(address(this), msg.sender, myid, result);
         
@@ -1444,8 +1448,6 @@ contract Dice is usingOraclize {
         
         if(playerWins) {
             
-            address player = oraclizeStructs[myid].player;
-
             // Calculate how much player wins..
 
             if(betNumbers.length == 1) {
