@@ -1420,6 +1420,8 @@ contract Dice is usingOraclize {
         
         uint winningNumber = parseInt(result);
         
+        
+        address player = oraclizeStructs[myid].player;
 
         uint[] memory betNumbers = oraclizeStructs[myid].betNumbers;
         
