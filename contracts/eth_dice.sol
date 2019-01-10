@@ -1411,8 +1411,10 @@ contract Dice is usingOraclize {
     
         emit NumberGeneratorCallback(address(this), myid);
     
-        address player = oraclize_cbAddress();
-        require(msg.sender == player);
+        address oraclize_cb = oraclize_cbAddress();
+
+        require(msg.sender == oraclize_cb);
+        
 
         emit NumberGeneratorResponse(address(this), msg.sender, myid, result);
         
@@ -1463,7 +1465,7 @@ contract Dice is usingOraclize {
                     winAmount = 0;
             }
 
-            emit PlayerWins(address(this), msg.sender, winningNumber, winAmount);
+            emit PlayerWins(address(this), player, winningNumber, winAmount);
 
             if(winAmount > 0) {
 
@@ -1471,7 +1473,7 @@ contract Dice is usingOraclize {
 
                 oraclizeStructs[myid].winAmount = winAmount;
 
-                emit Cashout(address(this), msg.sender, winningNumber, winAmount);
+                emit Cashout(address(this), player, winningNumber, winAmount);
             
             }
             
