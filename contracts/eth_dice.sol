@@ -1323,7 +1323,7 @@ contract Dice is usingOraclize {
 
     event GameStarted(address _contract);
     event PlayerBetAccepted(address _contract, address _player, uint[] _numbers, uint _bet);
-    event RollDice(address _contract, address _player, string _description, bytes32 _oraclizeQueryId);
+    event RollDice(address _contract, address _player, string _description);
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _randomOrgQueryId);
     event AwaitingRandomOrgCallback(address _contract, bytes32 _randomOrgQueryId);
     event NumberGeneratorCallback(address _contract, bytes32 _oraclizeQueryId);
@@ -1359,7 +1359,8 @@ contract Dice is usingOraclize {
 
         emit PlayerBetAccepted(address(this), player, betNumbers, betAmount);
 
-        emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.", oraclizeQueryId);
+        emit RollDice(address(this), player, "Query to random.org was sent, standing by for the answer.");
+
 
         if(betNumbers.length < 6) {
 
@@ -1390,7 +1391,6 @@ contract Dice is usingOraclize {
 
         }
     
-        
         emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
 
 
