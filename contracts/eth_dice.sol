@@ -1421,8 +1421,6 @@ contract Dice is usingOraclize {
         uint winningNumber = parseInt(result);
         
         
-        address player = oraclizeStructs[myid].player;
-
         uint[] memory betNumbers = oraclizeStructs[myid].betNumbers;
         
         emit WinningNumber(address(this), myid, betNumbers, winningNumber);
@@ -1446,6 +1444,8 @@ contract Dice is usingOraclize {
         
         if(playerWins) {
             
+            address player = oraclizeStructs[myid].player;
+
             // Calculate how much player wins..
 
             if(betNumbers.length == 1) {
@@ -1471,7 +1471,7 @@ contract Dice is usingOraclize {
 
             if(winAmount > 0) {
 
-                msg.sender.transfer(winAmount);
+                player.transfer(winAmount);
 
                 oraclizeStructs[myid].winAmount = winAmount;
 
