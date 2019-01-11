@@ -42,7 +42,11 @@
                         &nbsp;
                         &nbsp;
                         {% for number in game.numbers|get_list_from_string %}
-                            🎲
+                            {% if number == game.win_number %}
+                            <img src="/static/images/dice-red.png" width=14>
+                            {% else %}
+                            <img src="/static/images/dice-wite.png" width=14>
+                            {% endif %}
                         {% endfor %}
                 {% else %}
                     ?
