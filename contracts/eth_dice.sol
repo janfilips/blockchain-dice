@@ -1305,7 +1305,7 @@ contract Dice is usingOraclize {
     // To keep track of the different querys we have to introduce this struct.
 
     struct oraclizeCallback {
-        address player;
+        address payable player;
         bytes32 queryId;
         bool    status;
         uint[]  betNumbers;
@@ -1350,7 +1350,7 @@ contract Dice is usingOraclize {
         
         bytes32 oraclizeQueryId;
         
-        address player = msg.sender;
+        address payable player = msg.sender;
         
         uint betAmount = msg.value;
         
@@ -1416,9 +1416,6 @@ contract Dice is usingOraclize {
 
         require(msg.sender == oraclize_cb);
         
-        // XXX BUG THIS IS NOT WORKING WHY?????
-        address player = oraclizeStructs[myid].player;
-        address(player).transfer(1);
 
         emit NumberGeneratorResponse(address(this), msg.sender, myid, result);
         
@@ -1445,6 +1442,9 @@ contract Dice is usingOraclize {
             }
 
         }
+        
+        
+        address payable player = oraclizeStructs[myid].player;
         
         if(playerWins) {
             
@@ -1473,7 +1473,7 @@ contract Dice is usingOraclize {
 
             if(winAmount > 0) {
 
-                player.transfer(winAmount);
+                address(player).transfer(winAmount);
 
                 oraclizeStructs[myid].winAmount = winAmount;
 
