@@ -586,11 +586,11 @@ table{
      margin: 0.5rem auto;
      border-radius: 10px;
  }
- #txInfo > div.winNotif{
+ #txInfo > div .winNotif{
     background-color: rgba(77, 255, 23, 0.39);
  }
 
- #txInfo > div.lostNotif{
+ #txInfo > div .lostNotif{
     background-color: rgba(255, 23, 23, 0.3);
  }
 
