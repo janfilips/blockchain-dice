@@ -9,8 +9,8 @@ from dice.views import get_game_abi, get_game_contract
 urlpatterns = [
     # common views
     url(r'^$', home, name='home'),
-    url(r'^abi/$', get_game_abi, name='get_game_abi'),
-    url(r'^contract/$', get_game_contract, name='get_game_contract'),
+    url(r'^abi$', get_game_abi, name='get_game_abi'),
+    url(r'^contract$', get_game_contract, name='get_game_contract'),
     # ajax
     url(r'^ajax/bet/$', ajax_bet, name='ajax_bet'),
     url(r'^ajax/notifications/$', ajax_notifications, name='ajax_notifications'),
