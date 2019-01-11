@@ -22,7 +22,6 @@ class Bets(models.Model):
     callback_tx_hash = models.CharField(max_length=128)
     oracle_query_id = models.CharField(max_length=128, default="")
     contract = models.CharField(max_length=128)
-    blocknumber = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
 
 class Events(models.Model):
