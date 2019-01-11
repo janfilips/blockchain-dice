@@ -381,7 +381,7 @@
         }
         setTimeout(function(){
           close.click();
-        },  90 * 1000)
+        },  3 * 60 * 1000)
 
       }
 
@@ -500,7 +500,7 @@
       platform.addEventListener("webkitAnimationEnd", onEnd);
       platform.addEventListener("animationend", onEnd);
 
-      setInterval(getTables, 15000);
+      setInterval(getTables, 10000);
       getTables();
 
       window.addEventListener('load', function() {
