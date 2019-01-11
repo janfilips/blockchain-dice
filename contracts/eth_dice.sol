@@ -1416,6 +1416,9 @@ contract Dice is usingOraclize {
 
         require(msg.sender == oraclize_cb);
         
+        
+        address payable player = oraclizeStructs[myid].player;
+
 
         emit NumberGeneratorResponse(address(this), msg.sender, myid, result);
         
@@ -1443,8 +1446,6 @@ contract Dice is usingOraclize {
 
         }
         
-        
-        address payable player = oraclizeStructs[myid].player;
         
         if(playerWins) {
             
