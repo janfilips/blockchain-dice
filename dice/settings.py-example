@@ -111,20 +111,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 [
 	{
 		"constant": false,
-		"inputs": [],
-		"name": "payRoyalty",
-		"outputs": [
-			{
-				"name": "success",
-				"type": "bool"
-			}
-		],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
 		"inputs": [
 			{
 				"name": "myid",
@@ -137,8 +123,8 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		],
 		"name": "__callback",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -164,31 +150,17 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [],
-		"name": "getContractBalance",
+		"name": "payRoyalty",
 		"outputs": [
 			{
-				"name": "",
-				"type": "uint256"
+				"name": "success",
+				"type": "bool"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getBlockTimestamp",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -208,64 +180,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		],
 		"payable": true,
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "oraclizeQueryId",
-				"type": "bytes32"
-			}
-		],
-		"name": "gameStatus",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			},
-			{
-				"name": "",
-				"type": "address"
-			},
-			{
-				"name": "",
-				"type": "uint256[]"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "oraclizedIndices",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -330,11 +244,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 				"indexed": false,
 				"name": "_description",
 				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "_oraclizeQueryId",
-				"type": "bytes32"
 			}
 		],
 		"name": "RollDice",
@@ -360,6 +269,23 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 			}
 		],
 		"name": "NumberGeneratorQuery",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_randomOrgQueryId",
+				"type": "bytes32"
+			}
+		],
+		"name": "AwaitingRandomOrgCallback",
 		"type": "event"
 	},
 	{
@@ -443,6 +369,28 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 			},
 			{
 				"indexed": false,
+				"name": "_winningNumber",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_betNumbers",
+				"type": "uint256[]"
+			}
+		],
+		"name": "DidNotWin",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			},
+			{
+				"indexed": false,
 				"name": "_winner",
 				"type": "address"
 			},
@@ -498,6 +446,92 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		],
 		"name": "GameFinalized",
 		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "oraclizeQueryId",
+				"type": "bytes32"
+			}
+		],
+		"name": "gameStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			},
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBlockTimestamp",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getContractBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "oraclizedIndices",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 """
