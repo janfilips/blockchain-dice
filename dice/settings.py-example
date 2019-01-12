@@ -129,28 +129,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 	},
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "_myid",
-				"type": "bytes32"
-			},
-			{
-				"name": "_result",
-				"type": "string"
-			},
-			{
-				"name": "_proof",
-				"type": "bytes"
-			}
-		],
-		"name": "__callback",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
 		"inputs": [],
 		"name": "payRoyalty",
 		"outputs": [
@@ -302,7 +280,7 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 				"type": "bytes32"
 			}
 		],
-		"name": "NumberGeneratorCallback",
+		"name": "RandomOrgCallback",
 		"type": "event"
 	},
 	{
@@ -451,6 +429,28 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"constant": true,
 		"inputs": [
 			{
+				"name": "_myid",
+				"type": "bytes32"
+			},
+			{
+				"name": "_result",
+				"type": "string"
+			},
+			{
+				"name": "_proof",
+				"type": "bytes"
+			}
+		],
+		"name": "__callback",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"name": "oraclizeQueryId",
 				"type": "bytes32"
 			}
@@ -508,6 +508,25 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 			{
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "oraclizeQueryId",
+				"type": "bytes32"
+			}
+		],
+		"name": "getOraclizeAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
 			}
 		],
 		"payable": false,
