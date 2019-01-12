@@ -1302,7 +1302,7 @@ contract Dice is usingOraclize {
 
     // The oraclize callback structure: we use several oraclize calls.
     // All oraclize calls will result in a common callback to __callback(...).
-    // To keep track of the different querys we have to introduce this struct.
+    // To keep track of the different queries we the struct callback struct in place.
 
     struct oraclizeCallback {
         address payable player;
@@ -1401,7 +1401,7 @@ contract Dice is usingOraclize {
 
     function __callback(bytes32 myid, string memory result) 
         public
-        payable // i added this payable option and up in the oraclize callback too..............
+        payable 
     {
         
         // All the action takes place on when we receive a new number from random.org
