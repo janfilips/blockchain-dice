@@ -1476,6 +1476,12 @@ contract Dice is usingOraclize {
 
             if(winAmount > 0) {
 
+                // Substract the casino edge 4% and pay the winner..
+                
+                uint casino_edge = (winAmount / 100) * 4;
+                
+                winAmount = winAmount - casino_edge;
+
                 address(player).transfer(winAmount);
 
                 oraclizeStructs[myid].winAmount = winAmount;
