@@ -3,8 +3,6 @@ import os
 from django.conf import settings
 from django.db import models
 
-from django.contrib.auth import get_user_model
-
 
 class Players(models.Model):
     address = models.CharField(max_length=128, default="")
