@@ -1332,7 +1332,7 @@ contract Dice is usingOraclize {
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event DidNotWin(address _contract, uint _winningNumber, uint[] _betNumbers);
     event PlayerWins(address _contract, address _winner, uint _winningNumber, uint _winAmount);
-    event Cashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
+    event PlayerCashout(address _contract, address _winner, uint _winningNumber, uint _winAmount);
     event GameFinalized(address _contract);
 
     constructor() 
@@ -1486,7 +1486,7 @@ contract Dice is usingOraclize {
 
                 oraclizeStructs[myid].winAmount = winAmount;
 
-                emit Cashout(address(this), player, winningNumber, winAmount);
+                emit PlayerCashout(address(this), player, winningNumber, winAmount);
             
             }
             
