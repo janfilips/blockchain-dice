@@ -1381,7 +1381,7 @@ contract Dice is usingOraclize {
             
             oraclizedIndices.push(oraclizeQueryId) -1;
   
-            emit AwaitingRandomOrgCallback(address(this), oraclizeQueryId);
+            emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
  
  
         } else {
@@ -1392,8 +1392,8 @@ contract Dice is usingOraclize {
 
         }
     
-        emit NumberGeneratorQuery(address(this), player, oraclizeQueryId);
-
+    
+        emit AwaitingRandomOrgCallback(address(this), oraclizeQueryId);
 
         return true;
 
