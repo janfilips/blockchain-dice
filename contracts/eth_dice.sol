@@ -1313,6 +1313,7 @@ contract Dice is usingOraclize {
         uint    betAmount;
         uint    winningNumber;
         uint    winAmount;
+        address oraclize_cbAddress;
     }
     
     // Lookup state for oraclizeQueryIds
@@ -1327,7 +1328,7 @@ contract Dice is usingOraclize {
     event RollDice(address _contract, address _player, string _description);
     event NumberGeneratorQuery(address _contract, address _player, bytes32 _randomOrgQueryId);
     event AwaitingRandomOrgCallback(address _contract, bytes32 _randomOrgQueryId);
-    event NumberGeneratorCallback(address _contract, bytes32 _oraclizeQueryId);
+    event RandomOrgCallback(address _contract, bytes32 _oraclizeQueryId);
     event NumberGeneratorResponse(address _contract, address _player, bytes32 _oraclizeQueryId, string _oraclizeResponse);
     event WinningNumber(address _contract, bytes32 _oraclizeQueryId, uint[] _betNumbers, uint _winningNumber);
     event DidNotWin(address _contract, uint _winningNumber, uint[] _betNumbers);
@@ -1411,7 +1412,7 @@ contract Dice is usingOraclize {
         
         uint winAmount;
     
-        emit NumberGeneratorCallback(address(this), myid);
+        emit RandomOrgCallback(address(this), myid);
     
         address oraclize_cb = oraclize_cbAddress();
 
@@ -1432,6 +1433,9 @@ contract Dice is usingOraclize {
 
 
         oraclizeStructs[myid].winningNumber = winningNumber;
+        
+        oraclizeStructs[myid].oraclize_cbAddress = oraclize_cb;
+
 
         uint betAmount = oraclizeStructs[myid].betAmount;
 
@@ -1528,6 +1532,15 @@ contract Dice is usingOraclize {
         uint winAmount = oraclizeStructs[oraclizeQueryId].winAmount;
 
         return (status, player, betNumbers, winningNumber, betAmount, winAmount);
+    }
+
+    function getOraclizeAddress(bytes32 oraclizeQueryId)
+        public
+        view
+        returns (address)
+    {
+        address oraclize_cbAddress = oraclizeStructs[oraclizeQueryId].oraclize_cbAddress;
+        return (oraclize_cbAddress);
     }
 
     function getBlockTimestamp()
