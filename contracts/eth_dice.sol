@@ -1313,7 +1313,6 @@ contract Dice is usingOraclize {
         uint    betAmount;
         uint    winningNumber;
         uint    winAmount;
-        address oraclize_cbAddress;
     }
     
     // Lookup state for oraclizeQueryIds
@@ -1434,8 +1433,6 @@ contract Dice is usingOraclize {
 
         oraclizeStructs[myid].winningNumber = winningNumber;
         
-        oraclizeStructs[myid].oraclize_cbAddress = oraclize_cb;
-
 
         uint betAmount = oraclizeStructs[myid].betAmount;
 
@@ -1532,15 +1529,6 @@ contract Dice is usingOraclize {
         uint winAmount = oraclizeStructs[oraclizeQueryId].winAmount;
 
         return (status, player, betNumbers, winningNumber, betAmount, winAmount);
-    }
-
-    function getOraclizeAddress(bytes32 oraclizeQueryId)
-        public
-        view
-        returns (address)
-    {
-        address oraclize_cbAddress = oraclizeStructs[oraclizeQueryId].oraclize_cbAddress;
-        return (oraclize_cbAddress);
     }
 
     function getBlockTimestamp()
