@@ -1296,6 +1296,7 @@ END ORACLIZE_API
 
 */
 
+
 contract Dice is usingOraclize {
 
     uint minimumBet;
