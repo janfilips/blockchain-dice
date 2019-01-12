@@ -111,6 +111,20 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 [
 	{
 		"constant": false,
+		"inputs": [],
+		"name": "payRoyalty",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [
 			{
 				"name": "myid",
@@ -128,17 +142,53 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [],
-		"name": "payRoyalty",
-		"outputs": [
+		"constant": true,
+		"inputs": [
 			{
-				"name": "success",
-				"type": "bool"
+				"name": "_myid",
+				"type": "bytes32"
+			},
+			{
+				"name": "_result",
+				"type": "string"
+			},
+			{
+				"name": "_proof",
+				"type": "bytes"
 			}
 		],
-		"payable": true,
-		"stateMutability": "payable",
+		"name": "__callback",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getContractBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBlockTimestamp",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -158,6 +208,64 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		],
 		"payable": true,
 		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "oraclizeQueryId",
+				"type": "bytes32"
+			}
+		],
+		"name": "gameStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			},
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "oraclizedIndices",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -410,7 +518,7 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 				"type": "uint256"
 			}
 		],
-		"name": "Cashout",
+		"name": "PlayerCashout",
 		"type": "event"
 	},
 	{
@@ -424,114 +532,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		],
 		"name": "GameFinalized",
 		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_myid",
-				"type": "bytes32"
-			},
-			{
-				"name": "_result",
-				"type": "string"
-			},
-			{
-				"name": "_proof",
-				"type": "bytes"
-			}
-		],
-		"name": "__callback",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "oraclizeQueryId",
-				"type": "bytes32"
-			}
-		],
-		"name": "gameStatus",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			},
-			{
-				"name": "",
-				"type": "address"
-			},
-			{
-				"name": "",
-				"type": "uint256[]"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getBlockTimestamp",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getContractBalance",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "oraclizedIndices",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]
 """
