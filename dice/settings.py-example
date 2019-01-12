@@ -518,25 +518,6 @@ ETHEREUM_DICE_CONTRACT_ABI = """
 		"constant": true,
 		"inputs": [
 			{
-				"name": "oraclizeQueryId",
-				"type": "bytes32"
-			}
-		],
-		"name": "getOraclizeAddress",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
 				"name": "",
 				"type": "uint256"
 			}
