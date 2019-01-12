@@ -1496,11 +1496,11 @@ contract Dice is usingOraclize {
 
             emit DidNotWin(address(this), winningNumber, betNumbers);
 
+            emit GameFinalized(address(this));
+
         }
 
         oraclizeStructs[myid].status = true;
-
-        emit GameFinalized(address(this));
 
     }
     
