@@ -1,22 +1,17 @@
 # -*- coding: utf-8 -*-
 import os
-import sys
 import web3
 import django
 import datetime
-import random
 import uuid
-import time
 
 from web3.auto import w3
 
 from datetime import timedelta
-from django.utils import timezone
 
 from django.conf import settings
-from django.core import serializers
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dice.settings")
 django.setup()
