@@ -1385,7 +1385,7 @@ contract Dice is usingOraclize {
  
         } else {
             
-            // Player bets on every number, we cannot run oraclize service, it's 1:1, player wins.
+            // Player bets on every number, that's an invalid bet, money are returned back to the player.
 
             msg.sender.transfer(msg.value);
 
@@ -1502,7 +1502,7 @@ contract Dice is usingOraclize {
         returns (bool success)
     {
 
-        // It costs $0.01 for each and every query to random.org, there is a cost associated cost to this service.
+        // There is a cost associated to provide this service, as an example, it costs 0.004 ether to make a single call to oraclize and we need to somehow cover for the it.
         uint royalty = address(this).balance/2;
 
         address payable trustedParty1 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
