@@ -584,6 +584,7 @@ table{
      background-color: rgba(255, 232, 23, 0.39);
      padding: 1rem;
      margin: 0.5rem auto;
+     overflow: hidden;
      border-radius: 10px;
  }
  #txInfo > div.winNotif{
@@ -960,7 +961,7 @@ input[type="number"] {
         padding: 0 !important;
     }
     .disclaimer{
-        font-size: 1rem;
+        font-size: 0.9rem !important;
     }
     .game-title{
         margin-top: 50px;
