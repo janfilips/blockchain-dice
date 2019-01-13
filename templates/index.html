@@ -377,7 +377,13 @@
       function appendNotification(transactionHash, winText){
         var txInfo = document.getElementById('txInfo');
         var node = document.createElement('div');
-        if(winText) node.classList.add('winNotif');
+        if(winText){
+          if(winText.search('lostNotif') > -1){
+            node.classList.add('lostNotif');
+          } else{
+            node.classList.add('winNotif');
+          }
+        }
         var close = document.createElement('div');
         close.classList.add('closeNotif');
         close.innerHTML = 'X';
