@@ -616,6 +616,7 @@ table{
 
  #overlay > .modal_content .bet_area .side{
     position: relative;
+    transform-origin: center top;
     transform: scale(0.5);
     align-self: center;
 }
@@ -932,3 +933,48 @@ input[type="number"] {
     padding: 0;
     margin: 0;
   }
+
+
+  @media only screen and (max-width: 600px) {
+    #wrapper{
+        transform: scale(0.7);
+        padding-top: 180px;
+    }
+    #bid-area{
+        flex-wrap: wrap;
+    }
+
+    #bid-area > div{
+        display: block;
+        width: 100%;
+    }
+
+    .bet_area > div {
+        height: 120px !important;
+    }
+
+    .modal_content{
+        padding: 1rem !important;
+    }   
+    .amount_area {
+        padding: 0 !important;
+    }
+    .disclaimer{
+        font-size: 1rem;
+    }
+    .game-title{
+        margin-top: 50px;
+    }
+
+    .selectDot{
+        width: 33%;
+    }
+    .selectDot > div{
+        transform-origin: 10% top !important;
+    }
+
+    .your-bid h3, .pays h3{
+        margin: 5px 0;
+    }
+  }
+  

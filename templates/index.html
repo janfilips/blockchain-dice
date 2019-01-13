@@ -5,6 +5,7 @@
 <html>
   <head>
     <title>cryptodice2.win - an ethereum smart-contract-driven dice using random.org</title>
+    <meta name="viewport" content="initial-scale=1, minimum-scale=1">
     <link rel=stylesheet type="text/css" href="/static/css/main.css">
   </head>
   <body>
@@ -106,40 +107,52 @@
       <h1>What are your lucky numbers?</h1>
       <div class="bet_area">
         <div>
-          <div onClick="selectBet(this, 1)" class="side front one">
-            <div class="dot center"></div>
+          <div class="selectDot">
+            <div onClick="selectBet(this, 1)" class="side front one">
+              <div class="dot center"></div>
+            </div>
           </div>
-          <div onClick="selectBet(this, 2)" class="side top two">
-            <div class="dot dtop dleft"></div>
-            <div class="dot dbottom dright"></div>
+          <div class="selectDot">
+            <div onClick="selectBet(this, 2)" class="side top two">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
           </div>
-          <div onClick="selectBet(this, 3)" class="side right three">
-            <div class="dot dtop dleft"></div>
-            <div class="dot center"></div>
-            <div class="dot dbottom dright"></div>
+          <div class="selectDot">
+            <div onClick="selectBet(this, 3)" class="side right three">
+              <div class="dot dtop dleft"></div>
+              <div class="dot center"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
           </div>
         </div>
         <div>
-          <div onClick="selectBet(this, 4)" class="side left four">
-            <div class="dot dtop dleft"></div>
-            <div class="dot dtop dright"></div>
-            <div class="dot dbottom dleft"></div>
-            <div class="dot dbottom dright"></div>
+          <div class="selectDot">
+            <div onClick="selectBet(this, 4)" class="side left four">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
           </div>
-          <div onClick="selectBet(this, 5)" class="side bottom five">
-            <div class="dot center"></div>
-            <div class="dot dtop dleft"></div>
-            <div class="dot dtop dright"></div>
-            <div class="dot dbottom dleft"></div>
-            <div class="dot dbottom dright"></div>
+          <div class="selectDot">
+            <div onClick="selectBet(this, 5)" class="side bottom five">
+              <div class="dot center"></div>
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+            </div>
           </div>
-          <div onClick="selectBet(this, 6)" class="side back six">
-            <div class="dot dtop dleft"></div>
-            <div class="dot dtop dright"></div>
-            <div class="dot dbottom dleft"></div>
-            <div class="dot dbottom dright"></div>
-            <div class="dot center dleft"></div>
-            <div class="dot center dright"></div>
+          <div class="selectDot">
+            <div onClick="selectBet(this, 6)" class="side back six">
+              <div class="dot dtop dleft"></div>
+              <div class="dot dtop dright"></div>
+              <div class="dot dbottom dleft"></div>
+              <div class="dot dbottom dright"></div>
+              <div class="dot center dleft"></div>
+              <div class="dot center dright"></div>
+            </div>
           </div>
         </div>
       </div>
