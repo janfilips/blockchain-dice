@@ -414,7 +414,7 @@
         //txInfo.appendChild(node);
         txInfo.prepend(node);
         close.onclick = function() {
-          this.parentNode.parentNode.removeChild(this.parentNode);
+          if(this.parentNode.parentNode !== null) this.parentNode.parentNode.removeChild(this.parentNode);
         }
         setTimeout(function(){
           close.click();
