@@ -208,31 +208,6 @@ table{
     }
 }
 
-@keyframes pokus {
-    0% { transform: translateZ(-100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-    10% { transform: translateZ(-70px) rotateX(180deg) rotateY(180deg) rotateZ(0deg); }
-    22% { transform: translateZ(-50px) rotateX(360deg) rotateY(90deg) rotateZ(180deg); }
-    37% { transform: translateZ(-35px) rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-    52% { transform: translateZ(-20px) rotateX(180deg) rotateY(360deg) rotateZ(270deg); }
-    74% { 
-        transform: translateZ(-8px) rotateX(0deg) rotateY(270deg) rotateZ(270deg);
-        animation-timing-function: ease-out;
-    }
-    100% {
-        transform: translateZ(0px) rotateX(180deg) rotateY(90deg) rotateZ(180deg) rotate3d(0,1,-1,20deg);
-    }
-}
-
-/* 0% { transform: translateZ(-100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-10% { transform: translateZ(-70px) rotateX(180deg) rotateY(180deg) rotateZ(0deg); }
-22% { transform: translateZ(-50px) rotateX(360deg) rotateY(90deg) rotateZ(180deg); }
-37% { transform: translateZ(-35px) rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-52% { transform: translateZ(-20px) rotateX(180deg) rotateY(360deg) rotateZ(270deg); }
-74% { 
-    transform: translateZ(-8px) rotateX(270deg) rotateY(180deg) rotateZ(180deg);
-    animation-timing-function: ease-out;
-} */
-
 #platform.running > #dice {
     animation: spin-duplicate 2s infinite linear;
 }
@@ -256,12 +231,6 @@ table{
 
 .result .dot{
     background: rgba(255, 0, 0, 0.61);
-    /* animation: dot-pulse 2s linear infinite; */
-    /* animation-delay: 1s; */
-}
-
-#platform.pokusAnim > #dice{
-    animation: pokus 4s linear forwards!important;
 }
 
 #platform.oneAnim > #dice{
@@ -700,7 +669,6 @@ table{
 
 .bet_area .selected {
     box-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
-    /* animation: pulse 1.5s infinite; */
 }
 
 .bet_area .selected .dot{
@@ -775,18 +743,6 @@ table{
     100% {
         -moz-box-shadow: inset 0 0 20px rgba(255, 255, 255, .5),0 0 0 0 rgba(255, 255, 255, 0);;
         box-shadow: inset 0 0 20px rgba(255, 255, 255, .5),0 0 0 0 rgba(255, 255, 255, 0);;
-    }
-}
-
-@keyframes dot-pulse {
-    0% {
-        background:#444
-    }
-    50% {
-        background: rgba(255, 0, 0, 0.61);
-    }
-    100% {
-        background:#444
     }
 }
 
