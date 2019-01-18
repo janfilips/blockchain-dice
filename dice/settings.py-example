@@ -6,12 +6,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'i8$_ka21q(i*ihys-jakubbd$e&47oyf6=ku#l@6+)t^n9#(b)$9aq_=f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
 # Ethereum smart-contracts
-ETHEREUM_DICE_CONTRACT = "0x9110C5e8F019783f6B361f704cb436825B708cda"
+ETHEREUM_DICE_CONTRACT = "0xe1d0b3c89171241c33dcbbcb80925093b6a021eb"
 ETHEREUM_DICE_CONTRACT = w3.toChecksumAddress(ETHEREUM_DICE_CONTRACT)
 
 # Network
@@ -68,10 +68,23 @@ WSGI_APPLICATION = 'dice.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dice_devel',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'HOST': 'spark-devel.com',
+        'PORT': '3306',
     }
 }
 
@@ -90,9 +103,6 @@ USE_L10N = True
 USE_TZ = False
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..', 'static'))
 STATIC_URL = '/static/'
 
@@ -105,7 +115,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-# Smart-contract Application Binary Interface definition
 
 ETHEREUM_DICE_CONTRACT_ABI = """
 [
