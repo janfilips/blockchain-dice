@@ -6,11 +6,7 @@ body {
   color: #fff;
   background: linear-gradient(-45deg, #761E41, #12556D, #126D58);
   overflow-x: hidden;
-  background-size: 200vw 100%;
-  /* the background animation down there was causing sever perfromance issues for some reason, do not do background animation.. */ 
-  /* -webkit-animation: Gradient 15s ease infinite; */
-  /* -moz-animation: Gradient 15s ease infinite; */
-  /* animation: Gradient 15s ease infinite; */
+  background-size: 100vw 100%;
 }
 
 h1{
@@ -563,42 +559,6 @@ table{
     align-self: center;
 }
 
-@-webkit-keyframes Gradient {
-	0% {
-        background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
-@-moz-keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
-@keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
 .bet_area .side{
     transition: 0.3s;
 }
@@ -930,5 +890,10 @@ input[type="number"] {
     .your-bid h3, .pays h3{
         margin: 5px 0;
     }
+
+    .social-links ul {
+        grid-auto-flow: column;
+        grid-gap: 15px;    
+      }    
   }
   

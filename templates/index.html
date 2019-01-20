@@ -423,7 +423,6 @@
       }
 
       function playAgain(){
-        console.log(document.getElementsByClassName('result').length);
         document.getElementById("play_again_button").classList.add('down');
         document.getElementById("roll_button").classList.remove('down');
         var platform = document.getElementById("platform");
@@ -439,7 +438,7 @@
         var bidPays = document.getElementById('bid-pays');
         bidPays.classList.add('darker');
         bidPays.innerText = "5.89";
-        document.getElementById('bidNumber').value = '0.15';
+        // document.getElementById('bidNumber').value = '0.15';
         document.getElementById('bid-area').classList.add('area_hidden');
         document.getElementById('amount_area').classList.add('area_hidden');
         startDate = null;
