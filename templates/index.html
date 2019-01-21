@@ -408,7 +408,7 @@
         if(winText){
           node.innerHTML = '<div class="notifText">' + winText + '</div>';
         } else {
-          node.innerHTML = '<div class="notifText">Your transaction <a href=http://etherscan.io/tx/'+transactionHash+' target="_blank"> <font color="#C0C0C0">'+transactionHash+'</font></a> was added on the blockchain.</div>';
+          node.innerHTML = '<div class="notifText">Your transaction <a href=http://``etherscan.io/tx/'+transactionHash+' target="_blank"> <font color="#C0C0C0">'+transactionHash+'</font></a> was added on the blockchain.</div>';
         }
         node.appendChild(close);
         //txInfo.appendChild(node);
@@ -536,7 +536,7 @@
       platform.addEventListener("webkitAnimationEnd", onEnd);
       platform.addEventListener("animationend", onEnd);
 
-      setInterval(getTables, 10000);
+      setInterval(getTables, 3000);
       getTables();
 
       window.addEventListener('load', function() {
