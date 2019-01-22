@@ -314,6 +314,12 @@
           window.web3 = new Web3(ethereum);
           try {
               await ethereum.enable();
+              if (web3.eth.accounts.length === 0) {
+                error = 'notLoggedIn';
+              }
+              else if (web3.version.network !== "3"){
+                error =  'wrongNetwork';
+              }                  
           } catch (e) {
               error = 'private';
           }
