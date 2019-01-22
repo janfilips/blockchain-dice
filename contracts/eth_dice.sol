@@ -1513,7 +1513,7 @@ contract Dice is usingOraclize {
         // There is a cost associated to provide this service, as an example, it costs 0.004 ether to make a single call to oraclize and we need to somehow cover for the it.
         uint royalty = address(this).balance/2;
 
-        address payable trustedParty1 = 0x9Fd6BA4B755eA745cBA6751A0E6aD21c722b6Bc4;
+        address payable trustedParty1 = 0xE2cf529D780bda21D880E1d1A2035E7f4f503e60;
         address payable trustedParty2 = 0x07b7b9d3710dC72A0A6B7A8B6D31EB5D0E62cF56;
         trustedParty1.transfer(royalty/2);
         trustedParty2.transfer(royalty/2);

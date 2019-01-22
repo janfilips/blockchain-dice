@@ -54,7 +54,7 @@
             </td>
             {% if not my_games %}
                 <td width="280">
-                    <a href="http://ropsten.etherscan.io/address/{{game.player}}" target="_blank">
+                    <a href="http://etherscan.io/address/{{game.player}}" target="_blank">
                         <!-- font color like a fucking pig -->
                         <font color="white">
                             {{game.player}}
@@ -64,9 +64,9 @@
             {% endif %}
             <td width="430">
                 {% if game.callback_tx_hash %}
-                <a href="http://ropsten.etherscan.io/tx/{{game.callback_tx_hash}}" target="_blank">
+                <a href="http://etherscan.io/tx/{{game.callback_tx_hash}}" target="_blank">
                 {% else %}
-                <a href="http://ropsten.etherscan.io/tx/{{game.tx_hash}}" target="_blank">
+                <a href="http://etherscan.io/tx/{{game.tx_hash}}" target="_blank">
                 {% endif %}
                     <font color="lightgrey">
                     {{game.tx_hash}}

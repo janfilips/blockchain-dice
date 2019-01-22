@@ -66,7 +66,7 @@ def get_game_abi(request):
 def get_game_contract(request):
 
     if('ropsten' in settings.ETHEREUM_PROVIDER_HOST):
-        etherscan_url = "https://ropsten.etherscan.io/address/"+settings.ETHEREUM_DICE_CONTRACT
+        etherscan_url = "https://etherscan.io/address/"+settings.ETHEREUM_DICE_CONTRACT
     else:
         etherscan_url = "https://etherscan.io/address/"+settings.ETHEREUM_DICE_CONTRACT
 
@@ -85,10 +85,10 @@ def ajax_notifications(request):
         tx_hash_shorten = recent_event.tx_hash[:30]+'...'+recent_event.tx_hash[-10:]
 
         if(recent_event.event_type == "player_wins"):
-            notification_text = "<div class=\"notifText winNotif\">Congratulations your transaction <a href=\"https://ropsten.etherscan.io/tx/"+recent_event.tx_hash+"\" target=\"_blank\"><font color=\"#C0C0C0\">"+str(tx_hash_shorten)+"</font></a> "+str(recent_event.amount)+" bet "+str(recent_event.numbers).replace('[','').replace(']','')+" on number <b>"+str(recent_event.win_number)+"</b> wins <b>"+str(recent_event.win_amount)+" Ether</b>.</div>"
+            notification_text = "<div class=\"notifText winNotif\">Congratulations your transaction <a href=\"https://etherscan.io/tx/"+recent_event.tx_hash+"\" target=\"_blank\"><font color=\"#C0C0C0\">"+str(tx_hash_shorten)+"</font></a> "+str(recent_event.amount)+" bet "+str(recent_event.numbers).replace('[','').replace(']','')+" on number <b>"+str(recent_event.win_number)+"</b> wins <b>"+str(recent_event.win_amount)+" Ether</b>.</div>"
 
         if(recent_event.event_type == "player_loses"):
-            notification_text = "<div class=\"notifText lostNotif\">Transaction <a href=\"https://ropsten.etherscan.io/tx/"+recent_event.tx_hash+"\" target=\"_blank\"><font color=\"#C0C0C0\">"+tx_hash_shorten+"</font></a> betting on numbers "+ str(recent_event.numbers).replace('[','').replace(']','') +" did not win, the winning number was <b>"+ str(recent_event.win_number) +"</b>.</div>"
+            notification_text = "<div class=\"notifText lostNotif\">Transaction <a href=\"https://etherscan.io/tx/"+recent_event.tx_hash+"\" target=\"_blank\"><font color=\"#C0C0C0\">"+tx_hash_shorten+"</font></a> betting on numbers "+ str(recent_event.numbers).replace('[','').replace(']','') +" did not win, the winning number was <b>"+ str(recent_event.win_number) +"</b>.</div>"
 
         recent_event.seen_by_player = True
         recent_event.seen_on = datetime.datetime.now()
