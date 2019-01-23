@@ -10,16 +10,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Ethereum smart-contracts
-ETHEREUM_DICE_CONTRACT = "0x8d4d8f0dbaF52BD46e566eb2ee38d834C3CE6ccf"
+# Ethereum smart-contracts ropsten
+ETHEREUM_DICE_CONTRACT = "0xE1d0b3C89171241C33dCBbCb80925093b6a021eb"
 ETHEREUM_DICE_CONTRACT = w3.toChecksumAddress(ETHEREUM_DICE_CONTRACT)
-
-# Network
+# Ethereum Network
 ETHEREUM_CHAINID = 3
 ETHEREUM_PROVIDER_HOST = "ropsten.infura.io"
 ETHEREUM_PROVIDER = "https://"+ETHEREUM_PROVIDER_HOST+"/xSKHv68S1At0vV7kPPXL"
 ETHEREUM_WEBSOCKET_PROVIDER = "wss://"+ETHEREUM_PROVIDER_HOST+"/ws"
-
+# Transactions throughput (1 cheapest, 1000 fastest)
+ETHEREUM_GAS_PRICE = w3.toWei(1, 'gwei')
+ETHEREUM_GAS_LIMIT = 3000000
 
 # Application definition
 
