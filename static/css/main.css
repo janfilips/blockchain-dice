@@ -226,9 +226,6 @@ table{
 
 }
 
-.result .dot{
-    background: rgba(255, 0, 0, 0.61);
-}
 
 #platform.oneAnim > #dice{
     animation: one 4s linear forwards!important;
@@ -894,6 +891,6 @@ input[type="number"] {
     .social-links ul {
         grid-auto-flow: column;
         grid-gap: 15px;    
-      }    
+      } 
   }
   
