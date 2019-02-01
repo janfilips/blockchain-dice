@@ -263,9 +263,9 @@
       function increaseBid(){
         var n = document.getElementById('bidNumber');
         let x = n.valueAsNumber;
-        if(n.valueAsNumber >= 2.5) x += 0.5;
-        else if(n.valueAsNumber >= 0.25) x += 0.25;
-        else if(n.valueAsNumber >= 0.05) x += 0.1;
+        if(n.valueAsNumber >= 3) x += 0.5;
+        else if(n.valueAsNumber >= 1.0) x += 0.50;
+        else if(n.valueAsNumber >= 0.5) x += 0.25;
         else x = 0.05;
         var val = Math.min(5, x).toFixed(2);
         n.value = val;
