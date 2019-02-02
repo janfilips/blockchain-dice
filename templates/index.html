@@ -257,7 +257,7 @@
         document.getElementById('bidValue').innerHTML = betValues[betIndex].toString();
         return;
       }
-
+    
       function increaseBid(){
         if(betIndex === betValues.length - 1) return;
         betIndex ++;
@@ -268,7 +268,7 @@
         document.getElementById('bidValue').innerHTML = betValues[betIndex].toString();
         return;
       }
-
+    
       function selectBet(e, choice){
         if(document.getElementById("overlay").style.display == 'flex'){
           if(e && e.classList.contains('disabledVal')) return;
