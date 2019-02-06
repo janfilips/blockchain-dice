@@ -472,14 +472,6 @@ table{
     font-weight: bold;
     transition: 0.3s;
 }
-#bidValue{
-    font-size: 2.3rem;
-    color: #AF1E2D;
-    font-weight: bold;
-    display: inline-block;
-    padding: 0 1.2rem;
-    width: 75px;
-}
 
 .pays .amount-before {
     margin-right: 0.6rem;
@@ -568,19 +560,32 @@ table{
     transition: 0.3s;
 }
 
+.your-bid input {
+    height: 1.6rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 5rem;
+    background: #fff;
+    text-align: center;
+    border: solid 1px #979797;
+    color: #4A4A4A;
+    outline: none;
+    display: inline-block;
+    font-weight: bold;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
 
 .your-bid span {
     width: 1.6rem;
     height: 1.6rem;
+    vertical-align: middle;
+    margin: 0 0.5rem;
+    display: inline-block;
+    background-position: center;
 }
 
-.your-bid > div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.your-bid span:not(.disabled):hover{
+.your-bid span:hover{
     filter: brightness(200);
 }
 
