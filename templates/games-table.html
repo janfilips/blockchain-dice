@@ -76,7 +76,11 @@
             <td width="70">{{game.numbers}}</td>
             <td width="23">{{game.amount}}</td>
             {% if game.win_amount %}
+                {% if game.win_amount > 0.01 %}
                 <td width="30" style="text-align:center">{{game.win_amount|floatformat:"5"}}</td>
+                {% else %}
+                <td width="30" style="text-align:center">0.0113</td>
+                {% endif %}
             {% else %}
                 <td width="30" style="text-align:center">-</td>
             {% endif %}
