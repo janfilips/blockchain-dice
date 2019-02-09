@@ -30,7 +30,6 @@
     <tbody>
 
         {% for game in games %}
-        {% if game.win_amount > 0.01 %}
         <tr>
             <td width="115">{{game.created|naturaltime}}</td>
             <td width="115">
@@ -95,7 +94,6 @@
                 <td width="45"><b>pending</b></td>
             {% endif %}
         </tr>
-        {% endif %}
         {% endfor %}
 
     </tbody>
