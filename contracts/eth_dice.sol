@@ -1479,8 +1479,10 @@ contract Dice is usingOraclize {
                 // Substract the casino edge 4% and pay the winner..
                 
                 uint casino_edge = (winAmount / 100) * 4;
+                uint oraclize_fee = 0.004 Ether;
                 
                 winAmount = winAmount - casino_edge;
+                winAmount = winAmount - oraclize_fee;
 
                 address(player).transfer(winAmount);
 
