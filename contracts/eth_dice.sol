@@ -1479,7 +1479,7 @@ contract Dice is usingOraclize {
                 // Substract the casino edge 4% and pay the winner..
                 
                 uint casino_edge = (winAmount / 100) * 4;
-                uint oraclize_fee = 0.004 Ether;
+                uint oraclize_fee = 4000000000000000; // Oraclize service charges us a fee of 0.004 Ether for querying random.org on the blockchain
                 
                 winAmount = winAmount - casino_edge;
                 winAmount = winAmount - oraclize_fee;
